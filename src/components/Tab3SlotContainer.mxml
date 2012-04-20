@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<components:TabContainer
+		 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:local="*"
+		 xmlns:multigraph="multigraph.*"
+		 verticalGap="10" xmlns:components="components.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.filters.DropShadowFilter;
+			
+			import multigraph.Axis;
+			import multigraph.AxisEvent;
+			import multigraph.Multigraph;
+			import multigraph.format.DateFormatter;
+			
+			import mx.core.IUIComponent;
+			import mx.core.IVisualElement;
+			import mx.events.DragEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.DragManager;
+			
+			import spark.components.Button;
+			import spark.filters.GlowFilter;
+			import spark.layouts.VerticalLayout;
+			import spark.skins.spark.PanelSkin;
+			
+			private var topTargetCount:int = 0;
+
+			override protected function createChildren():void {
+				super.createChildren();
+				
+				_numberOfExpandedSlots = 3;
+				_totalNumberOfSlots    = 10;
+
+				
+				//
+				// Create the graph "slots".  Each slot is an instance of a GraphSlot object, which
+				// is just a spark Group container that serves as a place where a GraphContainer
+				// can be added (either in expanded or collapsed state).  The GraphSlot object also
+				// stores an "index" which indicates which slot it is in the list of slots; our DRAG_DROP
+				// event listener uses this index to determine which slot the graph being dragged
+				// came from.
+				//
+				graphSlots = [];
+				var g:GraphSlot;
+				for (var i:int=0; i<_totalNumberOfSlots; ++i) {
+					g = new GraphSlot(i);
+					g.width = _graphWidth;
+					if (i < this._numberOfExpandedSlots) {
+						g.addEventListener(DragEvent.DRAG_ENTER,
+							function (e:DragEvent):void {
+								DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
+								DragManager.showFeedback(DragManager.COPY);
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 0.2;
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = .5;
+							});
+						g.addEventListener(DragEvent.DRAG_EXIT,
+							function (e:DragEvent):void {
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 1;
+							});
+						g.addEventListener(DragEvent.DRAG_DROP,
+							function (slotNumber:int):Function {	
+								return function (e:DragEvent):void {
+									swapGraphContainers((e.dragInitiator as GraphContainer).getSlotNumber(), slotNumber); 
+								};
+							}(i)
+						);
+						g.height = _graphHeight;
+						topTarget.addElementAt(g,topTargetCount);
+						++topTargetCount;
+					} else {
+						g.height = _graphCollapsedHeight;
+						bottomTarget.addElement(g);
+					}
+					graphSlots.push(g);
+					
+					//xAxis.leftPad = _leftPad;
+				}
+			}
+
+			private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
+				var aSlot:GraphSlot = graphSlots[aSlotNumber];
+				var bSlot:GraphSlot = graphSlots[bSlotNumber];
+				var aGraphContainer:GraphContainer = graphSlots[aSlotNumber].getChildAt(0) as GraphContainer;
+				var bGraphContainer:GraphContainer = graphSlots[bSlotNumber].getChildAt(0) as GraphContainer;
+				if (aSlotNumber < this._numberOfExpandedSlots) {
+					bGraphContainer.currentState = "expanded";
+				} else {
+					bGraphContainer.currentState = "collapsed";
+					bGraphContainer.help.visible = false;
+					bGraphContainer.collapsed_container.currentState = "up";
+				}
+				if (bSlotNumber < this._numberOfExpandedSlots) {
+					aGraphContainer.currentState = "expanded";
+				} else {
+					aGraphContainer.currentState = "collapsed";
+					aGraphContainer.collapsed_container.currentState = "up";
+					aGraphContainer.help.visible = false;
+				}
+				aSlot.addElement(bGraphContainer);
+				bSlot.addElement(aGraphContainer);
+				aGraphContainer.alpha = 1;
+				bGraphContainer.alpha = 1;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+
+		<s:SkinnableContainer id="topTarget"
+							  top="0" bottom="0" right="5" left="5" minHeight="350" backgroundAlpha="0" width="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"/>
+			</s:layout>
+			<s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
+				<s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
+					<!--
+					  ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
+					  **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
+					  **       to be adjusted.
+					-->
+				<multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{container.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
+				</s:BorderContainer>	
+			</s:SkinnableContainer>
+		</s:SkinnableContainer>
+		
+		<s:Group id="divider" y="375" width="{mainContainer.width}">
+			<s:layout>
+				<s:VerticalLayout  horizontalAlign="center" gap="10"/>
+			</s:layout>
+			 
+			<components:TimeSlider id="timeslider"
+								   minValue="{timeSliderMin}"
+								   maxValue="{timeSliderMax}"
+								   selectedMinValue="{timeSliderSelectedMin}"
+								   selectedMaxValue="{timeSliderSelectedMax}"
+								   labels="{timeSliderLabels}"
+								   height="20" width="425"
+								   change="sliderChange(event)"
+								   />
+			<!--
+			labels="1800,1850,1900,1950,2000,2050"
+			selectedMinValue="1900" selectedMaxValue="2000"
+			-->
+			
+			<s:Label text="Drag to select time period" horizontalCenter="0" color="#8995a6"  fontSize="10" fontWeight="bold"/>
+			
+
+		</s:Group>
+		
+		<s:SkinnableContainer id="bottomTarget" 
+							  bottom="0" top="0" left="5" right="5" minHeight="100" 
+							  backgroundAlpha="0" width="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"/>
+			</s:layout>
+		</s:SkinnableContainer>
+		
+</components:TabContainer>

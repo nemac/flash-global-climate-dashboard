@@ -1,0 +1,51 @@
+#! /usr/bin/env python
+
+### A Dashboard XML file contains <mugl> elements giving the MUGL for
+### the graphs in the dashboard.  In general, each <mugl> element may
+### either contain a MUGL document verbatim, or may have a "location"
+### attribute giving a URL where the MUGL document may be fetched over
+### the internet.
+### 
+### This python program reads a Dashboard xml configuration file,
+### searches for any <mugl> elements that have a "location" attribute,
+### replaces them with <mugl> elements containing the MUGL document
+### found at that location (and not having a "location" attribute).
+### The resulting XML file is therefore self-contained.
+### 
+### Usage:
+### 
+###     flatten-config INPUT_FILE OUTPUT_FILE     
+###
+
+import urllib2, sys
+import xml.etree.ElementTree as ET
+
+def fetch_mugl(url):
+    req = urllib2.Request(url)
+    res = urllib2.urlopen(req)
+    return ET.fromstring(res.read())
+
+
+if (len(sys.argv) != 3):
+    print "Usage: flatten-config INPUT_FILE OUTPUT_FILE"
+    sys.exit(-1)
+
+INPUT_FILE  = sys.argv[1]
+OUTPUT_FILE = sys.argv[2]
+
+tree       = ET.parse(INPUT_FILE)
+parent_map = dict((c, p) for p in tree.getiterator() for c in p)
+
+nmugls = 0;
+
+for muglnode in tree.findall('//mugl'):
+    if 'location' in muglnode.attrib:
+        fetched_mugl = fetch_mugl(muglnode.attrib["location"])
+        parent = parent_map[muglnode]
+        parent.remove(muglnode)
+        parent.append(fetched_mugl)
+        nmugls = nmugls + 1
+
+tree.write(OUTPUT_FILE)
+
+print "wrote %s (replaced %1d mugls)" % (OUTPUT_FILE, nmugls)

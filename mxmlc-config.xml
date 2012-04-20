@@ -1,0 +1,21 @@
+<flex-config>
+  <compiler>
+    <fonts>
+      <managers>
+	<manager-class>flash.fonts.AFEFontManager</manager-class>
+      </managers>
+    </fonts>
+    <library-path>
+      <path-element>${flexlib}/libs/flash-integration.swc</path-element>
+      <path-element>${flexlib}/locale/{locale}</path-element>
+      <path-element>./multigraph/Multigraph.swc</path-element>
+    </library-path>
+    <show-actionscript-warnings>false</show-actionscript-warnings>
+    <show-binding-warnings>false</show-binding-warnings>
+    <show-invalid-css-property-warnings>false</show-invalid-css-property-warnings>
+    <source-path>
+      <path-element>src</path-element>
+    </source-path>
+  </compiler>
+   <output>html/Dashboard.swf</output>
+</flex-config>

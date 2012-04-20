@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the thumb of the MX Slider component. 
+
+      @see mx.controls.sliderClasses.Slider
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    alpha.disabled="0.5" xmlns:mx="library://ns.adobe.com/flex/mx" width="30" height="30">
+
+
+    <fx:Script>
+        /**
+         * @private
+         */
+		  
+		[Bindable]
+		public var thumbLabelValue:String;
+		
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+
+		
+		public function fillLabel(thumb:String):void 
+		{
+			thumbLabelValue = thumb;
+			
+		}
+		
+    </fx:Script>
+        
+	<fx:Metadata>
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+
+		<s:VGroup gap.up="1" textAlign="center" verticalAlign="middle">
+
+			<s:Label top="0" horizontalCenter="0" fontSize="11" id="label" text="{hostComponent.label}"
+					 color="#CCCCCC"/>	
+
+			<mx:Image id="img" source="assets/thumb_img.png" bottom="0" width="14" buttonMode="true" 
+			  source.over="assets/thumb_img_over.png" height="18" horizontalCenter="0"/>
+		</s:VGroup>
+
+</s:SparkSkin>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="475" height="510"
+			   xmlns:ns="assets_old.*"
+			   xmlns:flexlib="http://code.google.com/p/flexlib/"
+			   applicationComplete="appComplete()"
+			   xmlns:sliderClasses="flexlib.controls.sliderClasses.*"
+			   skinClass="assets_old.ApplicationBackgroundSkin" 
+			   xmlns:dashboard="dashboard.*">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace flexlib "http://code.google.com/p/flexlib/";
+		@namespace sliderClasses "flexlib.controls.sliderClasses.*";
+		flexlib|HSlider
+		{	
+			trackSkin: ClassReference("assets_old.SliderTrackSkin");
+			thumbSkin: ClassReference("assets_old.SliderThumbSkin");
+			trackHighlightSkin: ClassReference("assets_old.SliderTrackHighlightSkin");
+		}		
+		s|Label#leftLabel {
+			color: #ffffff;
+		}
+		s|Label#rightLabel {
+			color: #ffffff;
+		}
+	</fx:Style>	
+	
+	<fx:Style source="dashboard_style.css"/>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets_old.SliderThumbSkin;
+			import assets_old.dashWindowShade;
+			
+			import flash.utils.Timer;
+			
+			import flexlib.containers.WindowShade;
+			import flexlib.controls.sliderClasses.SliderThumb;
+			
+			import multigraph.Axis;
+			import multigraph.AxisEvent;
+			import multigraph.Multigraph;
+			import multigraph.MultigraphEvent;
+			import multigraph.format.DateFormatter;
+			
+			import mx.containers.VBox;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.SliderEvent;
+			
+			import spark.components.Label;
+			import spark.components.VGroup;
+			import spark.filters.GlowFilter;
+			
+			private var multigraphs:Array = [];
+			private var firstAxis:Axis = null; 
+			
+
+            private var multigraphDateFormatter : DateFormatter = new DateFormatter("%Y");
+			
+            private function axisDateValueToYearInt( axisValue : Number ) : int {
+              return parseInt( multigraphDateFormatter.format( axisValue ) );
+            }
+            private function yearIntToAxisDateValue( year : int ) : Number {
+              return multigraphDateFormatter.parse( year+'' );
+            }
+			
+			protected function axisChangeHandler(event:AxisEvent):void {
+              hslider1.values = [axisDateValueToYearInt(event.min), axisDateValueToYearInt(event.max)];
+			  setThumbLabels();
+			}
+			
+			protected function hslider1_changeHandler(event:SliderEvent):void
+			{
+				
+				var vals:Array = hslider1.values;
+				for (var i:int=0; i<multigraphs.length; ++i) {
+                  multigraphs[i].graphs[0].axes[0].setDataRange(yearIntToAxisDateValue(vals[0]), yearIntToAxisDateValue(vals[1]));
+				}
+				setThumbLabels();				
+				//horizAxis.onSetDataRange = null;
+				//horizAxis.setDataRange(vals[0], vals[1]);
+				//myLabel.text = '[' + vals[0] + ',' + vals[1] + ']';
+				//horizAxis.onSetDataRange = axischange;
+			}
+			private function setThumbLabels():void {
+				var vals:Array = hslider1.values;
+				var sliderThumb0:SliderThumb = hslider1.getThumbAt(0);
+				leftLabel.text = myformatter(vals[0]);
+				leftLabel.x = sliderThumb0.x;
+				leftLabel.y = sliderThumb0.y + hgroup.y;
+				
+				var sliderThumb1:SliderThumb = hslider1.getThumbAt(1);
+				rightLabel.text = myformatter(vals[1]);
+				rightLabel.x = sliderThumb1.x;
+				rightLabel.y = sliderThumb1.y + hgroup.y;
+			}
+			private function myformatter(x:Number):String {
+				var xint:int = int(x);
+				return ''+xint;
+			}			
+			private function appComplete():void {
+				var loader:URLLoader = new URLLoader();
+				loader.dataFormat = "text";
+				loader.addEventListener( Event.COMPLETE, 
+					function(event:Event):void {
+						var graphX:int = 20;
+						var labelX:int = 20;
+						var dy:int = 125;
+						var graphWidth:int = 400;
+						var graphHeight:int = 100;
+						var dashboardXML:XML = new XML(event.target.data);
+						multigraphs = [];
+						var bgcolors:Array = [0xcccccc,0xccccff,0xccffcc,0xccffff,0xffcccc,0xffccff,0xffffcc,0xffffff];
+						var bgcolorIndex:int = 0;
+						
+						//loop over tabs and add
+						for (var i:int = 0; i<dashboardXML.tab.length(); ++i) {
+							var graphY:int = 25;
+							var labelY:int = 10;
+							trace('constructing tab: ' + dashboardXML.tab[i].@title);
+							var nc:spark.components.NavigatorContent = new  spark.components.NavigatorContent();
+							nc.label = dashboardXML.tab[i].@title;
+							nc.percentWidth  = 100;
+							nc.percentHeight = 100;
+							
+							//for each tab, loop over graphs and add
+							for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
+								trace('  adding graph: ' + dashboardXML.tab[i].graph[j].@title);
+								
+								var vb:VBox = new VBox;
+								var contentBox:VBox = new VBox;
+								contentBox.left = 10;
+								contentBox.right = 10;
+								contentBox.top = 10;
+								
+								//add title as label
+								var lbl:Label = new Label;
+								lbl.setStyle("font-size", 14);
+								lbl.setStyle("font-family", "Arial");
+								lbl.setStyle("color", 0xcccccc);
+								lbl.text = dashboardXML.tab[i].graph[j].@title;
+								lbl.x = labelX;
+								lbl.y = labelY;
+								vb.addElement(lbl);
+								
+								
+								//add help button
+							/*	var btnHelp:Button = new Button;
+								btnHelp.label = "Help";
+								btnHelp.right = "30";
+								btnHelp.y = labelY;
+								btnHelp.addEventListener(MouseEvent.CLICK, function(text:String):Function {
+									return function(event:Event):void {									
+										showGraphHelp(text);
+									}
+								}(dashboardXML.tab[i].graph[j].help[0].@text)
+								);
+								nc.addElement(btnHelp);
+							*/	
+								
+								
+								//add graph
+								var mg:Multigraph = new Multigraph();
+								mg.width = graphWidth;
+								mg.height = graphHeight;
+								mg.x = graphX;
+								mg.y = graphY;
+								if ('@location' in dashboardXML.tab[i].graph[j].mugl[0]) {
+									mg.muglurl = dashboardXML.tab[i].graph[j].mugl[0].@location;
+								} else {
+									mg.mugl = dashboardXML.tab[i].graph[j].mugl[0];
+								}
+								//mg.bgcolor = bgcolors[bgcolorIndex];
+								bgcolorIndex = (bgcolorIndex + 1) % bgcolors.length;
+								vb.addElement(mg);
+								multigraphs.push(mg);
+								graphY += dy;
+								labelY += dy;
+								if (!firstAxis) {
+									mg.addEventListener(MultigraphEvent.PARSE_MUGL, function (mg:Multigraph):Function {
+										return function(event:Event):void {
+											firstAxis = mg.graphs[0].axes[0];
+											firstAxis.addEventListener(AxisEvent.CHANGE, axisChangeHandler);
+										};
+									}(mg)
+									);
+								}
+								
+								//add windowshade
+								var ws:dashWindowShade = new dashWindowShade;
+								ws.opened = false;
+								ws.width = graphWidth;
+								vb.addElement(ws);
+								
+								contentBox.addElement(vb);
+						
+							}
+							
+							nc.addElement(contentBox);
+							viewStack.addElement(nc);
+							
+						}
+                });
+				loader.load( new URLRequest("../html-template/dashboard.xml") );
+				
+				//
+				// stupid evil hack to force thumb labels to appear correctly at launch; simply wait
+				// one second, to give at least some of the graphs a chance to finish loading, then
+				// call setThumbLabels().  This is NOT the best way to ultimately do this, but for now,
+				// it seems to work...
+				//
+				var timer:Timer = new Timer(1000, 1);
+				timer.addEventListener(TimerEvent.TIMER, function(event:Event):void {
+					setThumbLabels();
+				});
+				timer.start();
+			}			
+
+			protected function showGraphHelp(text:String):void {
+				Alert.show(text);
+			}
+			
+			protected function help(event:MouseEvent):void
+			{
+				helpCanvas.visible = true;
+			}
+			
+			protected function closeHelp(event:MouseEvent):void
+			{
+				helpCanvas.visible = false;
+			}
+
+
+			protected function reset(event:MouseEvent=null):void
+			{
+				hslider1.values = [1950, 2010];
+				var vals:Array = hslider1.values;
+				for (var i:int=0; i<multigraphs.length; ++i) {
+					multigraphs[i].graphs[0].axes[0].setDataRange(yearIntToAxisDateValue(vals[0]), yearIntToAxisDateValue(vals[1]));
+				}
+				setThumbLabels();
+			}	
+
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<s:states>
+		<s:State name="State1"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:NumberFormatter id="sliderNumberFormatter" precision="0" 
+							useThousandsSeparator="false" useNegativeSign="true"/>
+	</fx:Declarations>
+	
+	
+	<!-- tabs -->	
+	<mx:TabBar styleName="tabs" top="19" right="20" dataProvider="viewStack" fontFamily="Verdana" fontSize="10" color="#333333"/>	
+
+	<!-- view stack with graphs -->
+	<s:BorderContainer height="375" left="10" right="10" top="50" skinClass="assets_old.ReportSkin">
+		<mx:ViewStack width="100%" height="100%" backgroundAlpha="0" id="viewStack">
+			
+		</mx:ViewStack>
+	</s:BorderContainer>
+	
+	
+	<!-- slider -->
+	<s:HGroup id="hgroup" bottom="50" left="5" >
+	<flexlib:HSlider id="hslider1" height="10" 
+					 thumbCount="2" thumbOffset="-16" values="[1800,2100]" minimum="1800" maximum="2100"
+					 allowTrackClick="false" showDataTip="false" 
+					 dataTipFormatFunction="myformatter" 
+					 liveDragging="true" showTrackHighlight="true" labelOffset="40" labelStyleName="thumblabel"
+					 change="hslider1_changeHandler(event)" horizontalCenter="0" width="400" />
+	
+	<!-- button to reset slider and graphs -->
+	<s:Button fontSize="10" label="Reset" fontFamily="Verdana" 
+			  right="10" width="60" height="15" cornerRadius="3" 
+			  color="#333333" click="reset(event)"/>
+	</s:HGroup>
+
+	<s:Label id="leftLabel"/>
+	<s:Label id="rightLabel"/>
+	
+	
+	<!-- help button -->
+	<s:Button  left="5" top="5" cornerRadius="5" skinClass="assets_old.helpButton" 
+			   width="25" height="25" click="help" id="help_btn"/>
+	
+	
+	<!-- panel showing general help -->
+		<s:BorderContainer backgroundColor="0xCCCCCC" backgroundAlpha=".6" visible="false"
+	width="100%" height="100%" borderVisible="false" id="helpCanvas">
+	<s:Panel x="159" y="140" width="250" height="200" title="Help" color="#000000">
+	<mx:Text  width="100%" height="100%" paddingBottom="5" paddingLeft="5" paddingTop="5" paddingRight="5" text="Nulla congue sodales varius. In hac habitasse platea dictumst. Nulla facilisi. Integer tincidunt ligula quis mauris dignissim at consequat orci sodales. Mauris nec ligula risus, sed adipiscing elit. Sed accumsan erat id metus ultrices egestas. Nunc mollis nibh erat, vel porttitor elit."/>
+	<s:Button label="Close" fontSize="10" right="10" top="-27" width="50" click="closeHelp(event)"/>
+	</s:Panel>
+	</s:BorderContainer> 
+	
+</s:Application>

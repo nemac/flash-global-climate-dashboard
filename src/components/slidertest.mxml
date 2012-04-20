@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="380" height="20" xmlns:components="components.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			import mx.managers.CursorManager;
+			
+			[Bindable]
+			[Embed(source="assets/drag_cursor.png")]
+			private var DragCursor:Class;
+			
+			protected function cursorSet(event:MouseEvent):void
+			{
+				cursorManager.setCursor(DragCursor,2,-12,-5);
+			}
+			
+			protected function cursorRemove(event:MouseEvent):void
+			{
+				cursorManager.removeAllCursors();
+			}
+			
+		]]>
+	</fx:Script>
+	<s:BorderContainer width="380" height="22" borderVisible="false" backgroundColor="#999999">
+		<s:layout>
+			<s:HorizontalLayout  verticalAlign="middle" gap="20"/>
+		</s:layout>
+		
+		<s:Label text="1950" />
+		<s:Label text="1960" />
+		<s:Label text="1970" />
+		<s:Label text="1980" />
+		<s:Label text="1990" />
+		<s:Label text="2000" />
+		<s:Label text="2010" />
+		
+	</s:BorderContainer>
+	
+	
+	<s:BorderContainer width="50" maxWidth="150" height="20" cornerRadius="2" 
+					   top="0" backgroundAlpha="0">
+		<s:Rect id="fill" left="1" right="1" top="1" bottom="1" 
+				radiusX="2" alpha=".95">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="0xFFFFFF" 
+									 alpha="0.85" />
+					<s:GradientEntry color="0xD8D8D8" 
+									 alpha="0.85" />
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		
+		<s:BorderContainer borderVisible="false" buttonMode="true" width="20"
+						   height="20" horizontalCenter="0" backgroundAlpha="0" 
+						   mouseDown="cursorSet(event)"
+						   mouseUp="cursorRemove(event)"/>
+		
+		<s:Label text="||" left="2"  verticalCenter="0" buttonMode="true" 
+				 color="#757575" mouseDown="cursorSet(event)"
+				 mouseUp="cursorRemove(event)"/>
+		<s:Label text="||" right="2"  verticalCenter="0" buttonMode="true" 
+				 color="#757575" mouseDown="cursorSet(event)"
+				 mouseUp="cursorRemove(event)"/>
+		
+	</s:BorderContainer>
+	
+	
+</s:Group>

@@ -1,0 +1,14 @@
+To update your copy of the Multigraph swc library to a new one:
+
+    1. In a web browser, browse to:
+            http://www3.nemac.unca.edu/newmg
+    2. Right-click on the most recent NewMultigraph-*.swc file (if there is more than
+       one present), choose "Save Link As", and save the file into your Dashboard
+       project's "libs" folder, which will be somewhere like:
+            C:\Users\Mark Phillips\Adobe Flash Builder 4\Dashboard\libs
+    3. Back in Flash Builder, right-click on the Dashboard project (top-level entry)
+       in the Project Explorer, and choose "Refresh" from the menu
+    4. Look inside the "libs" folder in the Flash Builder Package Explorer, and
+       delete any old NewMultigraph-*.swc files, leaving only the newest one.
+    5. Clean the project
+    

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<components:TabContainer
+		 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:local="*"
+		 xmlns:multigraph="multigraph.*"
+		 verticalGap="10" xmlns:components="components.*" creationComplete="init(event)" paddingBottom="10">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style source="../Dashboard.css" />
+	<fx:Script>
+		<![CDATA[
+			import flash.filters.DropShadowFilter;
+			
+			import flashx.textLayout.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.edit.IEditManager;
+			import flashx.textLayout.elements.TextFlow;
+			
+			import multigraph.Axis;
+			import multigraph.AxisEvent;
+			import multigraph.Multigraph;
+			import multigraph.format.DateFormatter;
+			
+			import mx.core.IUIComponent;
+			import mx.core.IVisualElement;
+			import mx.events.DragEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.DragManager;
+			
+			import spark.components.Button;
+			import spark.filters.GlowFilter;
+			import spark.layouts.VerticalLayout;
+			import spark.skins.spark.PanelSkin;
+			
+			
+			private var topTargetCount:int = 0;
+			
+			
+			[Bindable] public var legendATitle:String = null;
+			[Bindable] public var legendBTitle:String = null;
+			[Bindable] public var legendCTitle:String = null;
+			[Bindable] public var legendDTitle:String = null;
+			[Bindable] public var legendABlurb:String = null;
+			[Bindable] public var legendBBlurb:String = null;
+			[Bindable] public var legendCBlurb:String = null;
+			[Bindable] public var legendDBlurb:String = null;
+
+
+			
+			[Bindable] private var legendATitleFlow:TextFlow = null;
+			[Bindable] private var legendBTitleFlow:TextFlow = null;
+			[Bindable] private var legendCTitleFlow:TextFlow = null;
+			[Bindable] private var legendDTitleFlow:TextFlow = null;
+			[Bindable] private var legendABlurbFlow:TextFlow = null;
+			[Bindable] private var legendBBlurbFlow:TextFlow = null;
+			[Bindable] private var legendCBlurbFlow:TextFlow = null;
+			[Bindable] private var legendDBlurbFlow:TextFlow = null;
+
+			
+			override protected function createChildren():void {
+				super.createChildren();
+
+				_graphHeight           = 345;
+				
+				_numberOfExpandedSlots = 1;
+				_totalNumberOfSlots    = 1;
+
+				
+				//
+				// Create the graph "slots".  Each slot is an instance of a GraphSlot object, which
+				// is just a spark Group container that serves as a place where a GraphContainer
+				// can be added (either in expanded or collapsed state).  The GraphSlot object also
+				// stores an "index" which indicates which slot it is in the list of slots; our DRAG_DROP
+				// event listener uses this index to determine which slot the graph being dragged
+				// came from.
+				//
+				graphSlots = [];
+				var g:GraphSlot;
+				for (var i:int=0; i<_totalNumberOfSlots; ++i) {
+					g = new GraphSlot(i);
+					g.width = _graphWidth;
+					if (i < this._numberOfExpandedSlots) {
+						g.addEventListener(DragEvent.DRAG_ENTER,
+							function (e:DragEvent):void {
+								DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
+								DragManager.showFeedback(DragManager.COPY);
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 0.2;
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = .5;
+							});
+						g.addEventListener(DragEvent.DRAG_EXIT,
+							function (e:DragEvent):void {
+								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 1;
+							});
+						g.addEventListener(DragEvent.DRAG_DROP,
+							function (slotNumber:int):Function {	
+								return function (e:DragEvent):void {
+									swapGraphContainers((e.dragInitiator as GraphContainer).getSlotNumber(), slotNumber); 
+								};
+							}(i)
+						);
+						g.height = _graphHeight;
+						topTarget.addElementAt(g,topTargetCount);
+						++topTargetCount;
+					} else {
+						g.height = _graphCollapsedHeight;
+						bottomTarget.addElement(g);
+					}
+					graphSlots.push(g);
+					
+					//xAxis.leftPad = _leftPad;
+				}
+			}
+
+			private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
+				var aSlot:GraphSlot = graphSlots[aSlotNumber];
+				var bSlot:GraphSlot = graphSlots[bSlotNumber];
+				var aGraphContainer:GraphContainer = graphSlots[aSlotNumber].getChildAt(0) as GraphContainer;
+				var bGraphContainer:GraphContainer = graphSlots[bSlotNumber].getChildAt(0) as GraphContainer;
+				if (aSlotNumber < this._numberOfExpandedSlots) {
+					bGraphContainer.currentState = "expanded";
+				} else {
+					bGraphContainer.currentState = "collapsed";
+					bGraphContainer.help.visible = false;
+					bGraphContainer.collapsed_container.currentState = "up";
+				}
+				if (bSlotNumber < this._numberOfExpandedSlots) {
+					aGraphContainer.currentState = "expanded";
+				} else {
+					aGraphContainer.currentState = "collapsed";
+					aGraphContainer.collapsed_container.currentState = "up";
+					aGraphContainer.help.visible = false;
+				}
+				aSlot.addElement(bGraphContainer);
+				bSlot.addElement(aGraphContainer);
+				aGraphContainer.alpha = 1;
+				bGraphContainer.alpha = 1;
+			}
+			
+			
+			
+			protected function textFlowify (string:String):String{
+				return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'><p>" + string + "<span /></p></TextFlow>";
+			}
+			
+			
+
+			protected function init(event:FlexEvent):void
+			{
+				legendATitleFlow = TextConverter.importToFlow(textFlowify(legendATitle), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendBTitleFlow = TextConverter.importToFlow(textFlowify(legendBTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendCTitleFlow = TextConverter.importToFlow(textFlowify(legendCTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendDTitleFlow = TextConverter.importToFlow(textFlowify(legendDTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendABlurbFlow = TextConverter.importToFlow(textFlowify(legendABlurb), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendBBlurbFlow = TextConverter.importToFlow(textFlowify(legendBBlurb), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendCBlurbFlow = TextConverter.importToFlow(textFlowify(legendCBlurb), TextConverter.TEXT_LAYOUT_FORMAT);
+				legendDBlurbFlow = TextConverter.importToFlow(textFlowify(legendDBlurb), TextConverter.TEXT_LAYOUT_FORMAT);
+			}
+
+
+			protected function legendChange(event:MouseEvent):void
+			{
+				if (event.target == legend1) {
+					legend_blurb.textFlow = legendABlurbFlow;
+				}
+				else if (event.target == legend2) {
+					legend_blurb.textFlow = legendBBlurbFlow;
+				}
+				else if (event.target == legend3) {
+					legend_blurb.textFlow = legendCBlurbFlow;
+				}
+				else if (event.target == legend4) {
+					legend_blurb.textFlow = legendDBlurbFlow;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+
+		<s:SkinnableContainer id="topTarget"
+							  top="0" bottom="0" right="5" left="5" minHeight="350" backgroundAlpha="0" width="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"/>
+			</s:layout>
+			<s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
+				<!-- changing the width of ^^ this container ^^ to 410 seems to fix the alignment issue -->
+				<s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
+					<!--
+					  ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
+					  **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
+					  **       to be adjusted.
+					-->
+				<multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{container.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
+				</s:BorderContainer>	
+			</s:SkinnableContainer>
+		</s:SkinnableContainer>
+		
+		<s:Group id="divider" y="375" width="{mainContainer.width}">
+			<s:layout>
+				<s:VerticalLayout  horizontalAlign="center" gap="10"/>
+			</s:layout>
+			 
+			<components:TimeSlider id="timeslider"
+								   minValue="{timeSliderMin}"
+								   maxValue="{timeSliderMax}"
+								   selectedMinValue="{timeSliderSelectedMin}"
+								   selectedMaxValue="{timeSliderSelectedMax}"
+								   labels="{timeSliderLabels}"
+								   height="20" width="425"
+								   change="sliderChange(event)"
+								   />
+			<!--
+			labels="1800,1850,1900,1950,2000,2050"
+			selectedMinValue="1900" selectedMaxValue="2000"
+			-->
+			
+			<s:Label text="Drag to select time period" horizontalCenter="0" color="#8995a6"  fontSize="10" fontWeight="bold"/>
+			
+
+		</s:Group>
+		
+		<s:SkinnableContainer id="bottomTarget" 
+							  bottom="0" top="0" left="5" right="5" minHeight="100" 
+							  backgroundAlpha="0" width="100%">
+			<s:layout>
+				<s:VerticalLayout horizontalAlign="center"/>
+			</s:layout>
+			
+			<s:BorderContainer cornerRadius="5" backgroundColor="#2e394b" 
+							  height="150" width="425">
+				<s:HGroup horizontalCenter="0" verticalAlign="top" gap="10" paddingLeft="5" paddingRight="5" 
+						  paddingTop="5" paddingBottom="5" top="10">
+				<s:VGroup gap="5" width="150">
+
+					<s:RichEditableText id="legend1" focusEnabled="false" editable="false" textFlow="{legendATitleFlow}" 
+										color="#FFFFFF" fontWeight="bold" mouseOver="legendChange(event)"
+										buttonMode="true" selectable="false"/>
+					<s:RichEditableText id="legend2" focusEnabled="false" editable="false" textFlow="{legendBTitleFlow}" 
+										color="#FFFFFF" fontWeight="bold" mouseOver="legendChange(event)"
+										buttonMode="true" selectable="false"/>
+					<s:RichEditableText id="legend3" focusEnabled="false" editable="false" textFlow="{legendCTitleFlow}" 
+										color="#FFFFFF" fontWeight="bold" mouseOver="legendChange(event)"
+										buttonMode="true" selectable="false"/>
+					<s:RichEditableText id="legend4" focusEnabled="false" editable="false" textFlow="{legendDTitleFlow}" 
+										color="#FFFFFF" fontWeight="bold" mouseOver="legendChange(event)"
+										buttonMode="true" selectable="false"/>
+				</s:VGroup>
+				<s:VGroup horizontalAlign="right" paddingRight="15">
+					
+				<s:VGroup width="250" horizontalAlign="left">
+					<s:Label text="About this graph" color="#6c798a" fontSize="18" fontWeight="bold" />
+					<s:Label text="Global Surface Warming (°C)" color="#999999" fontSize="14" fontWeight="bold" />
+					<s:RichEditableText id="legend_blurb" focusEnabled="false" editable="false" textFlow="{legendABlurbFlow}" 
+										fontWeight="bold" color="#FFFFFF" width="250"/>
+				</s:VGroup>
+
+					<s:Button label="Read more »" right="2" top="70" skinClass="skins.readmoreButtonSkin" 
+							  width="80" fontSize="10" fontWeight="bold"
+							  buttonMode="true" />
+				</s:VGroup>
+				</s:HGroup>
+			</s:BorderContainer>
+			
+		</s:SkinnableContainer>
+		
+</components:TabContainer>

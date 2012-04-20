@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<mugl>
+  <window margin="2" border="2" padding="5"/>
+  
+  <legend border="2" opacity="1"/>
+  
+  <horizontalaxis id="xaxis"
+                  min="0"
+                  max="10">
+  </horizontalaxis>
+  
+  <verticalaxis id="yaxis"
+                min="0"
+                max="10">
+  </verticalaxis>
+
+  <plot>
+    <legend label="circle"/>
+    <horizontalaxis ref="xaxis"/>
+    <verticalaxis ref="yaxis">
+      <variable ref="yvar" />
+    </verticalaxis>
+    <renderer type="point">
+      <option name="pointshape" value="circle"/>
+      <option name="pointoutlinecolor" value="black"/>
+      <option name="pointcolor"  value="blue"/>
+      <option name="pointsize"   value="4"/>
+    </renderer>
+  </plot>
+  
+  <plot>
+    <legend label="square"/>
+    <horizontalaxis ref="xaxis"/>
+    <verticalaxis ref="yaxis">
+      <variable ref="zvar" />
+    </verticalaxis>
+    <renderer type="point">
+      <option name="pointshape" value="square"/>
+      <option name="pointoutlinecolor" value="black"/>
+      <option name="pointcolor"  value="green"/>
+      <option name="pointsize"   value="4"/>
+    </renderer>
+  </plot>
+  
+  <!-- This plot will not contribute to the legend -->
+  <plot>
+    <legend label="diamond"/>
+    <horizontalaxis ref="xaxis"/>
+    <verticalaxis ref="yaxis">
+      <variable ref="tvar"/>
+    </verticalaxis>
+    <renderer type="point">
+      <option name="pointshape" value="diamond"/>
+      <option name="pointoutlinecolor" value="black"/>
+      <option name="pointcolor"  value="red"/>
+      <option name="pointsize"   value="4"/>
+    </renderer>
+  </plot>
+
+  <plot>
+    <legend label="triangle"/>
+    <horizontalaxis ref="xaxis"/>
+    <verticalaxis ref="yaxis">
+      <variable ref="dvar"/>
+    </verticalaxis>
+    <renderer type="point">
+      <option name="pointshape" value="triangle"/>
+      <option name="pointoutlinecolor" value="black"/>
+      <option name="linethickness" value="2"/>
+      <option name="pointcolor"  value="violet"/>
+      <option name="pointsize"   value="4"/>
+    </renderer>
+  </plot>
+
+  <plot>
+    <legend label="star"/>
+    <horizontalaxis ref="xaxis"/>
+    <verticalaxis ref="yaxis">
+      <variable ref="fvar"/>
+    </verticalaxis>
+    <renderer type="point">
+      <option name="pointshape" value="star"/>
+      <option name="pointoutlinecolor" value="black"/>
+      <option name="linethickness" value="1"/>
+      <option name="pointcolor"  value="orange"/>
+      <option name="pointsize"   value="4"/>
+    </renderer>
+  </plot>
+
+  <data>
+    <variables>
+      <variable id="xvar" column="0" type="number"/>
+      <variable id="yvar" column="1"/>
+      <variable id="zvar" column="2"/>
+      <variable id="tvar" column="3"/>
+      <variable id="dvar" column="4"/>
+      <variable id="fvar" column="5"/>
+    </variables>
+    <values>
+      0, 3, 4, 5, 6, 7
+      1, 2, 3, 4, 5, 6
+      2, 4, 5, 6, 7, 8
+      3, 5, 6, 7, 8, 9
+      4, 3, 4, 5, 6, 7
+      5, 6, 7, 8, 9, 10
+      6, 7, 8, 9, 10, 11
+      7, 8, 9, 10, 11, 12
+      8, 5, 6, 7, 8, 9
+      9, 4, 5, 6, 7, 8
+      10,5, 6, 7, 8, 9
+    </values>
+  </data>
+</mugl>

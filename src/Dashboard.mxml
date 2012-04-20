@@ -1,0 +1,233 @@
+<s:Application name="Spark_Panel_controlBar_test"
+			   xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/halo"
+			   xmlns:components="components.*" 
+			   xmlns:flexlib="http://code.google.com/p/flexlib/"
+			   xmlns:sliderClasses="flexlib.controls.sliderClasses.*"
+			   xmlns:mx1="library://ns.adobe.com/flex/mx" backgroundColor="#FFFFFF" height="700"
+			   applicationComplete="appComplete()"
+			   >
+	<fx:Style source="Dashboard.css"/>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace flexlib "http://code.google.com/p/flexlib/";
+		@namespace sliderClasses "flexlib.controls.sliderClasses.*";
+			
+		s|Label#leftLabel {
+			color: #ffffff;
+		}
+		s|Label#rightLabel {
+			color: #ffffff;
+		}
+	</fx:Style>	
+	
+	<fx:Script>
+		<![CDATA[
+			import components.GraphContainer;
+			import components.Tab1SlotContainer;
+			import components.Tab3SlotContainer;
+			import components.TabContainer;
+			
+			import flash.filters.DropShadowFilter;
+			
+			import flashx.textLayout.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.edit.IEditManager;
+			import flashx.textLayout.formats.BackgroundColor;
+			
+			import mx.core.IUIComponent;
+			import mx.core.IVisualElement;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			
+			import skins.mainHelpSkin;
+			
+			import spark.components.Button;
+			import spark.layouts.VerticalLayout;
+			import spark.skins.spark.PanelSkin;
+			import spark.utils.TextFlowUtil;
+			import flashx.textLayout.elements.TextFlow;
+			
+			
+			public var proxyForCollapsedGraphVisible:Boolean = false;
+			
+			public var mouseOverBehavior:Boolean = false;
+			
+			private function appComplete():void {
+				
+				var configpath:String = parameters['config'];
+				if ((configpath == null) || (configpath == "")) {
+					configpath = "assets/dashboard.xml";
+				} 
+				
+				var loader:URLLoader = new URLLoader();
+				loader.dataFormat = "text";
+				loader.addEventListener( Event.COMPLETE, 
+					function(event:Event):void {
+						var dashboardXML:XML = new XML(event.target.data);
+						var globalMuglOverrides:XML = dashboardXML.mugloverrides[0];
+						var timelineMugl:XML = dashboardXML.timeline[0].mugl[0];
+						var timelineMuglOverrides:XML = dashboardXML.timeline[0].mugloverrides[0];
+						
+						//processMugl(timelineMugl);
+						
+						for (var i:int = 0; i<dashboardXML.tab.length(); ++i) {
+							var tabTitle:String = contentsAsXMLString(dashboardXML.tab[i].title[0]);
+							//trace('constructing tab: ' + tabTitle);
+							var nc:spark.components.NavigatorContent = new  spark.components.NavigatorContent();
+							nc.label = tabTitle;
+							nc.percentWidth  = 100;
+							nc.percentHeight = 100;
+							graphStack.addElement(nc);	
+							var tabContainer:TabContainer;
+							if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
+								tabContainer = new Tab1SlotContainer();
+                                (tabContainer as Tab1SlotContainer).legendATitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].title[0]);
+                                (tabContainer as Tab1SlotContainer).legendBTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].title[0]);
+                                (tabContainer as Tab1SlotContainer).legendCTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].title[0]);
+                                (tabContainer as Tab1SlotContainer).legendDTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].title[0]);
+                                (tabContainer as Tab1SlotContainer).legendABlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].blurb[0]);
+                                (tabContainer as Tab1SlotContainer).legendBBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].blurb[0]);
+                                (tabContainer as Tab1SlotContainer).legendCBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].blurb[0]);
+                                (tabContainer as Tab1SlotContainer).legendDBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].blurb[0]);
+								(tabContainer as Tab1SlotContainer).dragHandleVisible = false;
+								(tabContainer as Tab1SlotContainer).helpHandleVisible = false;
+							} else {
+								tabContainer = new Tab3SlotContainer();
+							}
+							
+							tabContainer.mainContainer = mainContainer;
+
+							var tabMuglOverrides:XML = dashboardXML.tab[i].mugloverrides[0];
+							var newXML = new XML(timelineMugl);
+							//dashboardTabContent.timelineMugl = applyXMLOverrides(new XML(timelineMugl), [globalMuglOverrides, tabMuglOverrides, timelineMuglOverrides]);
+							tabContainer.timelineMugl = applyXMLOverrides(newXML, [globalMuglOverrides, tabMuglOverrides, timelineMuglOverrides]);
+                            tabContainer.timeSliderMin         = tabContainer.timelineMugl.horizontalaxis[0].pan[0].@min;
+                            tabContainer.timeSliderMax         = tabContainer.timelineMugl.horizontalaxis[0].pan[0].@max;
+                            tabContainer.timeSliderSelectedMin = tabContainer.timelineMugl.horizontalaxis[0].@min;
+                            tabContainer.timeSliderSelectedMax = tabContainer.timelineMugl.horizontalaxis[0].@max;
+							tabContainer.timeSliderLabels = dashboardXML.tab[i].timeslider[0].@labels;
+
+							nc.addElement(tabContainer);
+							
+							for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
+								var graphTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].title[0]);
+								//trace('adding graph "' + graphTitle + '"');
+								var helpText:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].help[0]);
+								//trace(' help text: ' + helpText);
+								var rmLink:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].link[0]);
+								//trace('link: ' + rmLink);
+								
+								var graphContainer:GraphContainer = tabContainer.addGraph(graphTitle, helpText, rmLink);
+								graphContainer.rmLink = rmLink;
+								graphContainer.mugloverrides = [globalMuglOverrides, tabMuglOverrides];
+								
+								
+
+								if ('@location' in dashboardXML.tab[i].graph[j].mugl[0]) {
+									graphContainer.muglurl = dashboardXML.tab[i].graph[j].mugl[0].@location;
+								} else {
+									graphContainer.mugl = dashboardXML.tab[i].graph[j].mugl[0]; 
+								}
+							}
+						}
+
+						var mainIntro:String = contentsAsXMLString(dashboardXML.intro[0]);
+						//introText.textFlow = TextConverter.importToFlow(textFlowify(mainIntro), TextConverter.TEXT_LAYOUT_FORMAT);
+						introText.textFlow = TextConverter.importToFlow(mainIntro, TextConverter.TEXT_LAYOUT_FORMAT);
+
+					});
+				loader.load( new URLRequest(configpath) );
+			
+			}
+			
+			private function contentsAsXMLString(xml:XML):String {
+				var xmlString:String = "";
+				for each (var child:XML in xml.children()) {
+					xmlString += child.toXMLString();
+				}
+				return xmlString;
+			}
+			
+			protected function textFlowify (string:String):String{
+				return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'>" + string + "</TextFlow>";
+			}
+
+			protected function helpVisible(event:MouseEvent):void
+			{
+				helpOverlay.visible = !helpOverlay.visible;
+			}
+
+			public static function applyXMLOverrides(target:XML, overrides:*):XML {
+			  if (overrides == null) {
+				  return target;
+			  }
+              if (overrides is XML) {
+                var overridesXML:XML = overrides as XML; 
+				for each (var e:XML in overridesXML.elements("attribute")) {
+					var attrName:String  = e.@name;
+					var attrValue:String = e.@value;
+					target['@'+attrName] = attrValue;
+				}
+				for each (var e:XML in overridesXML.elements("element")) {
+					var elementName:String  = e.@name;
+					var elementAction:String = e.@action;
+					var targetChildList:XMLList = target.child(elementName);
+					if (targetChildList == null || targetChildList.length()==0) {
+                      target.appendChild(new XML("<"+elementName+"/>"));
+					} else if (elementAction == "empty") {
+                      target[elementName] = new XML("<"+elementName+"/>");
+					}
+					applyXMLOverrides(target[elementName][0], e);
+                  }
+				for each (var e:XML in overridesXML.elements("elements")) {
+					var elementName:String = e.@name;
+					for each (var descendant:XML in target.descendants(elementName)) {					
+						for each (var f:XML in e.elements("attribute")) {
+							var attrName:String  = f.@name;
+							var attrValue:String = f.@value;
+							descendant['@'+attrName] = attrValue;
+						}
+					}
+				}
+              } else if (overrides is Array) {
+                for each (var o:Object in overrides) {
+                    applyXMLOverrides(target, o);
+                  }
+              }
+              return target;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:VGroup gap="0" top="25" left="25" id="content">
+		<s:Group width="100%">
+			<s:ButtonBar dataProvider="{graphStack}" buttonMode="true" 
+						 skinClass="skins.barSkin" left="1"/>
+			<s:Button label="?" skinClass="skins.mainHelpSkin" width="18" height="18" 
+					  bottom="2" right="1" click="helpVisible(event)" buttonMode="true"/>
+		</s:Group>
+		<s:BorderContainer cornerRadius="5" width="445" minHeight="550" borderVisible="false" 
+						   id="mainContainer" backgroundColor="#1d2a3c" >
+			<mx1:ViewStack  left="0" right="0" bottom="0" top="5" id="graphStack"/>
+		</s:BorderContainer>
+	</s:VGroup>	
+
+	<s:BorderContainer id="helpOverlay" cornerRadius="0" backgroundAlpha=".5" backgroundColor="{this.backgroundColor}" visible="false"
+					   width="{content.width}" height="{content.height}" x="{content.x}" y="{content.y}" borderVisible="false">
+		<s:BorderContainer id="intro" cornerRadius="9" backgroundAlpha=".9" backgroundColor="0xEEEEEE" width="80%" horizontalCenter="0" verticalCenter="-115">
+			<s:RichEditableText editable="false" focusEnabled="false" id="introText" x="0" y="0" paddingLeft="10" 
+								paddingRight="10" paddingTop="25" paddingBottom="25" maxWidth="360" verticalCenter="0"/>
+			<!--<s:RichEditableText editable="false" focusEnabled="false" id="newIntroText" x="0" y="0" paddingLeft="10" 
+								paddingRight="10" paddingTop="25" paddingBottom="25" maxWidth="360" verticalCenter="0"/> -->
+			<s:Button label="×" right="10" top="5" skinClass="skins.mainHelpSkin" width="18" height="18" click="helpVisible(event)"  
+					  fontSize="16" buttonMode="true"/>
+		</s:BorderContainer>		
+	</s:BorderContainer>
+<!--	<mx1:Canvas id="transparentOverlay" mouseChildren="false" mouseEnabled="false"/>
+-->
+	</s:Application>

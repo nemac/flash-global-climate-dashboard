@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<!--
+
+This is the ant build file for the Global Climate Dashboard.
+
+To run this build file, first make sure that the FLEX_HOME environment variable is set to the
+root of a Flex SDK installation.  This script looks for the "mxmlc" flex compiler
+in the "bin" subdirectory of FLEX_HOME.
+
+For example, on drought.nemac.unca.edu:
+
+    FLEX_HOME=/usr/local/src/flex/flex_sdk_4.1.0.16076 ant
+
+-->
+
+<project name="Dashboard" basedir="." default="build"> 
+  <property environment="env"/>
+  <property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
+  <property name="mxmlc.exe" value="${FLEX_HOME}/bin/mxmlc"/>
+  <target name="checkenv">
+    <fail unless="env.FLEX_HOME">FLEX_HOME not set
+
+    The FLEX_HOME environment variable must be set to the root of a
+    Flex SDK installation (directory containing "bin", "lib", ...)
+
+    </fail>
+  </target>
+
+
+  <target name="build" depends="Dashboard.swf,assets">
+    <echo>
+The dashboard application has now been built and is in the "html"
+directory.  To deploy it, copy everything from the "html" directory to
+the appropriate location on a web server.
+    </echo>
+  </target>
+
+  <target name="deploy">
+    <echo>
+This ant buildfile does not have an automated "deploy" target.  To
+deploy the dashboard, execute "ant build" (being sure to set the
+FLEX_HOME environment variable first), and then manually copy the
+contents of the "html" directory to the appropriate web server
+location.
+    </echo>
+  </target>
+
+  <target name="assets">
+    <copy includeemptydirs="false" todir="html/assets">
+      <fileset dir="src/assets" includes="*" excludes="co2legend.png,unca_logo.png"/>
+    </copy>
+    <copy todir="html">
+      <fileset dir="html-template" includes="index.php"/>
+      <fileset dir="html-template" includes="flash-dashboard.html"/>
+      <fileset dir="html-template" includes="nonflash-dashboard.html"/>
+      <fileset dir="html-template" includes="dashboard.png"/>
+    </copy>
+<!--
+    <copy file="html-template/dashboard.html" tofile="html/index.html"/>
+-->
+  </target>
+
+  <target name="init">
+    <mkdir dir="html"/>
+    <mkdir dir="html/assets"/>
+  </target>
+
+  <target name="multigraph">
+    <exec executable="ant" dir="${basedir}/multigraph"/>
+  </target>
+
+  <target name="Dashboard.swf" depends="checkenv,init,multigraph">
+    <exec executable="${mxmlc.exe}" dir="${basedir}">
+      <arg line="-load-config '${FLEX_HOME}/frameworks/flex-config.xml'" />
+      <arg line="-load-config mxmlc-config.xml" />
+      <arg line="src/Dashboard.mxml" />
+    </exec>
+  </target> 
+
+  <target name="clean">
+    <delete dir="html"/>
+    <exec executable="ant" dir="${basedir}/multigraph">
+      <arg line="clean" />
+    </exec>
+  </target>
+
+  <target name="flat-dashboard.xml">
+    <exec executable="./flatten-config">
+      <arg line="src/assets/dashboard.xml" />
+      <arg line="src/assets/flat-dashboard.xml" />
+    </exec>
+  </target>
+
+</project>

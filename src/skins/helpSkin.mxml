@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Metadata>
+		[HostComponent("spark.components.SkinnableContainer")]
+	</fx:Metadata> 
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="maximize" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<s:Graphic top="25" left="-3">
+		<s:Path data="M 10 0 L 10 16 L 0 8">
+			<s:fill>
+				<s:SolidColor color="0x1d2a3d" />
+			</s:fill>
+		</s:Path>
+	</s:Graphic>
+	
+	<s:BorderContainer cornerRadius="4" top="0" right="0" left="6" minHeight="100"
+					   borderVisible="false" borderColor="0x1d2a3d" borderWeight="2" 
+					   borderAlpha="1.0" dropShadowVisible="true"> 
+		<s:layout> 
+			<s:VerticalLayout />
+		</s:layout> 
+		<s:backgroundFill> 
+			<s:SolidColor color="0x1d2a3d" alpha=".9" alpha.disabled=".5" />
+		</s:backgroundFill> 
+
+		
+		
+		<s:Group id="contentGroup" width="380" left="2" right="2" />
+		
+	</s:BorderContainer>
+	
+	
+	
+</s:SparkSkin>

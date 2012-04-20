@@ -1,0 +1,18 @@
+[title]
+Specifying a Plot Style
+
+[tag]
+plot-style
+
+[width]
+400
+
+[height]
+200
+
+[weight]
+103
+
+[description]
+This example shows how to customize the plot style by using the "pointline"
+renderer, with black points and blue lines.

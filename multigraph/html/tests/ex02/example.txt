@@ -1,0 +1,19 @@
+[title]
+Explicit Initial Axis Ranges
+
+[tag]
+explicit-ranges
+
+[width]
+400
+
+[height]
+200
+
+[weight]
+102
+
+[description]
+This example shows how to specify explicit x- and y-axis minimum and maximum values, which
+determine the initial display ranges. Once the graph appears, the user can still pan and zoom
+arbitrarily.

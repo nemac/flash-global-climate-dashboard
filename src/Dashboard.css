@@ -1,0 +1,24 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	content-background-color: #979797;
+	content-background-alpha: 1.0;
+}
+
+.tabs 
+{
+	fillColors: #424548;
+	fillAlphas: 1,1;
+	highlightAlphas: .5,0;
+	cornerRadius:10;
+}
+	
+.legendp {
+	color:#cccccc;
+	fontSize:11;
+	fontWeight:bold;
+}
