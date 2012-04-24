@@ -1,7 +1,7 @@
 package components
 {
   import flash.events.Event;
-	
+  
   import multigraph.AxisEvent;
   import multigraph.Multigraph;
 	
@@ -30,8 +30,8 @@ package components
 
       private var _mugl:XML = null;
       private var _mugl_set:Boolean = false;
-      override public function set mugl(value:XML):void {
-	_mugl = value;
+      override public function set mugl(value:Object):void {
+	_mugl = value as XML;
 	_mugl_set = true;
 	if (_mugl_set && _mugloverrides_set) {
 	  setMuglWithOverrides();

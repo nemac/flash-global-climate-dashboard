@@ -94,6 +94,8 @@ package components
 				graphContainer.titleString = title;
 				graphContainer.helpString  = helpText;
 				_graphContainers.push(graphContainer);
+				//graphContainer.helpBorderContainerHeight = 400;
+				//graphContainer.helpContentHeight = 300;
 				return graphContainer;
 			}
 

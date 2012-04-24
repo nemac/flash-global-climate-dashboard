@@ -85,7 +85,15 @@
 							var tabContainer:TabContainer;
 							if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
 								tabContainer = new Tab1SlotContainer();
-                                (tabContainer as Tab1SlotContainer).legendATitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].title[0]);
+								(tabContainer as Tab1SlotContainer).legendTitle = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtitle[0]);
+								(tabContainer as Tab1SlotContainer).legendText  = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtext[0]);
+								for (var j:int=0; j<dashboardXML.tab[i].legend[0].item.length(); ++j) {
+									(tabContainer as Tab1SlotContainer).addLegendItem(dashboardXML.tab[i].legend[0].item[j].img[0].@src,
+																				      contentsAsXMLString(dashboardXML.tab[i].legend[0].item[j].text[0]));
+								}
+								
+								/*
+								(tabContainer as Tab1SlotContainer).legendATitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].title[0]);
                                 (tabContainer as Tab1SlotContainer).legendBTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].title[0]);
                                 (tabContainer as Tab1SlotContainer).legendCTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].title[0]);
                                 (tabContainer as Tab1SlotContainer).legendDTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].title[0]);
@@ -93,8 +101,9 @@
                                 (tabContainer as Tab1SlotContainer).legendBBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].blurb[0]);
                                 (tabContainer as Tab1SlotContainer).legendCBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].blurb[0]);
                                 (tabContainer as Tab1SlotContainer).legendDBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].blurb[0]);
+								*/
 								(tabContainer as Tab1SlotContainer).dragHandleVisible = false;
-								(tabContainer as Tab1SlotContainer).helpHandleVisible = false;
+								(tabContainer as Tab1SlotContainer).helpHandleVisible = true;
 							} else {
 								tabContainer = new Tab3SlotContainer();
 							}
@@ -109,7 +118,11 @@
                             tabContainer.timeSliderMax         = tabContainer.timelineMugl.horizontalaxis[0].pan[0].@max;
                             tabContainer.timeSliderSelectedMin = tabContainer.timelineMugl.horizontalaxis[0].@min;
                             tabContainer.timeSliderSelectedMax = tabContainer.timelineMugl.horizontalaxis[0].@max;
-							tabContainer.timeSliderLabels = dashboardXML.tab[i].timeslider[0].@labels;
+							if (dashboardXML.tab[i].timeslider[0].@labels) {
+								tabContainer.timeSliderLabels      = dashboardXML.tab[i].timeslider[0].@labels;
+							} else {
+								tabContainer.timeSliderLabels      = null;
+							}
 
 							nc.addElement(tabContainer);
 							
@@ -124,8 +137,15 @@
 								var graphContainer:GraphContainer = tabContainer.addGraph(graphTitle, helpText, rmLink);
 								graphContainer.rmLink = rmLink;
 								graphContainer.mugloverrides = [globalMuglOverrides, tabMuglOverrides];
-								
-								
+								if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
+									graphContainer.helpBorderContainerHeight = 328;
+									graphContainer.helpContentHeight         = 328;
+									graphContainer.readMoreButtonTop         = 310;
+								} else {
+									graphContainer.helpBorderContainerHeight =  90;
+									graphContainer.helpContentHeight         =  90;
+									graphContainer.readMoreButtonTop         =  70;
+								}								
 
 								if ('@location' in dashboardXML.tab[i].graph[j].mugl[0]) {
 									graphContainer.muglurl = dashboardXML.tab[i].graph[j].mugl[0].@location;

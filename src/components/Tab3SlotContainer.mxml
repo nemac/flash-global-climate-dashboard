@@ -149,8 +149,10 @@
 			labels="1800,1850,1900,1950,2000,2050"
 			selectedMinValue="1900" selectedMaxValue="2000"
 			-->
-			
-			<s:Label text="Drag to select time period" horizontalCenter="0" color="#8995a6"  fontSize="10" fontWeight="bold"/>
+			<!-- color was: #8995a6 -->
+			<s:Label text="Drag to select time period" horizontalCenter="0"
+					 color="#cc9933"
+					 fontSize="10" fontWeight="bold"/>
 			
 
 		</s:Group>

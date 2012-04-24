@@ -34,7 +34,7 @@ package components
     private static const RIGHT_HIGHLIGHTED:int  = 3;
 	
 	/*
-	 * labels can be either (a) an array of strings [S1,S2,...SN] or (b) a single string of the form "[S1,S2,...SN]".
+	 * labels can be either (a) an array of strings [S1,S2,...SN] or (b) a single string of the form "S1,S2,...SN".
 	 * In both cases, each Si should be a string that can be interpreted as a number.  Each string is used
 	 * as a label to be displayed in the timeline, and its numberical value is used to determine its
 	 * horizontal position along the timeline.
@@ -67,6 +67,8 @@ package components
     private var _lastX:int;
     private var _mouseIsDown:Boolean = false;
     private var _grabLocation:int;
+	
+	private var _drawArrows:Boolean = false;
         
     public var minValue:Number = 0;
     public var maxValue:Number = 100;
@@ -194,7 +196,22 @@ package components
           highlightRightEdge(unscaledWidth,unscaledHeight,1);
         break;
       }
+	  
+	  if (_drawArrows) {
+		  graphics.lineStyle(1, 0xffffff);
+		  drawArrow(this.width/4-20, this.height/2, -1, 15,  6, 6);
+		  drawArrow(3*this.width/4+20, this.height/2, 1, 15, 6, 6);
+	  }
+	  
     }
+	
+	private function drawArrow(x:Number, y:Number, dir:int, length:Number, headWidth:Number, headLength:Number) {
+		graphics.moveTo(x,y);
+		graphics.lineTo(x + dir*length, y);
+		graphics.moveTo(x + dir * (length - headLength), y + headWidth/2);
+		graphics.lineTo(x + dir*length, y);
+		graphics.lineTo(x + dir * (length - headLength), y - headWidth/2);
+	}
     
     private function highlightLeftEdge(unscaledWidth:Number, unscaledHeight:Number, alpha:Number):void {
         graphics.beginFill(0xcc9933,alpha);
@@ -338,36 +355,69 @@ package components
         }
     }
 
-    override protected function createChildren():void {
+	override protected function createChildren():void {
 		var tf:TextFormat = new TextFormat();
 		// Note: Multigraph embeds fonts "default" and "defaultBold" which is used (by default) for all its labels
 		// This ensures that we use that font for the labels in the time slider:
 		tf.font = "defaultBold";
 		tf.size = 12;
-      var labelArray:Array = ((labels is String) ? (labels as String).split(",") : (labels as Array));
-	  if (labelArray != null) {
-        for (var i:int=0; i<labelArray.length; ++i) {
-			var text:String = labelArray[i];
-			var value:Number = Number(text);
-			// set x = relative location along timeline (x=0 is left end, x=1 is right end):
-			var r:Number = (value - this.minValue) / (this.maxValue - this.minValue);
-			
-	        var label:TextField = new TextField();
-			label.embedFonts = true;
-			label.defaultTextFormat = tf;
-		    label.text = text;
-		    label.autoSize = TextFieldAutoSize.LEFT;
-			label.width = label.textWidth;
-			label.height = label.textHeight;
-			label.textColor = 0xffffff;
-			label.mouseEnabled = false;
-			label.x = r * this.width - r*label.width;
-		    label.y = this.height/2 - label.height/2;
-		    addChild(label);
-        }
-	  }
-    }
+		if (labels != null && labels != '') {
+			var labelArray:Array = ((labels is String) ? (labels as String).split(",") : (labels as Array));
+			if (labelArray != null) {
+				for (var i:int=0; i<labelArray.length; ++i) {
+					var text:String = labelArray[i];
+					var value:Number = Number(text);
+					// set r = relative location along timeline (x=0 is left end, x=1 is right end):
+					var r:Number = (value - this.minValue) / (this.maxValue - this.minValue);
+					
+					var label:TextField     = new TextField();
+					label.embedFonts        = true;
+					label.defaultTextFormat = tf;
+					label.text              = text;
+					label.autoSize          = TextFieldAutoSize.LEFT;
+					label.width             = label.textWidth;
+					label.height            = label.textHeight;
+					label.textColor         = 0xffffff;
+					label.mouseEnabled      = false;
+					label.x                 = r * this.width - r*label.width;
+					label.y                 = this.height/2 - label.height/2;
+					addChild(label);
+				}
+			}
+		} else {
+			_drawArrows = true;
 
+			var r:Number            = 0.25;
+			var label:TextField     = new TextField();
+			label.embedFonts        = true;
+			label.defaultTextFormat = tf;
+			label.text              = "Earlier";
+			label.autoSize          = TextFieldAutoSize.LEFT;
+			label.width             = label.textWidth;
+			label.height            = label.textHeight;
+			label.textColor         = 0xffffff;
+			label.mouseEnabled      = false;
+			label.x                 = r * this.width - r*label.width;
+			label.y                 = this.height/2 - label.height/2;
+			addChild(label);
+
+			r                       = 0.75;
+			label                   = new TextField();
+			label.embedFonts        = true;
+			label.defaultTextFormat = tf;
+			label.text              = "Later";
+			label.autoSize          = TextFieldAutoSize.LEFT;
+			label.width             = label.textWidth;
+			label.height            = label.textHeight;
+			label.textColor         = 0xffffff;
+			label.mouseEnabled      = false;
+			label.x                 = r * this.width - r*label.width;
+			label.y                 = this.height/2 - label.height/2;
+			addChild(label);
+
+		}
+	}
+	
 	
   }
 }

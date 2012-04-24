@@ -22,9 +22,30 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import multigraph.MultigraphEvent;
+			
+			import mx.controls.Alert;
+			private function parseMugl(e : multigraph.MultigraphEvent) {
+				Alert.show('hey hey got parseMugl event!', 'Multigraph Event');
+			}
+			private function parseMuglError(e : multigraph.MultigraphEvent) {
+				Alert.show('got parseMuglError event: ' + e.message, 'Multigraph Event');
+			}
+			private function muglIOError(e : multigraph.MultigraphEvent) {
+				Alert.show('got muglIOError event: ' + e.message, 'Multigraph Event');
+			}
+			private function muglError(e : multigraph.MultigraphEvent) {
+				Alert.show('got muglError event: ' + e.message, 'Multigraph Event');
+			}
 	]]>
 	</fx:Script>
-	<multigraph:Multigraph id="mgraph" x="0" y="0" width="100%" height="100%" muglurl="assets/projections.xml" />
+	<multigraph:Multigraph id="mgraph" x="0" y="0" width="100%" height="100%" 
+						   parseMugl="parseMugl(event)" 
+						   parseMuglError="parseMuglError(event)"
+						   muglIOError="muglIOError(event)"
+						   muglError="muglError(event)"
+						   muglurl="http://dev.nemac.org/~mbp/mugltest/getmugl.php"
+						   />
 <!--
 	<multigraph:Multigraph id="mgraph" x="0" y="50" width="100%" height="100%" >
 		<multigraph:mugl>

@@ -6,7 +6,11 @@
 	<fx:Metadata>
 		[HostComponent("spark.components.SkinnableContainer")]
 	</fx:Metadata> 
-	
+	<fx:Script>
+		<![CDATA[
+			import components.GraphContainer;
+		]]>
+	</fx:Script>			
 	<s:states>
 		<s:State name="normal" />
 		<s:State name="maximize" />
@@ -20,8 +24,9 @@
 			</s:fill>
 		</s:Path>
 	</s:Graphic>
-	
-	<s:BorderContainer cornerRadius="4" top="0" right="0" left="6" minHeight="100"
+	<!-- minHeight="100" -->
+	<!-- height="{(hostComponent as GraphContainer).skinHeight}" -->
+	<s:BorderContainer cornerRadius="4" top="0" right="0" left="6" minHeight="100"  
 					   borderVisible="false" borderColor="0x1d2a3d" borderWeight="2" 
 					   borderAlpha="1.0" dropShadowVisible="true"> 
 		<s:layout> 

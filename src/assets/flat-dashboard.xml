@@ -1283,7 +1283,7 @@
       decreased by more than 10% per decade since 1979. <br /><br />
 
 The graph shows the average area with at least 15% sea ice on its surface each September.</help>
-      <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
+      <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-minimum-arctic-sea-ice-extent</link>
       <mugl>
 	 <background color="0xFFFFFF" />
 	 <window border="0" margin="0" padding="0" />
@@ -1367,7 +1367,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     <graph name="OceanHeat">
       <title>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</title>
       <help>More than 90% of the warming that has occurred on Earth over the past 50 years has occurred in the ocean. The graph shows heat energy in the top 700 meters of the ocean as the difference from the average from 1955-2006.</help>
-      <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-minimum-arctic-sea-ice-extent</link>
+      <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
       <mugl>
  <window border="0" margin="0" padding="0" />
   <ui eventhandler="saui" />
@@ -2209,6 +2209,10 @@ The graph shows the average area with at least 15% sea ice on its surface each S
                     <option name="fillcolor" value="0x5bc69a" />
 					<option name="fillopacity" value="0.2" />
 				</renderer>
+ <datatips format="{0}: {1}">
+       <variable format="%Y" />
+       <variable format="%.2f" />
+    </datatips>
 		  </plot>
 
 
@@ -3223,10 +3227,8 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 			<renderer type="bar">
 
 				
-
-				<option min="0.0" name="fillcolor" value="0xD01E11" />
-				<option max="0.0" name="fillcolor" value="0xCD6760" />
-
+				<option min="0.0" name="fillcolor" value="0x23238E" />
+				<option max="0.0" name="fillcolor" value="0x94BDE9" />
 				<option name="linecolor" value="0x000000" />
 				
 				<option name="barwidth" value="1M" />
@@ -3987,9 +3989,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     <graph name="naoi">
       <title>North Atlantic Oscillation</title>
       <help>Departures from average air pressure over Greenland and the central North Atlantic 
-      Ocean affect weather all around the Atlantic by influencing the intensity 
+      Ocean affect weather around the Atlantic by influencing the intensity 
       and location of the jet stream and the storm tracks that follow it. Negative values 
-      are associated with severe winter storms in the eastern U.S.</help>
+      are linked with winter storms in the eastern U.S.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-north-atlantic-oscillation</link>
       <mugl>
 	 <window border="0" margin="0" padding="0" />
@@ -4796,10 +4798,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     <graph name="soi">
       <title>Southern Oscillation Index</title>
       <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
-      atmospheric indicator of the El Ni&#241;o&#8211;Southern Oscillation.<br /><br />
-
-		El Ni&#241;o conditions result in negative SOI values; La Ni&#241;a conditions produce positive values for this index.
-</help>
+      atmospheric indicator of the El Ni&#241;o&#8211;Southern Oscillation.  El Ni&#241;o conditions result in negative SOI values; La Ni&#241;a conditions produce positive values for this index.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
       <mugl>
 	 <window border="0" margin="0" padding="0" />
@@ -4843,12 +4842,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 			<renderer type="bar">
 			
 				
-			
-				<option min="0.0" name="fillcolor" value="0x23238E" />
-				<option max="0.0" name="fillcolor" value="0x94BDE9" />
-
-				<option name="linecolor" value="0x000000" />
 				
+  			        <option max="0.5" name="fillcolor" value="0xFFCC33" />
+				<option max="0.5" min="0.0" name="fillcolor" value="0x888888" />
+				<option max="0.0" min="-0.5" name="fillcolor" value="0x888888" />
+				<option min="-0.5" name="fillcolor" value="0x66CCFF" />		
+				<option name="linecolor" value="0x000000" />
+
 				<option name="barwidth" value="1M" />
 				<option name="baroffset" value="0" />
 				<option name="barbase" value="0" />

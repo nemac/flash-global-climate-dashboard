@@ -48,7 +48,7 @@ package multigraph.renderer {
       super(haxis, vaxis, data, varids);
       _dateFormatter = new DateFormatter(_dateFormat);
       _textFormat = new TextFormat();
-      _textFormat.font = "DefaultFont";
+      _textFormat.font = "default";
       _textFormat.color = 0x000000;
       _textFormat.size = 12;
       _lineheight = _haxis.graph.plotBox.height - 15;

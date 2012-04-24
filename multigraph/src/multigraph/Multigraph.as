@@ -2,8 +2,9 @@ package multigraph
 {
   import flash.display.DisplayObject;
   import flash.events.Event;
-  import flash.events.MouseEvent;
+  import flash.events.HTTPStatusEvent;
   import flash.events.IOErrorEvent;
+  import flash.events.MouseEvent;
   import flash.events.SecurityErrorEvent;
   import flash.net.URLLoader;
   import flash.net.URLRequest;
@@ -36,7 +37,11 @@ package multigraph
    *
    *  @eventType multigraph.AxisEvent.CHANGE
    */
-  [Event(name="parseMugl", type="multigraph.MultigraphEvent")]
+  [Event(name="parseMugl",      type="multigraph.MultigraphEvent")]
+  [Event(name="parseMuglError", type="multigraph.MultigraphEvent")]
+  [Event(name="muglIOError",    type="multigraph.MultigraphEvent")]
+  [Event(name="muglError",      type="multigraph.MultigraphEvent")]
+  
   public class Multigraph extends Canvas
   {
     [Embed(mimeType='application/x-font', source="../assets/fonts/myriadweb.ttf",                         fontName="default")]
@@ -76,13 +81,19 @@ package multigraph
 	private var _currentHeight : int;
 
 	  //[Bindable]
-	  public function get mugl() : XML
+	  public function get mugl() : Object
 	  {
 		  return _mugl;
 	  }
-	  public function set mugl( mugl : XML ) : void
+	  
+	  public function set mugl( mugl : Object ) : void
 	  {
-		  _mugl = mugl;
+		  if (mugl == null || (mugl == "")) { return; }
+		  if (mugl is XML) {
+			  _mugl = mugl as XML;
+		  } else {
+		  	_mugl = XML(mugl);
+		  }
 		  parseMugl();
 	  }
 	  
@@ -90,19 +101,33 @@ package multigraph
 		  if (url == null || url == "") { return; }
 		  var loader:URLLoader = new URLLoader();
 		  loader.dataFormat = "text";
+		  var httpStatus:int = -1;
 		  var completionHandler : Function = function(event:Event):void {
 			  try {
 				  mugl = new XML( event.target.data );
 			  } catch (e : Error) {
-				  alert(e.message, "MUGL Parse Error");
+				  //alert(e.message, "MUGL Parse Error");
+				  var ev : MultigraphEvent = new MultigraphEvent(MultigraphEvent.PARSE_MUGL_ERROR);
+				  ev.httpStatus = httpStatus;
+				  ev.message    = e.message;
+				  dispatchEvent(ev);
 			  }
 		  }
 		  var errorHandler : Function = function(event):void {
-			  alert(event.text, "MUGL Load Error");
+			  var e : MultigraphEvent = new MultigraphEvent(MultigraphEvent.MUGL_IO_ERROR);
+			  e.httpStatus = httpStatus;
+			  dispatchEvent(e);
 		  }
+
+	      var httpStatusHandler : Function = function(evt:HTTPStatusEvent):void {
+			  httpStatus = evt.status;
+		  }		  
+			  
 		  loader.addEventListener(Event.COMPLETE,                    completionHandler);
 		  loader.addEventListener(IOErrorEvent.IO_ERROR,             errorHandler);
 		  loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, errorHandler);
+		  loader.addEventListener(HTTPStatusEvent.HTTP_STATUS,       httpStatusHandler );
+		  
 		  loader.load( new URLRequest( url ) );
 	  }
 	  
@@ -116,6 +141,13 @@ package multigraph
 		  var g : Graph;
 		  
 		  if (_mugl == null) {
+			  return;
+		  }
+		  
+		  if (_mugl.localName() == "muglerror" || _mugl.localName() == "error") {
+			  var ev : MultigraphEvent = new MultigraphEvent(MultigraphEvent.MUGL_ERROR);
+			  ev.message    = _mugl.toString();
+			  dispatchEvent(ev);
 			  return;
 		  }
 

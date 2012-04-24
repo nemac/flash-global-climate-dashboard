@@ -77,7 +77,7 @@ package multigraph
       var legendSprite = new UIComponent();
         
       var textFormat:TextFormat = new TextFormat();
-      textFormat.font = "DefaultFont";
+      textFormat.font = "default";
       textFormat.color = 0x000000;
       textFormat.size = 12;
         

@@ -61,6 +61,11 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 			
 			[Bindable]public var outlined:Boolean = false;
 			
+			[Bindable]public var helpBorderContainerHeight:int;
+			[Bindable]public var helpContentHeight:int;
+			[Bindable]public var skinHeight:int;
+			[Bindable]public var readMoreButtonTop:int = 70;
+			
 			//[Bindable]public var bindingid:String = null;
 			//[Bindable]public var bindingmin:String = null;
 			//[Bindable]public var bindingmax:String = null;
@@ -186,42 +191,10 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 				help.visible = false;
 			}
 
-            /*
-			protected function collapsed_mouseOver(event:MouseEvent):void
-			{
-				
-				if (parentApplication['mouseOverBehavior']) {
-					if (! parentApplication['proxyForCollapsedGraphVisible']) {
-						createProxy();
-						proxy.mouseEnabled = false;
-						proxy.mouseChildren = false;
-						proxy.alpha = 0.3;
-						parentApplication['transparentOverlay'].addElement(proxy);
-						parentApplication['transparentOverlay'].x = event.stageX;
-						parentApplication['transparentOverlay'].y = event.stageY - 20;
-						parentApplication['proxyForCollapsedGraphVisible'] = true;
-					}
-				}	
-			}
-
-			protected function collapsed_mouseOut(event:MouseEvent):void
-			{
-				
-				if (parentApplication['mouseOverBehavior']) {
-					if (parentApplication['proxyForCollapsedGraphVisible']) {
-						parentApplication['proxyForCollapsedGraphVisible'] = false;
-						if (proxy != null && parentApplication['transparentOverlay'].contains(proxy)) {
-							parentApplication['transparentOverlay'].removeElement(proxy);
-						}
-					}
-				}
-			}
-            */
-			
 			private function handleAxisChange(event:AxisEvent):void {
 				dispatchEvent(new AxisEvent(event.type, event.min, event.max));
 			}
-			
+					
 		]]>
 	</fx:Script>
 	<s:states>
@@ -249,16 +222,18 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 			editable="false" focusEnabled="false" includeIn="expanded"
 			backgroundColor="#FFFFFF" backgroundAlpha="0.85" paddingLeft="1" 
 			paddingRight="1" paddingTop="2" paddingBottom="1"/>
-
-	<s:BorderContainer includeIn="expanded" id="help" left="20" right="5" top="5" height="{this.width - 10}"
+	<!-- height="{this.width - 10}" -->
+	<s:BorderContainer includeIn="expanded" id="help" left="20" right="5" top="5"
+					   height="{helpBorderContainerHeight}"
 					   skinClass="skins.helpSkin" visible="false" borderVisible="false">
-		<s:RichEditableText color="0xFFFFFF" left="8" right="80" bottom="2" top="5" 
+		<s:RichEditableText color="0xFFFFFF" left="8" right="80" bottom="2" top="5"
+							height="{helpContentHeight}"
 					editable="false" focusEnabled="false" id="helpContent" fontWeight="bold"/>
 		<s:Label text="Close" color="#FFFFFF" top="8" right="22" fontSize="11" fontWeight="bold" click="closeHelp(event)" buttonMode="true"/>
 		<s:Button label="×" right="2" top="5" width="15" height="15" skinClass="skins.readmoreButtonSkin" 
 				  fontSize="14" click="closeHelp(event)" buttonMode="true"/>
-		<s:Button label="Read more »" right="2" top="70" skinClass="skins.readmoreButtonSkin" 
-				  width="80" fontSize="10" fontWeight="bold"
+		<s:Button id="readMoreButton" label="Read more »" right="0" top="{readMoreButtonTop}" skinClass="skins.readmoreButtonSkin" 
+				  width="75" fontSize="10" fontWeight="bold"
 				  buttonMode="true" click="readmore()" />
 	</s:BorderContainer>
 	
