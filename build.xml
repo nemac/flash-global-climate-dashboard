@@ -67,7 +67,9 @@ location.
   </target>
 
   <target name="multigraph">
-    <exec executable="ant" dir="${basedir}/multigraph"/>
+    <exec executable="ant" dir="${basedir}/multigraph">
+      <arg line="Multigraph.swc" />
+    </exec>
   </target>
 
   <target name="Dashboard.swf" depends="checkenv,init,multigraph">

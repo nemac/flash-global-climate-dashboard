@@ -28,6 +28,7 @@ while (<IN>) {
 	print OUT $_;
     }
     if (/<include-classes>/) {
+	system("chmod +x srcclasses");
 	open(SRCCLASSES, "./srcclasses $target |");
 	while (chomp($class = <SRCCLASSES>)) {
 	    printf(OUT "      <class>%s</class>\n", $class);

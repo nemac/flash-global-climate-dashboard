@@ -32,6 +32,10 @@ For example, on drought.nemac.unca.edu:
   </target>
 
   <target name="Multigraph.swc" depends="checkenv">  
+    <exec executable="chmod">
+      <arg line="+x"/>
+      <arg line="update-config"/>
+    </exec>
     <exec executable="./update-config">
       <arg line="compc-config.xml"/>
     </exec>
