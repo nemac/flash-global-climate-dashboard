@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="Dashboard.mxml" projectUUID="7ba85d85-b892-4ebd-a2b7-e7f02f6af5d4" version="6">
-  <compiler additionalCompilerArguments="-locale en_US  -managers flash.fonts.AFEFontManager -dump-config=config.xml" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+<actionScriptProperties analytics="false" mainApplicationPath="Dashboard.mxml" projectUUID="7ba85d85-b892-4ebd-a2b7-e7f02f6af5d4" version="10">
+  <compiler additionalCompilerArguments="-locale en_US  -managers flash.fonts.AFEFontManager -dump-config=config.xml" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
-      <compilerSourcePathEntry kind="1" linkType="1" path="${DOCUMENTS}/FlexMultigraph/src"/>
+      <compilerSourcePathEntry kind="1" linkType="1" path="multigraph/src"/>
     </compilerSourcePath>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -12,7 +12,12 @@
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
     </libraryPath>
-    <sourceAttachmentPath/>
+    <sourceAttachmentPath>
+      <sourceAttachmentPathEntry applicationDomain="default" forceLoad="false" index="6" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/charts.swc" sourcepath="${PROJECT_FRAMEWORKS}/projects/charts/src" useDefaultLinkType="true"/>
+      <sourceAttachmentPathEntry applicationDomain="default" forceLoad="false" index="10" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/advancedgrids.swc" sourcepath="${PROJECT_FRAMEWORKS}/projects/advancedgrids/src" useDefaultLinkType="true"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/authoringsupport.swc" sourcepath="${PROJECT_FRAMEWORKS}/projects/authoringsupport/src" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/core.swc" sourcepath="${PROJECT_FRAMEWORKS}/projects/core/src" useDefaultLinkType="false"/>
+    </sourceAttachmentPath>
   </compiler>
   <applications>
     <application path="Dashboard.mxml"/>
@@ -20,4 +25,5 @@
   </applications>
   <modules/>
   <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
