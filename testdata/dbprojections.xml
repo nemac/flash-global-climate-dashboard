@@ -1,20 +1,20 @@
 
 <mugl>
   <legend visible="false"/>
-  <horizontalaxis id="year" type="datetime" min="1900" max="2100">
+  <horizontalaxis id="year" type="datetime" min="1990" max="2100">
     <labels>
       <label format="%Y" spacing="100Y 50Y 20Y 10Y 5Y 2Y 1Y"/>
       <label format="%n %y" spacing="6M 3M 2M 1M"/>
     </labels>
   </horizontalaxis>
 
-  <verticalaxis   id="tempf" type="number"   base="1 -1">
-    <title angle="90" anchor="0 -1" position="28 0">Temperature Departure from 20th Century Average (˚F)</title>
+  <verticalaxis   id="tempf" type="number">
+    <title angle="90" anchor="0 -1" position="-20 0">Temperature Departure from 20th Century Average (˚F)</title>
     <binding id="ProjTempBinding" min="0" max="1.8"/>
     <labels fontcolor="0x666666"/>
   </verticalaxis>
-  <verticalaxis   id="temp" type="number" min="-1.0" max="4.5">
-    <title angle="90" anchor="0 -1" position="-20 0">Temperature Departure from 20th Century Average (˚C)</title>
+  <verticalaxis   id="temp" type="number" min="-0.5" max="4.5"  base="1 -1">
+    <title angle="90" anchor="0 -1" position="28 0">Temperature Departure from 20th Century Average (˚C)</title>
     <binding id="ProjTempBinding" min="0" max="1"/>
     <labels fontcolor="0x666666"/>
   </verticalaxis>
@@ -57,7 +57,7 @@
       <variable ref="max_a1b"/>
     </verticalaxis>
     <renderer type="band">
-      <option name="fillcolor"   value="0xCCCCFF"/>
+      <option name="fillcolor"   value="0xCCFFCC"/>
       <option name="fillopacity" value="0.5"/>
       <option name="linewidth"   value="0"/>
     </renderer>
@@ -71,7 +71,7 @@
       <variable ref="max_b1"/>
     </verticalaxis>
     <renderer type="band">
-      <option name="fillcolor"   value="0xCCFFCC"/>
+      <option name="fillcolor"   value="0xCCCCFF"/>
       <option name="fillopacity" value="0.5"/>
       <option name="linewidth"   value="0"/>
     </renderer>
@@ -118,7 +118,7 @@
       <variable ref="temp_a1b"/>
     </verticalaxis>
     <renderer type="line">
-      <option name="linecolor" value="0x000099"/>
+      <option name="linecolor" value="0x009900"/>
       <option name="linewidth" value="2"/>
     </renderer>
     <datatips format="{0}: {1}">
@@ -134,7 +134,7 @@
       <variable ref="temp_b1"/>
     </verticalaxis>
     <renderer type="line">
-      <option name="linecolor" value="0x009900"/>
+      <option name="linecolor" value="0x000099"/>
       <option name="linewidth" value="2"/>
     </renderer>
     <datatips format="{0}: {1}">

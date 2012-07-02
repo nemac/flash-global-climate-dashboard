@@ -6408,8 +6408,8 @@ The graph shows the average area with at least 15% sea ice on its surface each S
         <attribute name="marginright" value="35"/>
       </element>
       <element name="horizontalaxis">
-        <attribute name="min" value="1927"/>
-        <attribute name="max" value="2053"/>
+        <attribute name="min" value="1990"/>
+        <attribute name="max" value="2100"/>
         <element name="binding">
           <attribute name="id" value="Tab3TimeBinding"/>
         </element>
@@ -6423,35 +6423,30 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       </element>
     </mugloverrides>
     <graph name="cp">
-      <title>CMIP3 Projections</title>
-      <legendtitle>Projected Global Temperature</legendtitle>
-      <legendtext>This graph shows climate model results for global average
-temperature. For 2000 through 2100, the graph shows projections
-for three possible scenarios of population growth and energy use.</legendtext>
-      <help>Climate models produced these global temperature projections for the
-past and future. Projected temperatures are shown as differences from
-the mean (average) global temperature for the 20th century.
+      <title>Climate Model Data (CMIP3, 2007)</title>
+      <legendtitle>Simulation of Global Temperature</legendtitle>
+      <legendtext>The black line shows the average of many different
+simulations of global temperature in the 20th century compared to
+average from 1971-1999, and the colored lines show projected
+temperature changes in the 21st century for three possible
+scenarios.</legendtext>
+<help>
+Results from this set of climate model experiments suggest that our
+planet’s average temperature could be between 2 and 9.7°F (1.1 to
+5.4°C) warmer in 2100 than it is today.
 <br/><br/>
-For 1900 through 2000, the trend and magnitude of temperatures
-projected by the model are consistent with 20th century
-observations. This agreement establishes scientific (statistical)
-confidence that the model does a good job of representing conditions
-in the real world.
+The graph shows the average of temperature simulations for the 20th
+century (black line), followed by projected temperatures for the 21st
+century based on a range of emissions scenarios (colored lines).  The
+shaded areas around each line indicate the statistical spread (one
+standard deviation) provided by individual model runs.
 <br/><br/>
-For 2000 through 2100, model results show projected temperatures for
-three different stories about the future. The three scenarios differ
-mainly in the number of people on the planet and the way they use
-energy, and therefore, the amount of heat-trapping gas in the
-atmosphere.
-<br/><br/>
-The data show projected increases in mean global temperature of 3.5 to
-7.5 degrees Fahrenheit (2 to 4 degrees Celsius) by 2100.</help>
-<!--
-      <helptitle>Surface Warming Scenarios</helptitle>
-      <help>This graph shows the earth's average surface warming over the 20th century,
-      followed by projections of warming for the 21st century under three potential
-      future scenarios.</help>
--->
+Zero on the Y-axis represents Earth’s average temperature for the
+period 1971-1999.  For 2000-2100, the model projections differ mainly
+in their assumptions about the number of people on the planet and the
+way they use energy, and therefore, the amount of heat-trapping gas in
+the atmosphere.
+</help>
       <link>about:blank</link>
       <mugl location="../testdata/dbprojections.xml" />
     </graph>
