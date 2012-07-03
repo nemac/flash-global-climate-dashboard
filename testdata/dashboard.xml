@@ -6456,11 +6456,11 @@ the atmosphere.
         <text>High Growth (A2)</text>
       </item>
       <item>
-        <img src="./assets/ProjectionGraphLegendIcons-Blue.png"/>
+        <img src="./assets/ProjectionGraphLegendIcons-Green.png"/>
         <text>Moderate Growth (A1B)</text>
       </item>
       <item>
-        <img src="./assets/ProjectionGraphLegendIcons-Green.png"/>
+        <img src="./assets/ProjectionGraphLegendIcons-Blue.png"/>
         <text>Low Growth (B1)</text>
       </item>
       <item>
