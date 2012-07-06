@@ -43,10 +43,19 @@ deploy the dashboard, execute "ant build" (being sure to set the
 FLEX_HOME environment variable first), and then manually copy the
 contents of the "html" directory to the appropriate web server
 location.
+
+You may also optionally modify the contents of the html directory by
+removing the "data" subdirectory, and editing the "index.html"
+directory to change the flashvars "config" value to point to the
+location an alternate location for the dashboard configuration file
+(for example,
+http://www.climate.gov/dashboard_mugl/dashboard/flat-dashboard). If
+you do this, BE SURE to change the "config" value in both of the
+places where it appears in the file.
     </echo>
   </target>
 
-  <target name="assets" depends="init">
+  <target name="assets" depends="init,multigraph">
     <copy includeemptydirs="false" todir="html/assets">
       <fileset dir="src/assets" includes="*" excludes="co2legend.png,unca_logo.png"/>
     </copy>
@@ -54,7 +63,7 @@ location.
     <replace file="html/index.html"
 		   token="assets/flat-dashboard.xml"
 		   value="data/dashboard.xml"/>
-
+    <copy file="multigraph/Multigraph.swf" tofile="html/Multigraph.swf"/>
   </target>
 
   <target name="data" depends="init">
@@ -71,11 +80,7 @@ location.
   </target>
 
   <target name="multigraph">
-    <exec executable="ant" dir="${basedir}/multigraph">
-<!--
-      <arg line="Multigraph.swc" />
--->
-    </exec>
+    <exec executable="ant" dir="${basedir}/multigraph"/>
   </target>
 
   <target name="Dashboard.swf" depends="checkenv,init,multigraph">
