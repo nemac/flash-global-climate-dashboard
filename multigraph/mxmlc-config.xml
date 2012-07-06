@@ -1,0 +1,19 @@
+<flex-config>
+  <compiler>
+    <show-actionscript-warnings>false</show-actionscript-warnings>
+    <fonts>
+      <managers>
+	<manager-class>flash.fonts.AFEFontManager</manager-class>
+      </managers>
+    </fonts>
+    <define>
+      <name>CONFIG::player10</name>
+      <value>true</value>
+    </define>
+    <source-path>
+      <path-element>./src</path-element>
+    </source-path>
+  </compiler>
+  <output>Multigraph.swf</output>
+  <use-network>false</use-network>
+</flex-config>
