@@ -28,7 +28,7 @@ For example, on drought.nemac.unca.edu:
   </target>
 
 
-  <target name="build" depends="Dashboard.swf,assets">
+  <target name="build" depends="Dashboard.swf,assets,data">
     <echo>
 The dashboard application has now been built and is in the "html"
 directory.  To deploy it, copy everything from the "html" directory to
@@ -46,24 +46,28 @@ location.
     </echo>
   </target>
 
-  <target name="assets">
+  <target name="assets" depends="init">
     <copy includeemptydirs="false" todir="html/assets">
       <fileset dir="src/assets" includes="*" excludes="co2legend.png,unca_logo.png"/>
     </copy>
-    <copy todir="html">
-      <fileset dir="html-template" includes="index.php"/>
-      <fileset dir="html-template" includes="flash-dashboard.html"/>
-      <fileset dir="html-template" includes="nonflash-dashboard.html"/>
-      <fileset dir="html-template" includes="dashboard.png"/>
+    <copy file="html-template/flash-dashboard.html" tofile="html/index.html"/>
+    <replace file="html/index.html"
+		   token="assets/flat-dashboard.xml"
+		   value="data/dashboard.xml"/>
+
+  </target>
+
+  <target name="data" depends="init">
+    <copy includeemptydirs="false" todir="html/data">
+      <fileset dir="testdata" includes="*"/>
     </copy>
-<!--
-    <copy file="html-template/dashboard.html" tofile="html/index.html"/>
--->
+    <replace dir="html/data" token="../testdata/" value="data/"/>
   </target>
 
   <target name="init">
     <mkdir dir="html"/>
     <mkdir dir="html/assets"/>
+    <mkdir dir="html/data"/>
   </target>
 
   <target name="multigraph">
