@@ -6421,6 +6421,11 @@ The graph shows the average area with at least 15% sea ice on its surface each S
           <attribute name="min" value="6M"/>
         </element>
       </element>
+      <element name="verticalaxis">
+        <element name="pan">
+          <attribute name="allowed" value="yes"/>
+        </element>
+      </element>
     </mugloverrides>
     <graph name="cp">
       <title>Climate Model Data (CMIP3, 2007)</title>
