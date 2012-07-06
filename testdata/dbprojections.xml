@@ -10,12 +10,13 @@
   </horizontalaxis>
 
   <verticalaxis   id="tempf" type="number">
-    <title angle="90" anchor="0 -1" position="-20 0">Temperature Departure from 20th Century Average (˚F)</title>
+    <title angle="90" anchor="0 -1" position="-20 0">Temperature Change from 1971-1999 Average (˚F)</title>
+
     <binding id="ProjTempBinding" min="0" max="1.8"/>
     <labels fontcolor="0x666666"/>
   </verticalaxis>
   <verticalaxis   id="temp" type="number" min="-0.5" max="4.5"  base="1 -1">
-    <title angle="90" anchor="0 -1" position="28 0">Temperature Departure from 20th Century Average (˚C)</title>
+    <title angle="90" anchor="0 -1" position="28 0">Temperature Change from 1971-1999 Average (˚C)</title>
     <pan min="-2" max="6"/>
     <binding id="ProjTempBinding" min="0" max="1"/>
     <labels fontcolor="0x666666"/>
