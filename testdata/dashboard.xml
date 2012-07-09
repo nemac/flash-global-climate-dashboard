@@ -2318,7 +2318,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
         </element>
         <element name="pan">
           <attribute name="min" value="1950"/>
-          <attribute name="max" value="2013"/>
+          <attribute name="max" value="2015"/>
         </element>
         <element name="zoom">
           <attribute name="min" value="6M"/>
