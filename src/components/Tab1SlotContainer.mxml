@@ -5,7 +5,7 @@
 	xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:local="*"
 	xmlns:multigraph="multigraph.*"
-	verticalGap="10" xmlns:components="components.*" creationComplete="init(event)" paddingBottom="10">
+	verticalGap="10" width="100%" xmlns:components="components.*" creationComplete="init(event)" paddingBottom="10">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -43,7 +43,7 @@
 			import spark.skins.spark.PanelSkin;
 			
 			
-			private var topTargetCount:int = 0;
+			private var expandedGraphContainerCount:int = 0;
 			
 			
 			[Bindable] public var legendTitle:String = null;
@@ -127,11 +127,11 @@
 							}(i)
 						);
 						g.height = _graphHeight;
-						topTarget.addElementAt(g,topTargetCount);
-						++topTargetCount;
+						expandedGraphContainer.addElementAt(g,expandedGraphContainerCount);
+						++expandedGraphContainerCount;
 					} else {
 						g.height = _graphCollapsedHeight;
-						bottomTarget.addElement(g);
+						collapsedGraphContainer.addElement(g);
 					}
 					graphSlots.push(g);
 					
@@ -237,101 +237,71 @@
 		]]>
 	</fx:Script>
 	
-	
-	<s:SkinnableContainer id="topTarget"
-						  top="0" bottom="0" right="5" left="5" minHeight="350" backgroundAlpha="0" width="100%">
-		<s:layout>
-			<s:VerticalLayout horizontalAlign="center"/>
-		</s:layout>
-		<s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
-			<!-- changing the width of ^^ this container ^^ to 410 seems to fix the alignment issue -->
-			<s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
-				<!--
-				** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
-				**       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
-				**       to be adjusted.
-				-->
-				<multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{container.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
-			</s:BorderContainer>	
-		</s:SkinnableContainer>
-	</s:SkinnableContainer>
-	
-	<s:Group id="divider" y="375" width="{mainContainer.width}">
-		<s:layout>
-			<s:VerticalLayout  horizontalAlign="center" gap="10"/>
-		</s:layout>
-		
-		<components:TimeSlider id="timeslider"
-							   minValue="{timeSliderMin}"
-							   maxValue="{timeSliderMax}"
-							   selectedMinValue="{timeSliderSelectedMin}"
-							   selectedMaxValue="{timeSliderSelectedMax}"
-							   labels="{timeSliderLabels}"
-							   height="20" width="425"
-							   change="sliderChange(event)"
-							   />
-		<!--
-		labels="1800,1850,1900,1950,2000,2050"
-		selectedMinValue="1900" selectedMaxValue="2000"
-		-->
-		
-		<!-- label color was: color="#8995a6" -->
-		<s:Label text="Drag to select time period" horizontalCenter="0" color="#cc9933"  fontSize="10" fontWeight="bold"/>
-		
-		
-	</s:Group>
-	
-	<s:SkinnableContainer id="bottomTarget" 
-						  bottom="0" top="0" left="5" right="5" minHeight="100" 
-						  backgroundAlpha="0" width="100%">
-		<s:layout>
-			<s:VerticalLayout horizontalAlign="center"/>
-		</s:layout>
-		
+    <s:SkinnableContainer id="leftSide" backgroundAlpha="0" width="50%">
+      <s:Label y="5" text="Global Climate Dashboard" horizontalCenter="0"
+               color="#FFFFFF"
+               fontSize="24" fontWeight="bold"/>
 		<s:BorderContainer cornerRadius="5" backgroundColor="#23394b" 
-						   height="150" width="425"> <!-- width="425"  backgroundColor="#2e394b" -->
+						   y="200" x="20" height="150" width="425">
 			<s:HGroup horizontalCenter="0" verticalAlign="top" gap="0" paddingLeft="5" paddingRight="5" 
 					  paddingTop="5" paddingBottom="5" top="10">
 				<s:BorderContainer cornerRadius="5" backgroundColor="#ffffff" height="105"> 
-					<s:VGroup paddingLeft="7" paddingRight="7" paddingTop="8" paddingBottom="0" id="legendVGroup"> <!--  width="150" -->
-<!--						
-						<s:HGroup verticalAlign="middle">
-							<mx:Image source="assets/ProjectionGraphLegendIcons-Red.png" />
-							<s:RichEditableText id="legend2" focusEnabled="false" editable="false" textFlow="{legendBTitleFlow}" 
-												color="#444444" fontWeight="bold"
-												selectable="false"/>
-						</s:HGroup>
-						<s:HGroup verticalAlign="middle">
-							<mx:Image source="assets/ProjectionGraphLegendIcons-Blue.png" />
-							<s:RichEditableText id="legend3" focusEnabled="false" editable="false" textFlow="{legendCTitleFlow}" 
-												color="#444444" fontWeight="bold"
-												selectable="false"/>
-						</s:HGroup>
-						<s:HGroup verticalAlign="middle">
-							<mx:Image source="assets/ProjectionGraphLegendIcons-Green.png" />
-							<s:RichEditableText id="legend4" focusEnabled="false" editable="false" textFlow="{legendDTitleFlow}" 
-												color="#444444" fontWeight="bold"
-												selectable="false"/>
-						</s:HGroup>
--->
+					<s:VGroup paddingLeft="7" paddingRight="7" paddingTop="8" paddingBottom="0" id="legendVGroup">
 					</s:VGroup>
 				</s:BorderContainer>
 				<s:VGroup horizontalAlign="left" paddingRight="15" paddingLeft="15" >
 					<s:Label text="{legendTitle}" color="#999999" fontSize="14" fontWeight="bold" />
 					<s:RichEditableText focusEnabled="false" editable="false" textFlow="{legendTextFlow}" 
-										fontWeight="bold" color="#FFFFFF" width="225" /> <!-- width="250" -->
-					<!-- width="235" -->
-					<!--
-					<s:VGroup horizontalAlign="right" width="220" paddingTop="5">
-						<s:Button label="Read more »" skinClass="skins.readmoreButtonSkin" 
-								  width="80" fontSize="10" fontWeight="bold"
-								  buttonMode="true" />
-					</s:VGroup>
-				    -->
+										fontWeight="bold" color="#FFFFFF" width="225" /> 
 				</s:VGroup>
 			</s:HGroup>
 		</s:BorderContainer>
-		
-	</s:SkinnableContainer>
-	
+      <s:SkinnableContainer y="200" id="collapsedGraphContainer" backgroundAlpha="0" width="100%">
+        <s:layout>
+          <s:VerticalLayout horizontalAlign="center"/>
+        </s:layout>
+      </s:SkinnableContainer>
+    </s:SkinnableContainer>
+
+    <!-- backgroundAlpha="1.0" backgroundColor="#FF0000" -->
+    <s:SkinnableContainer id="rightSide" backgroundAlpha="0" width="50%">
+      <s:layout>
+        <s:VerticalLayout horizontalAlign="center"/>
+      </s:layout>
+      <!-- color was: #8995a6 -->
+      <s:Label text="Drag to select time period" horizontalCenter="0"
+               color="#cc9933"
+               fontSize="10" fontWeight="bold"/>
+
+      <components:TimeSlider id="timeslider"
+                             minValue="{timeSliderMin}"
+                             maxValue="{timeSliderMax}"
+                             selectedMinValue="{timeSliderSelectedMin}"
+                             selectedMaxValue="{timeSliderSelectedMax}"
+                             labels="{timeSliderLabels}"
+                             height="20" width="425"
+                             change="sliderChange(event)"
+                             />
+
+      <s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
+        <s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
+          <!--
+              ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
+              **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
+              **       to be adjusted.
+          -->
+          <multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{container.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
+        </s:BorderContainer>	
+      </s:SkinnableContainer>
+
+      <s:SkinnableContainer id="expandedGraphContainer" left="5" right="5" top="0" bottom="0"
+                            minHeight="350" backgroundAlpha="0">
+        <s:layout>
+          <s:VerticalLayout horizontalAlign="right"/>
+        </s:layout>
+
+      </s:SkinnableContainer>
+
+    </s:SkinnableContainer>
+
 </components:TabContainer>

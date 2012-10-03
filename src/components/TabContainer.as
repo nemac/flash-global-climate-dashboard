@@ -6,10 +6,11 @@ package components
 	import multigraph.format.DateFormatter;
 	
 	import mx.containers.VBox;
+	import mx.containers.HBox;
 	import mx.events.FlexEvent;
 
 
-	public class TabContainer extends VBox
+	public class TabContainer extends HBox
 	{
 
 		public var mainContainer:Object;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dashboard id="flat-dashboard"><!--XML generated: Fri Mar 09 14:21:02 EST 2012-->
+<dashboard id="flat-dashboard">
   
     <mugloverrides>
       <element name="window">
@@ -63,11 +63,8 @@
     </mugloverrides>
 
 
-    <tab id="climateChange"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <tab id="climateChange">
     <title>Climate Change</title>
-<!--
-    <timeslider labels="1880,1900,1920,1940,1960,1980,2000,2020"/>
--->
     <timeslider/>
     <mugloverrides>
       <element name="horizontalaxis">
@@ -86,7 +83,7 @@
       </element>
     </mugloverrides>
 
-    <graph id="temperature" name="Temperature"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="temperature" name="Temperature">
       <title>Temperature (˚C)</title>
       <help>Earth’s overall temperature has increased by 1.3°F (0.7°C) since 1900. <br/> <br/>
 
@@ -272,7 +269,7 @@
 </values>
   </data>
 </mugl></graph>
-    <graph id="carbonDioxide" name="CarbonDioxide"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="carbonDioxide" name="CarbonDioxide">
       <title>Carbon Dioxide (ppm)</title>
       <help>Atmospheric carbon dioxide has increased by about 40% since 1750.
 	The graph shows the number of CO<span baselineShift="subscript">2</span>&#xA0;&#xA0;molecules
@@ -1001,7 +998,7 @@
 </values>
   </data>
 </mugl></graph>
-    <graph id="snowCover" name="SnowCover"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="snowCover" name="SnowCover">
       <title>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</title>
       <help>Earlier melting of winter snow has reduced the area of land covered by snow in spring. The graph shows the area covered by snow in the Northern Hemisphere during March and April, shown as 
 	the difference from the 1971-2000 average. </help>
@@ -1108,7 +1105,7 @@
 	  </data>
 	</mugl>
     </graph>
-    <graph id="seaLevel" name="SeaLevel"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="seaLevel" name="SeaLevel">
       <title>Sea Level (mm)</title>
       <help>The average height of the ocean’s surface has increased by 8.25 inches 
       (210 mm) since 1880. <br/> <br/>
@@ -1298,7 +1295,7 @@
 </values>
   </data>
 </mugl></graph>
-    <graph id="asi" name="asi"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="asi" name="asi">
       <title>Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</title>
       <help>The area of the Arctic where sea ice remains frozen at the end of summer has 
       decreased by more than 10% per decade since 1979. <br/><br/>
@@ -1388,7 +1385,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="oceanHeat" name="OceanHeat"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="oceanHeat" name="OceanHeat">
       <title>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</title>
       <help>More than 90% of the warming that has occurred on Earth over the past 50 years has occurred in the ocean. The graph shows heat energy in the top 700 meters of the ocean as the difference from the average from 1955-2006.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
@@ -1672,7 +1669,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
   </data>
 
 </mugl></graph>
-    <graph id="sunsEnergy" name="SunsEnergy"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="sunsEnergy" name="SunsEnergy">
       <title>Sun's Energy (W/m<span baselineShift="superscript">2</span>)</title>
       <help>Energy from the Sun varies slightly on 11-year cycles with little net 
       change overall. <br/> <br/>
@@ -2128,7 +2125,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="glacier" name="Glacier"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="glacier" name="Glacier">
       <title>Glaciers (meters of water equivalent)</title>
       <help>Since 1980, a representative set of well studied glaciers has lost the equivalent of 40 feet (12.5 meters) of water on average. The graph shows the average mass balance of 30 reference glaciers around the world.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-glacier-mass-balance</link>
@@ -2213,7 +2210,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 		  </data>
 		</mugl></graph>
-    <graph id="totalGreenhouseGas" name="TotalGreenhouseGas"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="totalGreenhouseGas" name="TotalGreenhouseGas">
       <title>Annual Greenhouse Gas Index</title>
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
       year many nations agreed to limit emissions under the Kyoto Protocol. The graph shows total radiative forcing from long-lived greenhouse gases as a percent change from 1990.</help>
@@ -2303,11 +2300,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </mugl></graph>
 
   </tab>
-    <tab id="climateVariability"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+
+    <tab id="climateVariability">
     <title>Climate Variability</title>
-    <!--
-    <timeslider labels="1950,1960,1970,1980,1990,2000,2010"/>
-    -->
     <timeslider/>
     <mugloverrides>
       <element name="horizontalaxis">
@@ -2325,7 +2320,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
         </element>
       </element>
     </mugloverrides>
-    <graph id="oni" name="oni"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="oni" name="oni">
       <title>El Niño / La Niña Index</title>
       <help>Departures from average sea surface temperature in the eastern Pacific Ocean indicate the status of the El Niño – 
       Southern Oscillation cycle. Values greater than 0.5 indicate El Niño conditions. 
@@ -3143,7 +3138,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="aoi" name="aoi"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="aoi" name="aoi">
       <title>Arctic Oscillation Index</title>
       <help>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans 
       affect the north-to-south location of the storm-steering, 
@@ -3957,7 +3952,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="naoi" name="naoi"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="naoi" name="naoi">
       <title>North Atlantic Oscillation</title>
       <help>Departures from average air pressure over Greenland and the central North Atlantic 
       Ocean affect weather around the Atlantic by influencing the intensity 
@@ -4774,7 +4769,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="soi" name="soi"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="soi" name="soi">
       <title>Southern Oscillation Index</title>
       <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
       atmospheric indicator of the El Niño–Southern Oscillation.  El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</help>
@@ -5580,7 +5575,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph>
-    <graph id="pnap" name="pnap"><!--XML generated: Sun Mar 25 22:32:04 EDT 2012-->
+    <graph id="pnap" name="pnap">
       <title>Pacific North American Pattern</title>
       <help>Departures from average air pressure at four locations over the Pacific Ocean and North America affect 
       the strength and location of the East Asian jet stream and the weather it delivers to North America.</help>
@@ -6515,7 +6510,6 @@ the atmosphere.
       <window border="0" margin="0" padding="0"/>
       <legend visible="false"/>
       <plotarea marginbottom="15" marginleft="25" marginright="20" margintop="0"/>
-<!--                                          was: 2010 -->
       <horizontalaxis id="year" linewidth="0" max="2100" min="1950" tickmax="5" tickmin="-2" tickwidth="1" type="datetime">
         <labels position="0 0">
           <label format="%Y" spacing="200Y 100Y 50Y 20Y 10Y 5Y 2Y 1Y"/>

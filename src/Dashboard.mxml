@@ -91,17 +91,6 @@
 									(tabContainer as Tab1SlotContainer).addLegendItem(dashboardXML.tab[i].legend[0].item[j].img[0].@src,
 																				      contentsAsXMLString(dashboardXML.tab[i].legend[0].item[j].text[0]));
 								}
-								
-								/*
-								(tabContainer as Tab1SlotContainer).legendATitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].title[0]);
-                                (tabContainer as Tab1SlotContainer).legendBTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].title[0]);
-                                (tabContainer as Tab1SlotContainer).legendCTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].title[0]);
-                                (tabContainer as Tab1SlotContainer).legendDTitle = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].title[0]);
-                                (tabContainer as Tab1SlotContainer).legendABlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendA[0].blurb[0]);
-                                (tabContainer as Tab1SlotContainer).legendBBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendB[0].blurb[0]);
-                                (tabContainer as Tab1SlotContainer).legendCBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendC[0].blurb[0]);
-                                (tabContainer as Tab1SlotContainer).legendDBlurb = contentsAsXMLString(dashboardXML.tab[i].legend[0].legendD[0].blurb[0]);
-								*/
 								(tabContainer as Tab1SlotContainer).dragHandleVisible = false;
 								(tabContainer as Tab1SlotContainer).helpHandleVisible = true;
 							} else {
@@ -225,17 +214,23 @@
 	</fx:Script>
 	
 	<s:VGroup gap="0" top="25" left="25" id="content">
+<!--
 		<s:Group width="100%">
 			<s:ButtonBar dataProvider="{graphStack}" buttonMode="true" 
 						 skinClass="skins.barSkin" left="1"/>
 			<s:Button label="?" skinClass="skins.mainHelpSkin" width="18" height="18" 
 					  bottom="2" right="1" click="helpVisible(event)" buttonMode="true"/>
 		</s:Group>
-		<s:BorderContainer cornerRadius="5" width="445" minHeight="550" borderVisible="false" 
+-->
+		<s:BorderContainer cornerRadius="10" width="950" height="440" borderVisible="false" 
 						   id="mainContainer" backgroundColor="#1d2a3c" >
 			<mx1:ViewStack  left="0" right="0" bottom="0" top="5" id="graphStack"/>
 		</s:BorderContainer>
 	</s:VGroup>	
+
+	<s:ButtonBar dataProvider="{graphStack}" buttonMode="true" 
+						 skinClass="skins.barSkin" x="100" y="100"/>
+
 
 	<s:BorderContainer id="helpOverlay" cornerRadius="0" backgroundAlpha=".5" backgroundColor="{this.backgroundColor}" visible="false"
 					   width="{content.width}" height="{content.height}" x="{content.x}" y="{content.y}" borderVisible="false">
