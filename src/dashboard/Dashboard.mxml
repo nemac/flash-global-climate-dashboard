@@ -63,20 +63,20 @@ private function appComplete():void {
                 tabStack.addElement(nc);
                 var tabContainer:TabContainer;
                 if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
-                    tabContainer = new Tab1SlotContainer();
+                    tabContainer = new TabContainer();
     tabContainer._graphHeight           = 345;
     tabContainer._numberOfExpandedSlots = 1;
     tabContainer._totalNumberOfSlots    = 1;
-                    (tabContainer as Tab1SlotContainer).legendTitle = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtitle[0]);
-                    (tabContainer as Tab1SlotContainer).legendText  = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtext[0]);
+                    (tabContainer as TabContainer).legendTitle = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtitle[0]);
+                    (tabContainer as TabContainer).legendText  = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtext[0]);
                     for (var j:int=0; j<dashboardXML.tab[i].legend[0].item.length(); ++j) {
-                        (tabContainer as Tab1SlotContainer).addLegendItem(dashboardXML.tab[i].legend[0].item[j].img[0].@src,
+                        (tabContainer as TabContainer).addLegendItem(dashboardXML.tab[i].legend[0].item[j].img[0].@src,
                             contentsAsXMLString(dashboardXML.tab[i].legend[0].item[j].text[0]));
                     }
-                    (tabContainer as Tab1SlotContainer).dragHandleVisible = false;
-                    (tabContainer as Tab1SlotContainer).helpHandleVisible = true;
+                    (tabContainer as TabContainer).dragHandleVisible = false;
+                    (tabContainer as TabContainer).helpHandleVisible = true;
                 } else {
-                    tabContainer = new Tab1SlotContainer();
+                    tabContainer = new TabContainer();
     tabContainer._numberOfExpandedSlots = 3; // DIFF!!
     tabContainer._totalNumberOfSlots    = 10; // DIFF!!
                 }
