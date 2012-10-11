@@ -64,9 +64,9 @@ private function appComplete():void {
                 var tabContainer:TabContainer;
                 if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
                     tabContainer = new TabContainer();
-    tabContainer._graphHeight           = 345;
-    tabContainer._numberOfExpandedSlots = 1;
-    tabContainer._totalNumberOfSlots    = 1;
+                    tabContainer.graphHeight           = 345;
+                    tabContainer.numberOfExpandedSlots = 1;
+                    tabContainer.totalNumberOfSlots    = 1;
                     (tabContainer as TabContainer).legendTitle = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtitle[0]);
                     (tabContainer as TabContainer).legendText  = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtext[0]);
                     for (var j:int=0; j<dashboardXML.tab[i].legend[0].item.length(); ++j) {
@@ -77,8 +77,8 @@ private function appComplete():void {
                     (tabContainer as TabContainer).helpHandleVisible = true;
                 } else {
                     tabContainer = new TabContainer();
-    tabContainer._numberOfExpandedSlots = 3; // DIFF!!
-    tabContainer._totalNumberOfSlots    = 10; // DIFF!!
+                    tabContainer.numberOfExpandedSlots = 3;
+                    tabContainer.totalNumberOfSlots    = 10;
                 }
                 
                 tabContainer.mainContainer = mainContainer;

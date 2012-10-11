@@ -37,117 +37,32 @@ import spark.filters.GlowFilter;
 import spark.layouts.VerticalLayout;
 import spark.skins.spark.PanelSkin;
 
+public var mainContainer:Object;
+[Bindable]public var timelineMugl:XML;
 
-		public var mainContainer:Object;
-		[Bindable]public var timelineMugl:XML;
+[Bindable]public var timeSliderMin:Number;
+[Bindable]public var timeSliderMax:Number;
+[Bindable]public var timeSliderSelectedMin:Number;
+[Bindable]public var timeSliderSelectedMax:Number;
+[Bindable]public var timeSliderLabels:String = null;
+[Bindable]public var dragHandleVisible:Boolean = true;
+[Bindable]public var helpHandleVisible:Boolean = true;
 
-			[Bindable]public var timeSliderMin:Number;
-			[Bindable]public var timeSliderMax:Number;
-			[Bindable]public var timeSliderSelectedMin:Number;
-			[Bindable]public var timeSliderSelectedMax:Number;
-			[Bindable]public var timeSliderLabels:String = null;
-			[Bindable]public var dragHandleVisible:Boolean = true;
-			[Bindable]public var helpHandleVisible:Boolean = true;
+protected var _graphWidth:int           = 425;
+public var graphHeight:int          = 110;
+protected var _graphCollapsedHeight:int = 20;
+protected var _graphProxyHeight:int     = 20;
+protected var _leftPad:int			  = 17;
 
-			protected var _graphWidth:int           = 425;
-			public var _graphHeight:int          = 110;
-			protected var _graphCollapsedHeight:int = 20;
-			protected var _graphProxyHeight:int     = 20;
-			protected var _leftPad:int			  = 17;
-			
-			public var graphSlots:Array;
-			public var _graphCount:int            = 0;
+public var graphSlots:Array;
+public var _graphCount:int            = 0;
 
-			protected var multigraphDateFormatter : DateFormatter = new DateFormatter("%Y");
+protected var multigraphDateFormatter : DateFormatter = new DateFormatter("%Y");
 
-			public var _graphContainers:Array = [];
+public var _graphContainers:Array = [];
 
-			public var _numberOfExpandedSlots:int = 3;
-			public var _totalNumberOfSlots:int    = 10;
-
-            protected function textFlowify (string:String):String{
-                return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'><p>" + string + "<span /></p></TextFlow>";
-            }
-
-            protected function init(event:FlexEvent):void
-            {
-				// I'm not sure which of these is actually needed, but having one or more of them
-				// here seems to fix (I hope!) the problem of the time slider sometimes not being
-				// correctly initialized. --mbp
-				executeBindings(true);
-				//executeChildBindings(true);
-				this.timeslider.executeBindings(true);
-                legendTitleFlow = TextConverter.importToFlow(textFlowify(legendTitle), TextConverter.TEXT_LAYOUT_FORMAT);
-                legendTextFlow      = TextConverter.importToFlow(textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
-            }
-
-			private function axisDateValueToYearInt( axisValue : Number ) : int {
-				return parseInt( multigraphDateFormatter.format( axisValue ) );
-			}
-			private function yearIntToAxisDateValue( year : int ) : Number {
-				return multigraphDateFormatter.parse( year+'' );
-			}
-			
-
-			private function handleAxisChange(event:AxisEvent):void {
-				//hslider1.values = [, axisDateValueToYearInt(event.max)];
-				var a:Number = axisDateValueToYearInt(event.min);
-				var b:Number = axisDateValueToYearInt(event.max);
-				//trace('axisEvent('+event.min+', '+event.max+')  ==> slider values ('+a+', '+b+')');
-				//xyzzy
-				timeslider.selectedMinValue = a;
-				timeslider.selectedMaxValue = b;
-			}
-
-			public function addGraph(title:String=null, helpText:String=null, rmLink:String=null):GraphContainer {
-				var graphContainer:GraphContainer = new GraphContainer();
-				graphContainer.helpHandleVisible = this.helpHandleVisible;
-				graphContainer.dragHandleVisible = this.dragHandleVisible;
-				graphContainer.width = _graphWidth;
-				graphContainer.height = _graphHeight;
-				graphContainer.horizontalCenter = 0;
-				graphContainer.top = 0;
-				graphContainer.leftPad = _leftPad;
-				graphContainer.tabContainer = this;
-				if (_graphCount==0) {
-					graphContainer.addEventListener(AxisEvent.CHANGE, handleAxisChange);
-				}
-				if (_graphCount>=_numberOfExpandedSlots) {
-					graphContainer.currentState = "collapsed";
-				}
-				graphSlots[_graphCount].addElement(graphContainer);
-				++_graphCount;
-				graphContainer.titleString = title;
-				graphContainer.helpString  = helpText;
-				_graphContainers.push(graphContainer);
-				//graphContainer.helpBorderContainerHeight = 400;
-				//graphContainer.helpContentHeight = 300;
-				return graphContainer;
-			}
-
-			protected function sliderChange(event:TimeSliderEvent) {
-				//trace('sliderChange('+event.min+', '+event.max+') => axisValues('+a+', '+b+')');
-				var a:Number = yearIntToAxisDateValue(event.min);
-				var b:Number = yearIntToAxisDateValue(event.max);
-				for each (var graphContainer:GraphContainer in _graphContainers) {
-					var mg:Multigraph = graphContainer.getMultigraph();
-					if (mg != null) {
-						var graphs:Array = mg.graphs;
-						var axes:Array = graphs[0].axes;
-						var axis:Axis = axes[0];
-						axis.setDataRange(a, b,false);
-						// note: 'false' as the 3rd arg tells setDataRange not to dispatch an AxisEvent, which is important
-						// here to prevent an adverse feedback loop coming from the fact that we're listening for those
-						// events here in this class and calling this function (sliderChange) in response to them.
-						break; 
-						// only set the data range on the first graph in this tab!!!  The others
-				        // will autoadjust to it via the axis bindings in Multigraph.
-					}
-				}
-				//trace('slider set to: ' + event.min + ', ' + event.max);
-			}
-
-
+public var numberOfExpandedSlots:int = 3;
+public var totalNumberOfSlots:int    = 10;
 
 private var expandedGraphSlotCount:int = 0;
 
@@ -160,6 +75,90 @@ private var expandedGraphSlotCount:int = 0;
 // an array of objects, each having a "imgsrc" property and a "text" propery, to be used to
 // create the legend
 private var _legendItems:Array = new Array();
+
+protected function textFlowify (string:String):String{
+    return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'><p>" + string + "<span /></p></TextFlow>";
+}
+
+protected function init(event:FlexEvent):void
+{
+	// I'm not sure which of these is actually needed, but having one or more of them
+	// here seems to fix (I hope!) the problem of the time slider sometimes not being
+	// correctly initialized. --mbp
+	executeBindings(true);
+	//executeChildBindings(true);
+	this.timeslider.executeBindings(true);
+    legendTitleFlow = TextConverter.importToFlow(textFlowify(legendTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+    legendTextFlow      = TextConverter.importToFlow(textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
+}
+
+private function axisDateValueToYearInt( axisValue : Number ) : int {
+	return parseInt( multigraphDateFormatter.format( axisValue ) );
+}
+private function yearIntToAxisDateValue( year : int ) : Number {
+	return multigraphDateFormatter.parse( year+'' );
+}
+
+
+private function handleAxisChange(event:AxisEvent):void {
+	//hslider1.values = [, axisDateValueToYearInt(event.max)];
+	var a:Number = axisDateValueToYearInt(event.min);
+	var b:Number = axisDateValueToYearInt(event.max);
+	//trace('axisEvent('+event.min+', '+event.max+')  ==> slider values ('+a+', '+b+')');
+	//xyzzy
+	timeslider.selectedMinValue = a;
+	timeslider.selectedMaxValue = b;
+}
+
+public function addGraph(title:String=null, helpText:String=null, rmLink:String=null):GraphContainer {
+	var graphContainer:GraphContainer = new GraphContainer();
+	graphContainer.helpHandleVisible = this.helpHandleVisible;
+	graphContainer.dragHandleVisible = this.dragHandleVisible;
+	graphContainer.width = _graphWidth;
+	graphContainer.height = graphHeight;
+	graphContainer.horizontalCenter = 0;
+	graphContainer.top = 0;
+	graphContainer.leftPad = _leftPad;
+	graphContainer.tabContainer = this;
+	if (_graphCount==0) {
+		graphContainer.addEventListener(AxisEvent.CHANGE, handleAxisChange);
+	}
+	if (_graphCount>=numberOfExpandedSlots) {
+		graphContainer.currentState = "collapsed";
+	}
+	graphSlots[_graphCount].addElement(graphContainer);
+	++_graphCount;
+	graphContainer.titleString = title;
+	graphContainer.helpString  = helpText;
+	_graphContainers.push(graphContainer);
+	//graphContainer.helpBorderContainerHeight = 400;
+	//graphContainer.helpContentHeight = 300;
+	return graphContainer;
+}
+
+protected function sliderChange(event:TimeSliderEvent) {
+	//trace('sliderChange('+event.min+', '+event.max+') => axisValues('+a+', '+b+')');
+	var a:Number = yearIntToAxisDateValue(event.min);
+	var b:Number = yearIntToAxisDateValue(event.max);
+	for each (var graphContainer:GraphContainer in _graphContainers) {
+		var mg:Multigraph = graphContainer.getMultigraph();
+		if (mg != null) {
+			var graphs:Array = mg.graphs;
+			var axes:Array = graphs[0].axes;
+			var axis:Axis = axes[0];
+			axis.setDataRange(a, b,false);
+			// note: 'false' as the 3rd arg tells setDataRange not to dispatch an AxisEvent, which is important
+			// here to prevent an adverse feedback loop coming from the fact that we're listening for those
+			// events here in this class and calling this function (sliderChange) in response to them.
+			break;
+			// only set the data range on the first graph in this tab!!!  The others
+	        // will autoadjust to it via the axis bindings in Multigraph.
+		}
+	}
+	//trace('slider set to: ' + event.min + ', ' + event.max);
+}
+
+
 
 public function addLegendItem(imgsrc:String, text:String):void {
     var o:Object = {
@@ -182,10 +181,10 @@ override protected function createChildren():void {
     //
     graphSlots = [];
     var g:GraphSlot;
-    for (var i:int=0; i<_totalNumberOfSlots; ++i) {
+    for (var i:int=0; i<totalNumberOfSlots; ++i) {
         g = new GraphSlot(i);
         g.width = _graphWidth;
-        if (i < this._numberOfExpandedSlots) {
+        if (i < this.numberOfExpandedSlots) {
             g.addEventListener(DragEvent.DRAG_ENTER,
                 function (e:DragEvent):void {
                     DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
@@ -204,7 +203,7 @@ override protected function createChildren():void {
                     };
                 }(i)
             );
-            g.height = _graphHeight;
+            g.height = graphHeight;
             expandedGraphSlots.addElementAt(g,expandedGraphSlotCount);
             ++expandedGraphSlotCount;
         } else {
@@ -231,6 +230,7 @@ override protected function createChildren():void {
         hGroup.addElement(ret);
         legendVGroup.addElement(hGroup);
         this.legendContainer.visible = true;
+        this.collapsedGraphSlots.visible = false;
     }
 }
 
@@ -239,14 +239,14 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
     var bSlot:GraphSlot = graphSlots[bSlotNumber];
     var aGraphContainer:GraphContainer = graphSlots[aSlotNumber].getChildAt(0) as GraphContainer;
     var bGraphContainer:GraphContainer = graphSlots[bSlotNumber].getChildAt(0) as GraphContainer;
-    if (aSlotNumber < this._numberOfExpandedSlots) {
+    if (aSlotNumber < this.numberOfExpandedSlots) {
         bGraphContainer.currentState = "expanded";
     } else {
         bGraphContainer.currentState = "collapsed";
         bGraphContainer.help.visible = false;
         bGraphContainer.collapsed_container.currentState = "up";
     }
-    if (bSlotNumber < this._numberOfExpandedSlots) {
+    if (bSlotNumber < this.numberOfExpandedSlots) {
         aGraphContainer.currentState = "expanded";
     } else {
         aGraphContainer.currentState = "collapsed";
@@ -262,6 +262,17 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
     ]]>
   </fx:Script>
   <s:SkinnableContainer id="leftSide" backgroundAlpha="0" width="50%">
+    <!--
+        ** Legend stuff; only visible if addLegendItem() has been called. The assumption is that
+        ** this component contains EITHER (a) some collapsed graph slots, or (b) a legend.  It
+        ** cannot contain both.  The addLegendItem() method adds an entry to the _legendItems
+        ** array, and the createChildren() method populates the components below with the corresponding values
+        ** from that array if it is nonempty.  createChildren() will also set the "visible" property
+        ** of legendContainer to true if the _legendItems array is nonempty, and hides the
+        ** collapsedGraphSlots container by setting its "visible" property to false.  If addLegendItem()
+        ** has not been called, the legendContainer below is invisible and the collapsedGraphSlots
+        ** container remains visible.
+    -->
     <s:BorderContainer cornerRadius="5" backgroundColor="#23394b" id="legendContainer" visible="false"
                        y="200" x="20" height="150" width="425">
       <s:HGroup horizontalCenter="0" verticalAlign="top" gap="0" paddingLeft="5" paddingRight="5" 
@@ -277,7 +288,7 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
         </s:VGroup>
       </s:HGroup>
     </s:BorderContainer>
-    <s:SkinnableContainer y="200" id="collapsedGraphSlots" backgroundAlpha="0" width="100%">
+    <s:SkinnableContainer y="200" id="collapsedGraphSlots" backgroundAlpha="0" visible="true" width="100%">
       <s:layout>
         <s:VerticalLayout horizontalAlign="center"/>
       </s:layout>
