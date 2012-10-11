@@ -1,4 +1,4 @@
-package components
+package dashboard
 {
   import flash.display.CapsStyle;
   import flash.display.DisplayObject;
@@ -18,7 +18,7 @@ package components
   import mx.managers.CursorManager;
 
   
-  [Event(name="change", type="components.TimeSliderEvent")]
+  [Event(name="change", type="dashboard.TimeSliderEvent")]
     
   public class TimeSlider extends UIComponent
   {
@@ -163,6 +163,7 @@ package components
 
 	  //full slider color
       graphics.beginFill(0x1a2430, 1);
+//graphics.beginFill(0xff0000, 1);
 	  //graphics.beginGradientFill(GradientType.LINEAR,[0x262e35,0x2c3842],[1,1],[0,255],gradientMatrix);
       graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
       graphics.endFill();

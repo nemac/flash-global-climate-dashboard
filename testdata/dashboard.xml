@@ -6510,8 +6510,8 @@ the atmosphere.
       <window border="0" margin="0" padding="0"/>
       <legend visible="false"/>
       <plotarea marginbottom="15" marginleft="25" marginright="20" margintop="0"/>
-      <horizontalaxis id="year" linewidth="0" max="2100" min="1950" tickmax="5" tickmin="-2" tickwidth="1" type="datetime">
-        <labels position="0 0">
+      <horizontalaxis id="year" linewidth="0" max="2100" min="1950" tickmax="-9" tickmin="-15" tickwidth="1" type="datetime">
+        <labels position="0 6">
           <label format="%Y" spacing="200Y 100Y 50Y 20Y 10Y 5Y 2Y 1Y"/>
           <label format="%n %Y" spacing="6M 3M 2M 1M"/>
         </labels>

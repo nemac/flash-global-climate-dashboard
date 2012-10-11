@@ -1,4 +1,4 @@
-package components
+package dashboard
 {
 	import multigraph.Axis;
 	import multigraph.AxisEvent;

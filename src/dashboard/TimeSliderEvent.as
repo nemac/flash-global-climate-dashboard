@@ -1,4 +1,4 @@
-package components {
+package dashboard {
 	
 	import flash.events.Event;
 	

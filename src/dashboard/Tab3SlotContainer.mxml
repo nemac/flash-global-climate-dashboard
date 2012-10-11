@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<components:TabContainer
+<dashboard:TabContainer
 		 xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" 
 		 xmlns:local="*"
 		 xmlns:multigraph="multigraph.*"
-		 verticalGap="10" width="100%" xmlns:components="components.*">
+		 verticalGap="10" width="100%" xmlns:dashboard="dashboard.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -115,9 +115,11 @@
 	
     <!-- backgroundAlpha="1.0" backgroundColor="#00FF00" -->
     <s:SkinnableContainer id="leftSide" backgroundAlpha="0" width="50%">
+<!--
       <s:Label y="5" text="Global Climate Dashboard" horizontalCenter="0"
                color="#FFFFFF"
                fontSize="24" fontWeight="bold"/>
+-->
       <s:SkinnableContainer y="200" id="collapsedGraphContainer" backgroundAlpha="0" width="100%">
         <s:layout>
           <s:VerticalLayout horizontalAlign="center"/>
@@ -127,24 +129,37 @@
 
 
     <!-- backgroundAlpha="1.0" backgroundColor="#FF0000" -->
-    <s:SkinnableContainer id="rightSide" backgroundAlpha="0" width="50%">
+    <s:SkinnableContainer id="rightSide" backgroundAlpha="1" backgroundColor="#1d2a3c" width="50%" >
+
       <s:layout>
         <s:VerticalLayout horizontalAlign="center"/>
       </s:layout>
-      <!-- color was: #8995a6 -->
-      <s:Label text="Drag to select time period" horizontalCenter="0"
-               color="#cc9933"
-               fontSize="10" fontWeight="bold"/>
 
-      <components:TimeSlider id="timeslider"
-                             minValue="{timeSliderMin}"
-                             maxValue="{timeSliderMax}"
-                             selectedMinValue="{timeSliderSelectedMin}"
-                             selectedMaxValue="{timeSliderSelectedMax}"
-                             labels="{timeSliderLabels}"
-                             height="20" width="425"
-                             change="sliderChange(event)"
-                             />
+
+
+
+      <s:SkinnableContainer backgroundAlpha="0" width="425">
+        <s:layout>
+          <s:VerticalLayout horizontalAlign="right"/>
+        </s:layout>
+<!--
+        <s:Label text="Drag to select time period" horizontalCenter="0" color="#cc9933" fontSize="10" fontWeight="bold"/>
+-->
+        <dashboard:TimeSlider id="timeslider"
+                               minValue="{timeSliderMin}"
+                               maxValue="{timeSliderMax}"
+                               selectedMinValue="{timeSliderSelectedMin}"
+                               selectedMaxValue="{timeSliderSelectedMax}"
+                               labels="{timeSliderLabels}"
+                               height="40" width="408"
+                               change="sliderChange(event)"
+                               />
+      </s:SkinnableContainer>
+
+
+
+
+
 
       <s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
         <s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
@@ -167,4 +182,4 @@
 
     </s:SkinnableContainer>
 
-</components:TabContainer>
+</dashboard:TabContainer>

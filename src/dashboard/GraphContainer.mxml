@@ -4,7 +4,7 @@
 					  xmlns:mx="library://ns.adobe.com/flex/mx" width="425" 
 					  dragOver="parentApplication.graphContainerDragOver(event)"
 					  height.collapsed="25" backgroundAlpha=".00001" backgroundColor="#333333" 
-					  xmlns:multigraph="multigraph.*" xmlns:components="components.*"
+					  xmlns:multigraph="multigraph.*" xmlns:dashboard="dashboard.*"
 					  creationComplete="init()" 
 					  buttonMode.collapsed="true" >
 <!--
@@ -12,7 +12,7 @@ mouseOut.collapsed="collapsed_mouseOut(event)"
 mouseOver.collapsed="collapsed_mouseOver(event)"
 -->
 
-	<fx:Style source="../Dashboard.css" />
+	<fx:Style source="Dashboard.css" />
 
 	<fx:Script>
 		<![CDATA[
@@ -211,7 +211,7 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 	
 	<s:SkinnableContainer left="{leftPad}" top="0" right="0" bottom="0" id="container" skinClass="skins.containerSkin"  
 						  backgroundAlpha="1.0" includeIn="expanded" textAlign="center">
-		<components:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
+		<dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
 										 change="handleAxisChange(event)" outlined="{outlined}"
 										 width="{container.width-2*graphPadding}" height="{container.height-2*graphPadding}" 
 										 x="{graphPadding}" y="{graphPadding}"/>
@@ -249,7 +249,7 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 	
 	<!-- things that appear in collapsed state -->
 	
-	<components:CollapsedContainer  id="collapsed_container" textFlow="{titleTextFlow}"  
+	<dashboard:CollapsedContainer  id="collapsed_container" textFlow="{titleTextFlow}"  
 									includeIn="collapsed" buttonMode="true"
 									mouseDown="mouseDownHandler(event)"/>
 

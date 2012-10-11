@@ -22,3 +22,18 @@ global
 	fontSize:11;
 	fontWeight:bold;
 }
+
+s|Label#leftLabel {
+    color: #ffffff;
+}
+s|Label#rightLabel {
+    color: #ffffff;
+}
+s|VGroup#content {
+    color: #ff0000;
+}
+
+.legendText {
+    color: #444444;
+    fontWeight: bold;
+}
