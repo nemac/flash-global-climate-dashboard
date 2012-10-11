@@ -5,10 +5,12 @@ package dashboard
 	import multigraph.Multigraph;
 	import multigraph.format.DateFormatter;
 	
-	import mx.containers.VBox;
 	import mx.containers.HBox;
+	import mx.containers.VBox;
 	import mx.events.FlexEvent;
-
+	
+	import spark.components.SkinnableContainer;
+	import spark.layouts.HorizontalLayout;
 
 	public class TabContainer extends HBox
 	{
@@ -25,7 +27,7 @@ package dashboard
 			[Bindable]public var helpHandleVisible:Boolean = true;
 
 			protected var _graphWidth:int           = 425;
-			protected var _graphHeight:int          = 110;
+			public var _graphHeight:int          = 110;
 			protected var _graphCollapsedHeight:int = 20;
 			protected var _graphProxyHeight:int     = 20;
 			protected var _leftPad:int			  = 17;
@@ -52,7 +54,7 @@ package dashboard
 				// here seems to fix (I hope!) the problem of the time slider sometimes not being
 				// correctly initialized. --mbp
 				executeBindings(true);
-				executeChildBindings(true);
+				//executeChildBindings(true);
 				this.timeslider.executeBindings(true);
 			}
 			

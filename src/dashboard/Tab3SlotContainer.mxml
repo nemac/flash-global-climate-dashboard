@@ -1,185 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dashboard:TabContainer
-		 xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" 
-		 xmlns:local="*"
-		 xmlns:multigraph="multigraph.*"
-		 verticalGap="10" width="100%" xmlns:dashboard="dashboard.*">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	
-	<fx:Script>
-		<![CDATA[
-			import flash.filters.DropShadowFilter;
-			
-			import multigraph.Axis;
-			import multigraph.AxisEvent;
-			import multigraph.Multigraph;
-			import multigraph.format.DateFormatter;
-			
-			import mx.core.IUIComponent;
-			import mx.core.IVisualElement;
-			import mx.events.DragEvent;
-			import mx.events.FlexEvent;
-			import mx.managers.DragManager;
-			
-			import spark.components.Button;
-			import spark.filters.GlowFilter;
-			import spark.layouts.VerticalLayout;
-			import spark.skins.spark.PanelSkin;
-			
-			private var expandedGraphContainerCount:int = 0;
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:local="*"
+    xmlns:multigraph="multigraph.*"
+    width="100%" xmlns:dashboard="dashboard.*"
+    creationComplete="init(event)" >
+  <fx:Declarations>
+    <!-- Place non-visual elements (e.g., services, value objects) here -->
+  </fx:Declarations>
+  <fx:Style source="Dashboard.css" />
+  <fx:Script>
+    <![CDATA[
+import flash.filters.DropShadowFilter;
 
-			override protected function createChildren():void {
-				super.createChildren();
-				
-				_numberOfExpandedSlots = 3;
-				_totalNumberOfSlots    = 10;
+import flashx.textLayout.*;
+import flashx.textLayout.conversion.TextConverter;
+import flashx.textLayout.edit.IEditManager;
+import flashx.textLayout.elements.TextFlow;
 
-				
-				//
-				// Create the graph "slots".  Each slot is an instance of a GraphSlot object, which
-				// is just a spark Group container that serves as a place where a GraphContainer
-				// can be added (either in expanded or collapsed state).  The GraphSlot object also
-				// stores an "index" which indicates which slot it is in the list of slots; our DRAG_DROP
-				// event listener uses this index to determine which slot the graph being dragged
-				// came from.
-				//
-				graphSlots = [];
-				var g:GraphSlot;
-				for (var i:int=0; i<_totalNumberOfSlots; ++i) {
-					g = new GraphSlot(i);
-					g.width = _graphWidth;
-					if (i < this._numberOfExpandedSlots) {
-						g.addEventListener(DragEvent.DRAG_ENTER,
-							function (e:DragEvent):void {
-								DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
-								DragManager.showFeedback(DragManager.COPY);
-								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 0.2;
-								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = .5;
-							});
-						g.addEventListener(DragEvent.DRAG_EXIT,
-							function (e:DragEvent):void {
-								((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 1;
-							});
-						g.addEventListener(DragEvent.DRAG_DROP,
-							function (slotNumber:int):Function {	
-								return function (e:DragEvent):void {
-									swapGraphContainers((e.dragInitiator as GraphContainer).getSlotNumber(), slotNumber); 
-								};
-							}(i)
-						);
-						g.height = _graphHeight;
-						expandedGraphContainer.addElementAt(g,expandedGraphContainerCount);
-						++expandedGraphContainerCount;
-					} else {
-						g.height = _graphCollapsedHeight;
-						collapsedGraphContainer.addElement(g);
-					}
-					graphSlots.push(g);
-					
-					//xAxis.leftPad = _leftPad;
-				}
-			}
+import multigraph.Axis;
+import multigraph.AxisEvent;
+import multigraph.Multigraph;
+import multigraph.format.DateFormatter;
 
-			private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
-				var aSlot:GraphSlot = graphSlots[aSlotNumber];
-				var bSlot:GraphSlot = graphSlots[bSlotNumber];
-				var aGraphContainer:GraphContainer = graphSlots[aSlotNumber].getChildAt(0) as GraphContainer;
-				var bGraphContainer:GraphContainer = graphSlots[bSlotNumber].getChildAt(0) as GraphContainer;
-				if (aSlotNumber < this._numberOfExpandedSlots) {
-					bGraphContainer.currentState = "expanded";
-				} else {
-					bGraphContainer.currentState = "collapsed";
-					bGraphContainer.help.visible = false;
-					bGraphContainer.collapsed_container.currentState = "up";
-				}
-				if (bSlotNumber < this._numberOfExpandedSlots) {
-					aGraphContainer.currentState = "expanded";
-				} else {
-					aGraphContainer.currentState = "collapsed";
-					aGraphContainer.collapsed_container.currentState = "up";
-					aGraphContainer.help.visible = false;
-				}
-				aSlot.addElement(bGraphContainer);
-				bSlot.addElement(aGraphContainer);
-				aGraphContainer.alpha = 1;
-				bGraphContainer.alpha = 1;
-			}
-			
-			
-		]]>
-	</fx:Script>
-	
-    <!-- backgroundAlpha="1.0" backgroundColor="#00FF00" -->
-    <s:SkinnableContainer id="leftSide" backgroundAlpha="0" width="50%">
-<!--
-      <s:Label y="5" text="Global Climate Dashboard" horizontalCenter="0"
-               color="#FFFFFF"
-               fontSize="24" fontWeight="bold"/>
--->
-      <s:SkinnableContainer y="200" id="collapsedGraphContainer" backgroundAlpha="0" width="100%">
-        <s:layout>
-          <s:VerticalLayout horizontalAlign="center"/>
-        </s:layout>
-      </s:SkinnableContainer>
-    </s:SkinnableContainer>
+import mx.controls.Image;
+import mx.core.IUIComponent;
+import mx.core.IVisualElement;
+import mx.events.DragEvent;
+import mx.events.FlexEvent;
+import mx.managers.DragManager;
 
+import spark.components.Button;
+import spark.filters.GlowFilter;
+import spark.layouts.VerticalLayout;
+import spark.skins.spark.PanelSkin;
 
-    <!-- backgroundAlpha="1.0" backgroundColor="#FF0000" -->
-    <s:SkinnableContainer id="rightSide" backgroundAlpha="1" backgroundColor="#1d2a3c" width="50%" >
+private var expandedGraphSlotCount:int = 0;
 
+[Bindable] public var legendTitle:String = null;
+[Bindable] public var legendText:String      = null;
+
+[Bindable] private var legendTitleFlow:TextFlow = null;
+[Bindable] private var legendTextFlow:TextFlow      = null;
+
+// an array of objects, each having a "imgsrc" property and a "text" propery, to be used to
+// create the legend
+private var _legendItems:Array = new Array();
+
+public function addLegendItem(imgsrc:String, text:String):void {
+    var o:Object = {
+        'imgsrc' : imgsrc,
+        'text'   : text
+    };
+    _legendItems.push(o);
+}
+
+override protected function createChildren():void {
+    super.createChildren();
+
+    //
+    // Create the graph "slots".  Each slot is an instance of a GraphSlot object, which
+    // is just a spark Group container that serves as a place where a GraphContainer
+    // can be added (either in expanded or collapsed state).  The GraphSlot object also
+    // stores an "index" which indicates which slot it is in the list of slots; our DRAG_DROP
+    // event listener uses this index to determine which slot the graph being dragged
+    // came from.
+    //
+    graphSlots = [];
+    var g:GraphSlot;
+    for (var i:int=0; i<_totalNumberOfSlots; ++i) {
+        g = new GraphSlot(i);
+        g.width = _graphWidth;
+        if (i < this._numberOfExpandedSlots) {
+            g.addEventListener(DragEvent.DRAG_ENTER,
+                function (e:DragEvent):void {
+                    DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
+                    DragManager.showFeedback(DragManager.COPY);
+                    ((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 0.2;
+                    ((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = .5;
+                });
+            g.addEventListener(DragEvent.DRAG_EXIT,
+                function (e:DragEvent):void {
+                    ((e.currentTarget as GraphSlot).getChildAt(0) as GraphContainer).alpha = 1;
+                });
+            g.addEventListener(DragEvent.DRAG_DROP,
+                function (slotNumber:int):Function {
+                    return function (e:DragEvent):void {
+                        swapGraphContainers((e.dragInitiator as GraphContainer).getSlotNumber(), slotNumber);
+                    };
+                }(i)
+            );
+            g.height = _graphHeight;
+            expandedGraphSlots.addElementAt(g,expandedGraphSlotCount);
+            ++expandedGraphSlotCount;
+        } else {
+            g.height = _graphCollapsedHeight;
+            collapsedGraphSlots.addElement(g);
+        }
+        graphSlots.push(g);
+
+    }
+    for (var i:int=0; i<_legendItems.length; ++i) {
+        var image:Image          = new Image();
+        image.source             = _legendItems[i].imgsrc;
+        var ret:RichEditableText = new RichEditableText();
+        ret.focusEnabled         = false;
+        ret.editable             = false;
+        ret.textFlow             = TextConverter.importToFlow(textFlowify(_legendItems[i].text), TextConverter.TEXT_LAYOUT_FORMAT);
+        //                  ret.color = "#444444";
+        //                  ret.fontWeight = "bold";
+        ret.styleName            = "legendText";
+        ret.selectable           = false;
+        var hGroup:HGroup        = new HGroup();
+        hGroup.verticalAlign     = "middle";
+        hGroup.addElement(image);
+        hGroup.addElement(ret);
+        legendVGroup.addElement(hGroup);
+        this.legendContainer.visible = true;
+    }
+}
+
+private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
+    var aSlot:GraphSlot = graphSlots[aSlotNumber];
+    var bSlot:GraphSlot = graphSlots[bSlotNumber];
+    var aGraphContainer:GraphContainer = graphSlots[aSlotNumber].getChildAt(0) as GraphContainer;
+    var bGraphContainer:GraphContainer = graphSlots[bSlotNumber].getChildAt(0) as GraphContainer;
+    if (aSlotNumber < this._numberOfExpandedSlots) {
+        bGraphContainer.currentState = "expanded";
+    } else {
+        bGraphContainer.currentState = "collapsed";
+        bGraphContainer.help.visible = false;
+        bGraphContainer.collapsed_container.currentState = "up";
+    }
+    if (bSlotNumber < this._numberOfExpandedSlots) {
+        aGraphContainer.currentState = "expanded";
+    } else {
+        aGraphContainer.currentState = "collapsed";
+        aGraphContainer.collapsed_container.currentState = "up";
+        aGraphContainer.help.visible = false;
+    }
+    aSlot.addElement(bGraphContainer);
+    bSlot.addElement(aGraphContainer);
+    aGraphContainer.alpha = 1;
+    bGraphContainer.alpha = 1;
+}
+
+protected function textFlowify (string:String):String{
+    return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'><p>" + string + "<span /></p></TextFlow>";
+}
+
+protected function init(event:FlexEvent):void
+{
+    legendTitleFlow = TextConverter.importToFlow(textFlowify(legendTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+    legendTextFlow      = TextConverter.importToFlow(textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
+}
+    ]]>
+  </fx:Script>
+  <s:SkinnableContainer id="leftSide" backgroundAlpha="0" width="50%">
+    <s:BorderContainer cornerRadius="5" backgroundColor="#23394b" id="legendContainer" visible="false"
+                       y="200" x="20" height="150" width="425">
+      <s:HGroup horizontalCenter="0" verticalAlign="top" gap="0" paddingLeft="5" paddingRight="5" 
+                paddingTop="5" paddingBottom="5" top="10">
+        <s:BorderContainer cornerRadius="5" backgroundColor="#ffffff" height="105"> 
+          <s:VGroup paddingLeft="7" paddingRight="7" paddingTop="8" paddingBottom="0" id="legendVGroup">
+          </s:VGroup>
+        </s:BorderContainer>
+        <s:VGroup horizontalAlign="left" paddingRight="15" paddingLeft="15" >
+          <s:Label text="{legendTitle}" color="#999999" fontSize="14" fontWeight="bold" />
+          <s:RichEditableText focusEnabled="false" editable="false" textFlow="{legendTextFlow}" 
+                              fontWeight="bold" color="#FFFFFF" width="225" /> 
+        </s:VGroup>
+      </s:HGroup>
+    </s:BorderContainer>
+    <s:SkinnableContainer y="200" id="collapsedGraphSlots" backgroundAlpha="0" width="100%">
       <s:layout>
         <s:VerticalLayout horizontalAlign="center"/>
       </s:layout>
-
-
-
-
-      <s:SkinnableContainer backgroundAlpha="0" width="425">
-        <s:layout>
-          <s:VerticalLayout horizontalAlign="right"/>
-        </s:layout>
-<!--
-        <s:Label text="Drag to select time period" horizontalCenter="0" color="#cc9933" fontSize="10" fontWeight="bold"/>
--->
-        <dashboard:TimeSlider id="timeslider"
-                               minValue="{timeSliderMin}"
-                               maxValue="{timeSliderMax}"
-                               selectedMinValue="{timeSliderSelectedMin}"
-                               selectedMaxValue="{timeSliderSelectedMax}"
-                               labels="{timeSliderLabels}"
-                               height="40" width="408"
-                               change="sliderChange(event)"
-                               />
-      </s:SkinnableContainer>
-
-
-
-
-
-
-      <s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
-        <s:BorderContainer id="container" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
-          <!--
-              ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
-              **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
-              **       to be adjusted.
-          -->
-          <multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{container.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
-        </s:BorderContainer>	
-      </s:SkinnableContainer>
-
-      <s:SkinnableContainer id="expandedGraphContainer" left="5" right="5" top="0" bottom="0"
-                            minHeight="350" backgroundAlpha="0">
-        <s:layout>
-          <s:VerticalLayout horizontalAlign="right"/>
-        </s:layout>
-
-      </s:SkinnableContainer>
-
     </s:SkinnableContainer>
+  </s:SkinnableContainer>
+
+  <s:SkinnableContainer id="rightSide" backgroundAlpha="1" backgroundColor="#1d2a3c" width="50%" >
+    <s:layout>
+      <s:VerticalLayout horizontalAlign="center"/>
+    </s:layout>
+    <s:SkinnableContainer backgroundAlpha="0" width="425">
+      <s:layout>
+        <s:VerticalLayout horizontalAlign="right"/>
+      </s:layout>
+      <dashboard:TimeSlider id="timeslider"
+                            minValue="{timeSliderMin}"
+                            maxValue="{timeSliderMax}"
+                            selectedMinValue="{timeSliderSelectedMin}"
+                            selectedMaxValue="{timeSliderSelectedMax}"
+                            labels="{timeSliderLabels}"
+                            height="40" width="408"
+                            change="sliderChange(event)"/>
+    </s:SkinnableContainer>
+
+    <s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
+      <s:BorderContainer id="timelineContainer" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
+        <!--
+            ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
+            **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
+            **       to be adjusted.
+        -->
+        <multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{timelineContainer.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
+      </s:BorderContainer>
+    </s:SkinnableContainer>
+
+    <s:SkinnableContainer id="expandedGraphSlots" left="5" right="5" top="0" bottom="0"
+                          minHeight="350" backgroundAlpha="0">
+      <s:layout>
+        <s:VerticalLayout horizontalAlign="right"/>
+      </s:layout>
+      <!--
+          /**
+          * NOTE: the createChildren() method above adds GraphSlot children
+          * here, and to the collapsedGraphSlots container above.  It also maintains
+          * a master list of all GraphSlots (the union of the ones in the
+          * collapsedGraphSlots container above, and these ones here) in the
+          * graphSlots property.  The addGraph() method adds a GraphContainer
+          * object to one of these slots.  The graphCount property keeps track
+          * of which slot the next call to addGraph() should populate.
+          * (The graphSlots and graphCount property, and the addGraph() method,
+          * are defined in TabContainer, inherited here by Tab3SlotContainer.)
+          */
+          <dashboard:GraphSlot>
+          <dashboard:GraphContainer/>
+          </dashboard:GraphSlot>
+          <dashboard:GraphSlot>
+          <dashboard:GraphContainer/>
+          </dashboard:GraphSlot>
+      -->
+    </s:SkinnableContainer>
+
+  </s:SkinnableContainer>
 
 </dashboard:TabContainer>

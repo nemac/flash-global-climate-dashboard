@@ -60,10 +60,13 @@ private function appComplete():void {
                 nc.label = tabTitle;
                 nc.percentWidth  = 100;
                 nc.percentHeight = 100;
-                graphStack.addElement(nc);
+                tabStack.addElement(nc);
                 var tabContainer:TabContainer;
                 if (dashboardXML.tab[i].@container == "Tab1SlotContainer") {
                     tabContainer = new Tab1SlotContainer();
+    tabContainer._graphHeight           = 345;
+    tabContainer._numberOfExpandedSlots = 1;
+    tabContainer._totalNumberOfSlots    = 1;
                     (tabContainer as Tab1SlotContainer).legendTitle = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtitle[0]);
                     (tabContainer as Tab1SlotContainer).legendText  = contentsAsXMLString(dashboardXML.tab[i].graph[0].legendtext[0]);
                     for (var j:int=0; j<dashboardXML.tab[i].legend[0].item.length(); ++j) {
@@ -73,7 +76,9 @@ private function appComplete():void {
                     (tabContainer as Tab1SlotContainer).dragHandleVisible = false;
                     (tabContainer as Tab1SlotContainer).helpHandleVisible = true;
                 } else {
-                    tabContainer = new Tab3SlotContainer();
+                    tabContainer = new Tab1SlotContainer();
+    tabContainer._numberOfExpandedSlots = 3; // DIFF!!
+    tabContainer._totalNumberOfSlots    = 10; // DIFF!!
                 }
                 
                 tabContainer.mainContainer = mainContainer;
@@ -196,7 +201,27 @@ public static function applyXMLOverrides(target:XML, overrides:*):XML {
     <s:BorderContainer id="mainContainer" 
                        backgroundColor="#555599" 
                        cornerRadius="10" width="950" height="440" borderVisible="false">
-      <mx1:ViewStack  left="0" right="0" bottom="0" top="5" id="graphStack"/>
+      <mx1:ViewStack  left="0" right="0" bottom="0" top="5" id="tabStack">
+		  <!--
+          /**
+           * NOTE: when the ActionScript code above parses the dashboard XML config
+           * file, it adds one s:NavigatorContent child to this ViewStack for each
+           * <tab> in the config file.  The structure of what gets added is like
+           * the following - each NavigatorContent contains a single
+           * Tab3SlotContainer or Tab1SlotContainer (both of which are subclasses
+           * of TabContainer):
+           */
+		  <s:NavigatorContent width="100%" height="100%">
+			  <dashboard:Tab3SlotContainer/>
+		  </s:NavigatorContent>
+		  <s:NavigatorContent width="100%" height="100%">
+			  <dashboard:Tab3SlotContainer/>
+		  </s:NavigatorContent>
+		  <s:NavigatorContent width="100%" height="100%">
+			  <dashboard:Tab1SlotContainer/>
+		  </s:NavigatorContent>
+		  -->
+	  </mx1:ViewStack>
     </s:BorderContainer>
 
     <s:Label x="30" y="15" text="Global Climate Dashboard"
@@ -206,7 +231,7 @@ public static function applyXMLOverrides(target:XML, overrides:*):XML {
              color="#FFFFFF"
              fontSize="14" fontWeight="normal"/>
 	<s:ButtonBar x="50" y="150" 
-                 dataProvider="{graphStack}" buttonMode="true" 
+                 dataProvider="{tabStack}" buttonMode="true" 
                  skinClass="skins.barSkin" />
 
 
