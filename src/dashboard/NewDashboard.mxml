@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:dashboard="dashboard.*"
+			   width="940" height="450" minWidth="940" minHeight="450"
+			   applicationComplete="appComplete()"
+			   >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="tabButtons" 
+							itemClick="handleTabButton(event);"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ItemClickEvent;
+			
+			import spark.components.Button;
+			import spark.components.RadioButton;
+			
+			private var tabs:Array = [];
+			
+			import spark.components.VGroup;
+                private function appComplete():void {
+                    
+                    var configpath:String = parameters['config'];
+                    if ((configpath == null) || (configpath == "")) {
+                        configpath = "../testdata/dashboard.xml";
+                    }
+                    
+                    var loader:URLLoader = new URLLoader();
+                    loader.dataFormat = "text";
+                    loader.addEventListener( Event.COMPLETE,
+                        function(event:Event):void {
+                            var dashboardXML:XML = new XML(event.target.data);
+                            for (var i:int = 0; i<dashboardXML.tab.length(); ++i) {
+                                var tabTitle:String = contentsAsXMLString(dashboardXML.tab[i].title[0]);
+								
+								var tabButton:RadioButton = new RadioButton();
+								tabButton.group = tabButtons; //<s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
+								tabButton.value = i;
+								tabButton.label = tabTitle;
+								header.addElement(tabButton);
+								
+								var tab:Tab = new Tab();
+								tabs.push(tab);
+                                body.addElement(tab);
+
+                                for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
+									var graphTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].title[0]);
+									var graphShortTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].shorttitle[0]);
+									var stat1Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[0].title[0]);
+									var stat1Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[0].value[0]);
+									var stat2Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].title[0]);
+									var stat2Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].value[0]);
+									var graphContainer = new NewGraphContainer();
+									graphContainer.title = graphTitle;
+									graphContainer.stat1Title = stat1Title;
+									graphContainer.stat1Value = stat1Value;
+									graphContainer.stat2Title = stat2Title;
+									graphContainer.stat2Value = stat2Value;
+									if (j<3) {
+										tab.addGraph(graphContainer);
+									} else {
+										var button:Button = new Button();
+										button.label = graphShortTitle;
+										tab.addButton(button);
+									}
+                                }
+                            }
+							selectTab(0);
+
+                        });
+                    loader.load( new URLRequest(configpath) );
+                }
+
+                public static function applyXMLOverrides(target:XML, overrides:*):XML {
+                    if (overrides == null) {
+                        return target;
+                    }
+                    if (overrides is XML) {
+                        var overridesXML:XML = overrides as XML;
+                        for each (var e:XML in overridesXML.elements("attribute")) {
+                            var attrName:String  = e.@name;
+                            var attrValue:String = e.@value;
+                            target['@'+attrName] = attrValue;
+                        }
+                        for each (var e:XML in overridesXML.elements("element")) {
+                            var elementName:String  = e.@name;
+                            var elementAction:String = e.@action;
+                            var targetChildList:XMLList = target.child(elementName);
+                            if (targetChildList == null || targetChildList.length()==0) {
+                                target.appendChild(new XML("<"+elementName+"/>"));
+                            } else if (elementAction == "empty") {
+                                target[elementName] = new XML("<"+elementName+"/>");
+                            }
+                            applyXMLOverrides(target[elementName][0], e);
+                        }
+                        for each (var e:XML in overridesXML.elements("elements")) {
+                            var elementName:String = e.@name;
+                            for each (var descendant:XML in target.descendants(elementName)) {
+                                for each (var f:XML in e.elements("attribute")) {
+                                    var attrName:String  = f.@name;
+                                    var attrValue:String = f.@value;
+                                    descendant['@'+attrName] = attrValue;
+                                }
+                            }
+                        }
+                    } else if (overrides is Array) {
+                        for each (var o:Object in overrides) {
+                            applyXMLOverrides(target, o);
+                        }
+                    }
+                    return target;
+                }
+
+                private function contentsAsXMLString(xml:XML):String {
+                    var xmlString:String = "";
+                    for each (var child:XML in xml.children()) {
+                        xmlString += child.toXMLString();
+                    }
+                    return xmlString;
+                }
+			
+				private function handleTabButton(event:ItemClickEvent):void {
+					selectTab(int(tabButtons.selectedValue));
+				}
+			
+				private function selectTab(tab_num:int):void {
+					tabButtons.selectedValue = tab_num;
+					for (var i:int = 0; i<tabs.length; ++i) {
+						tabs[i].visible = false;
+					}
+					tabs[tab_num].visible = true;
+				}
+
+		]]>
+	</fx:Script>
+  <s:BorderContainer id="body" cornerRadius="15" backgroundColor="#5A5B5B" width="100%" height="100%">
+	<s:HGroup id="header" x="10" y="10">
+		<s:Label fontSize="36" text="Global Climate Dashboard"/>
+		<!--
+		   tab selection buttons get inserted here, e.g:
+		     <s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
+		-->
+	</s:HGroup>
+	  <!--
+	  	tabs get inserted here:
+	      <dashboard:Tab>
+	  -->
+  </s:BorderContainer>
+</s:Application>

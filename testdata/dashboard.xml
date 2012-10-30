@@ -2,6 +2,9 @@
 <dashboard id="flat-dashboard">
   
     <mugloverrides>
+      <element name="background">
+        <attribute name="color" value="0x000000"/>
+      </element>
       <element name="window">
         <attribute name="margin" value="0"/>
         <attribute name="border" value="0"/>
@@ -17,10 +20,10 @@
         <attribute name="visible" value="false"/>
       </element>
       <element name="horizontalaxis">
-        <attribute name="tickcolor" value="0xdddddd"/>
+        <attribute name="tickcolor" value="0x333333"/>
         <element name="labels">
           <attribute name="format" value="%Y" visible="false"/>
-          <attribute name="fontcolor" value="0x666666"/>
+          <attribute name="fontcolor" value="0xcccccc"/>
         </element>
         <element name="pan">
           <attribute name="allowed" value="yes"/>
@@ -29,7 +32,7 @@
           <attribute name="allowed" value="yes"/>
         </element>
         <element name="grid">
-          <attribute name="color" value="0xdddddd"/>
+          <attribute name="color" value="0x333333"/>
         </element>
         <element name="binding">
           <attribute name="min" value="1900"/>
@@ -37,9 +40,9 @@
         </element>
       </element>
       <element name="verticalaxis">
-        <attribute name="tickcolor" value="0xdddddd"/>
+        <attribute name="tickcolor" value="0x333333"/>
         <element name="labels">
-          <attribute name="fontcolor" value="0x666666"/>
+          <attribute name="fontcolor" value="0xcccccc"/>
         </element>      
         <element name="pan">
           <attribute name="allowed" value="no"/>
@@ -48,7 +51,7 @@
           <attribute name="allowed" value="no"/>
         </element>
         <element name="grid">
-          <attribute name="color" value="0xdddddd"/>
+          <attribute name="color" value="0x333333"/>
         </element>
       </element>
       <elements name="datatips">
@@ -85,10 +88,21 @@
 
     <graph id="temperature" name="Temperature">
       <title>Temperature (˚C)</title>
+      <shorttitle>Temperature</shorttitle>
       <help>Earth’s overall temperature has increased by 1.3°F (0.7°C) since 1900. <br/> <br/>
 
 		In the graph, average annual surface temperature is shown as the difference from the average for 1901-2000.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-global-temperature</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Increase since 1990</title>
+          <value>+1.5&#730; F (0.7 C)</value>
+        </stat>
+        <stat>
+          <title>Average rate of rise</title>
+          <value>+0.25&#730;F (0.13&#730; C) per decade</value>
+        </stat>
+      </stats>
       <mugl>
 <window border="0" margin="0" padding="0"/>
   <legend visible="false"/>
@@ -119,6 +133,7 @@
 		<renderer type="bar">
 			<option min="0" name="fillcolor" value="0xCD6760"/>
 			<option max="0" name="fillcolor" value="0x6194C8"/>
+			<option name="linecolor" value="0xcccccc"/>
 			<option name="barwidth" value="1Y"/>
 			<option name="baroffset" value="0"/>
 			<option name="barbase" value="0"/>
@@ -271,11 +286,22 @@
 </mugl></graph>
     <graph id="carbonDioxide" name="CarbonDioxide">
       <title>Carbon Dioxide (ppm)</title>
+      <shorttitle>Carbon Dioxide</shorttitle>
       <help>Atmospheric carbon dioxide has increased by about 40% since 1750.
 	The graph shows the number of CO<span baselineShift="subscript">2</span>&#xA0;&#xA0;molecules
         per million molecules of dry air measured at Mauna Loa, Hawai'i. 
 	The black line shows monthly values; the red line shows the running average.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-atmospheric-carbon-dioxide</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
   <window border="0" margin="0" padding="0"/>
 
@@ -310,8 +336,9 @@
     </verticalaxis>
     <legend visible="false"/>
 		<renderer type="fill">
-			<option name="fillcolor" value="0xBBBBBB"/>
-			<option name="fillopacity" value="0.35"/>
+			<option name="fillcolor" value="0xff6666"/>
+			<option name="linecolor" value="0xff0000"/>
+			<option name="fillopacity" value="0.55"/>
 		</renderer>
 		    <datatips format="{0}: {1}">
        <variable format="%n '%y"/>
@@ -1000,9 +1027,20 @@
 </mugl></graph>
     <graph id="snowCover" name="SnowCover">
       <title>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</title>
+      <shorttitle>Spring Snow Cover</shorttitle>
       <help>Earlier melting of winter snow has reduced the area of land covered by snow in spring. The graph shows the area covered by snow in the Northern Hemisphere during March and April, shown as 
 	the difference from the 1971-2000 average. </help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-spring-snow-cover</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 		<background color="0xFFFFFF"/>
 		<window border="0" margin="0" padding="0"/>
@@ -1107,12 +1145,23 @@
     </graph>
     <graph id="seaLevel" name="SeaLevel">
       <title>Sea Level (mm)</title>
+      <shorttitle>Sea Level</shorttitle>
       <help>The average height of the ocean’s surface has increased by 8.25 inches 
       (210 mm) since 1880. <br/> <br/>
 
 	The graph shows mean global sea level measured by tidal gauges since 1880 and by 
 	satellite instruments since 1993.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-sea-level</link>
+      <stats>
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	<background color="0xFFFFFF"/>
 	<window border="0" margin="0" padding="0"/>
@@ -1297,11 +1346,22 @@
 </mugl></graph>
     <graph id="asi" name="asi">
       <title>Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</title>
+      <shorttitle>Arctic Sea Ice</shorttitle>
       <help>The area of the Arctic where sea ice remains frozen at the end of summer has 
       decreased by more than 10% per decade since 1979. <br/><br/>
 
 The graph shows the average area with at least 15% sea ice on its surface each September.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-minimum-arctic-sea-ice-extent</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <background color="0xFFFFFF"/>
 	 <window border="0" margin="0" padding="0"/>
@@ -1387,8 +1447,19 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="oceanHeat" name="OceanHeat">
       <title>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</title>
+      <shorttitle>Ocean Heat</shorttitle>
       <help>More than 90% of the warming that has occurred on Earth over the past 50 years has occurred in the ocean. The graph shows heat energy in the top 700 meters of the ocean as the difference from the average from 1955-2006.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
  <window border="0" margin="0" padding="0"/>
   <ui eventhandler="saui"/>
@@ -1671,12 +1742,23 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </mugl></graph>
     <graph id="sunsEnergy" name="SunsEnergy">
       <title>Sun's Energy (W/m<span baselineShift="superscript">2</span>)</title>
+      <shorttitle>Sun's Energy</shorttitle>
       <help>Energy from the Sun varies slightly on 11-year cycles with little net 
       change overall. <br/> <br/>
 
 	The graph shows the total amount of solar energy arriving at the top of Earth’s 
 	atmosphere.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-incoming-sunlight</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <legend visible="false"/>
@@ -2127,8 +2209,19 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="glacier" name="Glacier">
       <title>Glaciers (meters of water equivalent)</title>
+      <shorttitle>Glaciers</shorttitle>
       <help>Since 1980, a representative set of well studied glaciers has lost the equivalent of 40 feet (12.5 meters) of water on average. The graph shows the average mass balance of 30 reference glaciers around the world.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-glacier-mass-balance</link>
+      <stats color="#87b5d2">
+        <stat>
+          <title>Melt water lost since 1980</title>
+          <value>40 feet (12.5m)</value>
+        </stat>
+        <stat>
+          <title>Average rate of water loss</title>
+          <value>26 in. (0.5m) per year</value>
+        </stat>
+      </stats>
       <mugl>
 			<background color="0xFFFFFF"/>
 			<window border="0" margin="0" padding="0"/>
@@ -2212,9 +2305,20 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 		</mugl></graph>
     <graph id="totalGreenhouseGas" name="TotalGreenhouseGas">
       <title>Annual Greenhouse Gas Index</title>
+      <shorttitle>Annual Greenhouse Gas Index</shorttitle>
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
       year many nations agreed to limit emissions under the Kyoto Protocol. The graph shows total radiative forcing from long-lived greenhouse gases as a percent change from 1990.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-annual-greenhouse-gas-index-2</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Increase in heat-trapping since 1990</title>
+          <value>+29%</value>
+        </stat>
+        <stat>
+          <title>% of AGGI from carbon dioxide alone</title>
+          <value>85%</value>
+        </stat>
+      </stats>
       <mugl>
 	<background color="0xFFFFFF"/>
 	<window border="0" margin="0" padding="0"/>
@@ -2322,11 +2426,22 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     </mugloverrides>
     <graph id="oni" name="oni">
       <title>El Niño / La Niña Index</title>
+      <shorttitle>El Niño / La Niña Index</shorttitle>
       <help>Departures from average sea surface temperature in the eastern Pacific Ocean indicate the status of the El Niño – 
       Southern Oscillation cycle. Values greater than 0.5 indicate El Niño conditions. 
       Values less than -0.5 indicate La Niña conditions. Values between 0.5 and -0.5 indicate neutral conditions. 
 </help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-oceanic-nino-index</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <ui eventhandler="saui"/>
@@ -3140,10 +3255,21 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="aoi" name="aoi">
       <title>Arctic Oscillation Index</title>
+      <shorttitle>Arctic Oscillation Index</shorttitle>
       <help>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans 
       affect the north-to-south location of the storm-steering, 
       mid-latitude jet stream. Negative values are associated with severe winter storms in the eastern U.S.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-arctic-oscillation</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <ui eventhandler="saui"/>
@@ -3954,11 +4080,22 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="naoi" name="naoi">
       <title>North Atlantic Oscillation</title>
+      <shorttitle>North Atlantic Oscillation</shorttitle>
       <help>Departures from average air pressure over Greenland and the central North Atlantic 
       Ocean affect weather around the Atlantic by influencing the intensity 
       and location of the jet stream and the storm tracks that follow it. Negative values 
       are linked with winter storms in the eastern U.S.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-north-atlantic-oscillation</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <ui eventhandler="saui"/>
@@ -4771,9 +4908,20 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="soi" name="soi">
       <title>Southern Oscillation Index</title>
+      <shorttitle>Southern Oscillation Index</shorttitle>
       <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
       atmospheric indicator of the El Niño–Southern Oscillation.  El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <ui eventhandler="saui"/>
@@ -5577,9 +5725,20 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph>
     <graph id="pnap" name="pnap">
       <title>Pacific North American Pattern</title>
+      <shorttitle>Pacific North American Pattern</shorttitle>
       <help>Departures from average air pressure at four locations over the Pacific Ocean and North America affect 
       the strength and location of the East Asian jet stream and the weather it delivers to North America.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-pacific-north-american-teleconnection-pattern</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Change since sometime</title>
+          <value>3.4%</value>
+        </stat>
+        <stat>
+          <title>Average change in last second</title>
+          <value>29%</value>
+        </stat>
+      </stats>
       <mugl>
 	 <window border="0" margin="0" padding="0"/>
 	  <ui eventhandler="saui"/>
@@ -6424,6 +6583,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     </mugloverrides>
     <graph name="cp">
       <title>Climate Model Data (CMIP3, 2007)</title>
+      <shorttitle>Climate Model Data</shorttitle>
       <legendtitle>Simulation of Global Temperature</legendtitle>
       <legendtext>The black line shows the average of many different
 simulations of global temperature in the 20th century compared to
@@ -6448,6 +6608,16 @@ way they use energy, and therefore, the amount of heat-trapping gas in
 the atmosphere.
 </help>
       <link>http://www.climatewatch.noaa.gov/article/2012/global-temperature-projections</link>
+      <stats color="#f8a792">
+        <stat>
+          <title>Increase since 1990</title>
+          <value>+1.5&#730; F (0.7 C)</value>
+        </stat>
+        <stat>
+          <title>Average rate of rise</title>
+          <value>+0.25&#730;F (0.13&#730; C) per decade</value>
+        </stat>
+      </stats>
       <mugl location="../testdata/dbprojections.xml" />
     </graph>
     <legend>

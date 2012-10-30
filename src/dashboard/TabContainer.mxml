@@ -50,7 +50,7 @@ public var mainContainer:Object;
 
 protected var _graphWidth:int           = 425;
 public var graphHeight:int          = 110;
-protected var _graphCollapsedHeight:int = 20;
+protected var _graphCollapsedHeight:int = 30;
 protected var _graphProxyHeight:int     = 20;
 protected var _leftPad:int			  = 17;
 
@@ -299,9 +299,9 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
     <s:layout>
       <s:VerticalLayout horizontalAlign="center"/>
     </s:layout>
-    <s:SkinnableContainer backgroundAlpha="0" width="425">
+    <s:SkinnableContainer backgroundAlpha="0" width="425" id="tsc" styleName="timeSliderContainer">
       <s:layout>
-        <s:VerticalLayout horizontalAlign="right"/>
+        <s:VerticalLayout horizontalAlign="right" paddingTop="5" paddingBottom="3"/>
       </s:layout>
       <dashboard:TimeSlider id="timeslider"
                             minValue="{timeSliderMin}"
@@ -309,18 +309,20 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
                             selectedMinValue="{timeSliderSelectedMin}"
                             selectedMaxValue="{timeSliderSelectedMax}"
                             labels="{timeSliderLabels}"
-                            height="40" width="408"
+                            height="25" width="408"
                             change="sliderChange(event)"/>
     </s:SkinnableContainer>
 
     <s:SkinnableContainer width="425" height="20" backgroundAlpha=".0001">
-      <s:BorderContainer id="timelineContainer" cornerRadius="4" backgroundColor="#FFFFFF" width="100%" height="20" borderVisible="false" left="{_leftPad}">
+      <s:BorderContainer id="timelineContainer" cornerRadius="4" backgroundColor="#000000" width="100%" height="20" borderVisible="false" left="{_leftPad}">
         <!--
             ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
             **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
             **       to be adjusted.
         -->
-        <multigraph:Multigraph id="timeline" mugl="{timelineMugl}" width="{timelineContainer.width-2*GraphContainer.graphPadding}" x="4" height="20"/>
+        <multigraph:Multigraph id="timeline" mugl="{timelineMugl}"
+							   width="{timelineContainer.width-2*GraphContainer.graphPadding}"
+							   x="4" height="20"/>
       </s:BorderContainer>
     </s:SkinnableContainer>
 
@@ -342,10 +344,10 @@ private function swapGraphContainers(aSlotNumber:int, bSlotNumber:int):void {
           * are defined in TabContainer, inherited here by Tab3SlotContainer.)
           */
           <dashboard:GraphSlot>
-          <dashboard:GraphContainer/>
+            <dashboard:GraphContainer/>
           </dashboard:GraphSlot>
           <dashboard:GraphSlot>
-          <dashboard:GraphContainer/>
+            <dashboard:GraphContainer/>
           </dashboard:GraphSlot>
       -->
     </s:SkinnableContainer>

@@ -16,7 +16,7 @@
   </compiler>
   <applications>
     <application path="dashboard/Dashboard.mxml"/>
-    <application path="test/TimeSliderTester.mxml"/>
+    <application path="dashboard/NewDashboard.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

@@ -3,7 +3,9 @@
 					  xmlns:s="library://ns.adobe.com/flex/spark" 
 					  xmlns:mx="library://ns.adobe.com/flex/mx" width="425" 
 					  dragOver="parentApplication.graphContainerDragOver(event)"
-					  height.collapsed="25" backgroundAlpha=".00001" backgroundColor="#333333" 
+					  height.collapsed="25"
+                      backgroundAlpha=".00001"
+                      backgroundColor="#333333"
 					  xmlns:multigraph="multigraph.*" xmlns:dashboard="dashboard.*"
 					  creationComplete="init()" 
 					  buttonMode.collapsed="true" >
@@ -198,60 +200,66 @@ mouseOver.collapsed="collapsed_mouseOver(event)"
 		]]>
 	</fx:Script>
 	<s:states>
-		<s:State name="expanded"/>
-		<s:State name="collapsed"/>
-		<!-- <s:State name="proxy" /> -->
+      <s:State name="expanded"/>
+      <s:State name="collapsed"/>
+      <!-- <s:State name="proxy" /> -->
 	</s:states>
 
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+      <!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<!-- things that appear in the expanded state -->
-	
-	<s:SkinnableContainer left="{leftPad}" top="0" right="0" bottom="0" id="container" skinClass="skins.containerSkin"  
-						  backgroundAlpha="1.0" includeIn="expanded" textAlign="center">
-		<dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
-										 change="handleAxisChange(event)" outlined="{outlined}"
-										 width="{container.width-2*graphPadding}" height="{container.height-2*graphPadding}" 
-										 x="{graphPadding}" y="{graphPadding}"/>
-	</s:SkinnableContainer>
+	<!--
+        expanded state:
+    -->
+	<s:Group includeIn="expanded">
+<!-- skinClass="skins.containerSkin"  -->
+      <s:BorderContainer left="{leftPad}" top="0" right="0" bottom="0" id="container"
+							cornerRadius="9"
+							borderVisible="false"
+                            backgroundColor="#000000"
+                            backgroundAlpha="1.0" textAlign="center">
+        <dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
+                                        change="handleAxisChange(event)" outlined="{outlined}"
+                                        width="{container.width-2*graphPadding}" height="{container.height-2*graphPadding}" 
+                                        x="{graphPadding}" y="{graphPadding}"/>
+      </s:BorderContainer>
 
-	<s:RichEditableText id="title" enabled="false" 
-			color="#000000" left="65" top="10" textFlow="{titleTextFlow}"
-			editable="false" focusEnabled="false" includeIn="expanded"
-			backgroundColor="#FFFFFF" backgroundAlpha="0.85" paddingLeft="1" 
-			paddingRight="1" paddingTop="2" paddingBottom="1"/>
-	<!-- height="{this.width - 10}" -->
-	<s:BorderContainer includeIn="expanded" id="help" left="20" right="5" top="5"
-					   height="{helpBorderContainerHeight}"
-					   skinClass="skins.helpSkin" visible="false" borderVisible="false">
-		<s:RichEditableText color="0xFFFFFF" left="8" right="80" bottom="2" top="5"
-							height="{helpContentHeight}"
-					editable="false" focusEnabled="false" id="helpContent" fontWeight="bold"/>
-		<s:Label text="Close" color="#FFFFFF" top="8" right="22" fontSize="11" fontWeight="bold" click="closeHelp(event)" buttonMode="true"/>
-		<s:Button label="×" right="2" top="5" width="15" height="15" skinClass="skins.readmoreButtonSkin" 
-				  fontSize="14" click="closeHelp(event)" buttonMode="true"/>
-		<s:Button id="readMoreButton" label="Read more »" right="0" top="{readMoreButtonTop}" skinClass="skins.readmoreButtonSkin" 
-				  width="75" fontSize="10" fontWeight="bold"
-				  buttonMode="true" click="readmore()" />
-	</s:BorderContainer>
-	
-	<s:Button left="0" top="10" 
-			  skinClass="skins.handleSkin" width="17" height="17" cornerRadius="0" 
-			  mouseDown="mouseDownHandler(event)" visible="{dragHandleVisible}"
-			  buttonMode="true" id="handle" includeIn="expanded"/>
+      <s:RichEditableText id="title"
+                          left="65" top="10" editable="false" styleName="expandedGraphTitle"
+                          enabled="false" focusEnabled="false" textFlow="{titleTextFlow}"/>
+      <s:BorderContainer id="help"
+                         left="20" right="5" top="5"
+                         height="{helpBorderContainerHeight}"
+                         skinClass="skins.helpSkin" visible="false" borderVisible="false">
+        <s:RichEditableText color="0xFFFFFF" left="8" right="80" bottom="2" top="5"
+                            height="{helpContentHeight}"
+                            editable="false" focusEnabled="false" id="helpContent" fontWeight="bold"/>
+        <s:Label text="Close" color="#FFFFFF" top="8" right="22" fontSize="11" fontWeight="bold" click="closeHelp(event)" buttonMode="true"/>
+        <s:Button label="×" right="2" top="5" width="15" height="15" skinClass="skins.readmoreButtonSkin" 
+                  fontSize="14" click="closeHelp(event)" buttonMode="true"/>
+        <s:Button id="readMoreButton" label="Read more »" right="0" top="{readMoreButtonTop}" skinClass="skins.readmoreButtonSkin" 
+                  width="75" fontSize="10" fontWeight="bold"
+                  buttonMode="true" click="readmore()" />
+      </s:BorderContainer>
+      
+      <s:Button left="0" top="10"
+                skinClass="skins.handleSkin" width="17" height="17" cornerRadius="0" 
+                mouseDown="mouseDownHandler(event)" visible="{dragHandleVisible}"
+                buttonMode="true" id="handle" />
 
-	<s:Button left="0" top="30" skinClass="skins.helpHandleSkin" width="12" height="12" cornerRadius="0" visible="{helpHandleVisible}"
-			  click="help_clickHandler(event)" id="helpHandle" includeIn="expanded" buttonMode="true"/> 
-
+      <s:Button left="0" top="30" skinClass="skins.helpHandleSkin" width="12" height="12" cornerRadius="0" visible="{helpHandleVisible}"
+                click="help_clickHandler(event)" id="helpHandle" buttonMode="true"/> 
+	</s:Group>
 	
-	
-	<!-- things that appear in collapsed state -->
-	
-	<dashboard:CollapsedContainer  id="collapsed_container" textFlow="{titleTextFlow}"  
-									includeIn="collapsed" buttonMode="true"
-									mouseDown="mouseDownHandler(event)"/>
+	<!--
+        collapsed state:
+    -->
+	<dashboard:CollapsedGraph  includeIn="collapsed" 
+                                   id="collapsed_container"
+                                   textFlow="{titleTextFlow}"  
+                                   buttonMode="true"
+                                   mouseDown="mouseDownHandler(event)"/>
 
 
-</s:SkinnableContainer>
+  </s:SkinnableContainer>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			[Bindable]public var valueColor:uint = 0xFFFFFF;
+			[Bindable]public var fontSize:int = 14;
+			[Bindable]public var title:String;
+			[Bindable]public var value:String;
+		]]>
+	</fx:Script>
+	<s:Label color="#FFFFFF"      fontSize="{fontSize}" text="{title + ': '}"/>
+	<s:Label color="{valueColor}" fontSize="{fontSize}" text="{value}"/>
+</s:HGroup>

@@ -37,3 +37,24 @@ s|VGroup#content {
     color: #444444;
     fontWeight: bold;
 }
+
+/* expanded graph's title text: */
+.expandedGraphTitle
+{
+	backgroundAlpha: 0.0;
+	backgroundColor: #FFFFFF;
+	paddingBottom: 1;
+	paddingLeft: 1;
+	paddingRight: 1;
+	paddingTop: 2;
+	color: #ffffff;
+    fontWeight: bold;
+}
+
+.collapsedGraphTitle
+{
+  color: #FFFFFF;
+  fontWeight: bold;
+  textAlign: left;
+  verticalAlign: middle;
+}

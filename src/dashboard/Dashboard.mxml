@@ -8,6 +8,7 @@
 			   xmlns:mx1="library://ns.adobe.com/flex/mx" backgroundColor="#FFFFFF" height="700"
 			   applicationComplete="appComplete()"
 			   >
+	<fx:Style source="Dashboard.css"/>
   <fx:Script>
     <![CDATA[
 import flash.filters.DropShadowFilter;

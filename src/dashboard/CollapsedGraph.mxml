@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    alpha.disabled="0.5"
+    mouseDown="mouseDownHandler(event)"
+    mouseUp="mouseUpHandler(event)"
+    mouseOver="mouseOverHandler(event)"
+    mouseOut="mouseUpHandler(event)">
+<!--
+    minWidth="21"
+    minHeight="21" 
+-->
+
+  <fx:Style source="Dashboard.css" />
+
+  <fx:Script>
+    <![CDATA[         
+import flashx.textLayout.elements.TextFlow;
+
+[Bindable]
+public var textFlow:TextFlow = null;
+
+protected function mouseDownHandler(event:MouseEvent):void
+{
+currentState = "down";
+}
+
+
+protected function mouseUpHandler(event:MouseEvent):void
+{
+currentState = "up";
+}
+
+
+protected function mouseOverHandler(event:MouseEvent):void
+{
+currentState = "over";
+}
+
+    ]]>        
+  </fx:Script>
+  
+  <!-- states -->
+  <s:states>
+    <s:State name="up" />
+    <s:State name="over" />
+    <s:State name="down" />
+    <s:State name="disabled" />
+  </s:states>
+
+  <!-- the title region -->
+  <s:BorderContainer id="container" 
+                     borderVisible="true"
+                     width="400" height="30" left="15" top="3"
+                     backgroundColor.over="#cc9933"
+                     backgroundColor.down="#cc9933"
+                     backgroundColor="#1d2a3c" cornerRadius="5">
+    <!-- the title itself -->
+    <s:RichEditableText editable="false" focusEnabled="false" selectable="false"
+                        styleName="collapsedGraphTitle"
+                        textFlow="{textFlow}"
+                        left="25" right="10" verticalCenter="1"/>
+  </s:BorderContainer>
+  
+  <!-- the drag button region -->
+  <s:BorderContainer borderVisible="false" backgroundColor.over="#cc9933" backgroundColor="#555f6d" 
+                     backgroundColor.down="#cc9933" width="20" height="30" y="2" x="0" left="0" cornerRadius="5">
+    <!-- the drag button itself -->
+    <mx:Image id="icon" source="assets/move_icon.png" left="-3" top="1"/>
+  </s:BorderContainer>
+
+</s:SkinnableContainer>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  x="10"
+		  y="51"
+		  width="918"
+		  visible="false"
+		  >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+
+			public function addGraph(graphContainer:NewGraphContainer):void {
+				graphGroup.addElement(graphContainer);
+			}
+			public function addButton(button:Button):void {
+				buttonGroup.addElement(button);
+			}
+			
+		]]>
+	</fx:Script>
+	<!--
+		each tab contains up to 3 NewGraphContainers:
+		<dashboard:NewGraphContainer ... />
+		followed by one ...
+	-->
+	<s:VGroup id="graphGroup" width="100%">
+		
+	</s:VGroup>
+	
+	<s:Group id="buttonGroup" width="100%">
+		<s:layout>
+			<s:TileLayout/>
+		</s:layout>
+	</s:Group>
+
+</s:VGroup>
