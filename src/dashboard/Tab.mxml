@@ -13,12 +13,42 @@
 	<fx:Script>
 		<![CDATA[
 			import spark.components.Button;
-
-			public function addGraph(graphContainer:NewGraphContainer):void {
-				graphGroup.addElement(graphContainer);
+			import spark.components.ToggleButton;
+			
+			private var graphCount:int = 0;
+			
+			private var graphContainers:Array = [];
+			
+			private function displayGraph(i:int):void {
+				if (!graphGroup.containsElement(graphContainers[i])) {
+					graphGroup.removeElementAt(2);
+					graphGroup.addElementAt(graphContainers[i], 0);
+				}
 			}
-			public function addButton(button:Button):void {
+
+			public function addGraph(title:String, shortTitle:String,
+									 stat1Title:String, stat1Value:String,
+								     stat2Title:String, stat2Value:String):void {
+				var graphContainer:NewGraphContainer = new NewGraphContainer();
+				graphContainer.title = title;
+				graphContainer.stat1Title = stat1Title;
+				graphContainer.stat1Value = stat1Value;
+				graphContainer.stat2Title = stat2Title;
+				graphContainer.stat2Value = stat2Value;
+				graphContainers.push(graphContainer);
+				if (graphCount<3) {
+					graphGroup.addElement(graphContainer);
+				}
+				//var button:Button = new Button();
+				var button:ToggleButton = new ToggleButton();
+				button.setStyle("skinClass", GraphToggleButtonSkin);
+				button.label = shortTitle;
+				var i:int = graphCount;
+				button.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {
+					displayGraph(i);
+				});
 				buttonGroup.addElement(button);
+				++graphCount;
 			}
 			
 		]]>

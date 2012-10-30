@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+             xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+             minWidth="21" minHeight="21" 
+             alpha.disabled="0.5">
+     
+    <fx:Metadata>
+        <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.Button")]
+        ]]>
+    </fx:Metadata>
+        
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- border -->
+    <s:Rect height="100%" width="100%" radiusX="6"
+    top="0" right="0" bottom="0" left="0">
+       <s:fill>
+          <!-- gradient fill colors - default ratios are 0,1 -->
+             <s:LinearGradient rotation="90">
+                <s:GradientEntry color="#ffcc00"
+                />
+                   <s:GradientEntry color="#ff9900"/>
+                      </s:LinearGradient>
+                        </s:fill>
+                        </s:Rect>
+ 
+                        <!-- inner fill -->
+                        <s:Rect height="100%" width="100%" radiusX="5"
+                        top="1" right="1" bottom="1" left="1">
+                        <s:fill>
+                        <!-- gradient fill colors - default ratios are 0,1 -->
+                        <s:LinearGradient rotation="90">
+                        <s:GradientEntry color="#ff9900"
+                         color.over="#fabe00"
+                          color.down="#cc6600"/>
+                          <s:GradientEntry color="#cc6600"
+                           color.over="#e17b00"
+                            color.down="#ff9900"/>
+                            </s:LinearGradient>
+                            </s:fill>
+                            </s:Rect>
+ 
+    <!-- top layer: text -->
+    <s:Label id="labelDisplay"
+             textAlign="center"
+             verticalAlign="middle"
+             maxDisplayedLines="1"
+             horizontalCenter="0" verticalCenter="1"
+             left="14" right="14" top="2" bottom="2">
+             <s:filters>
+             <s:DropShadowFilter distance="1" blurX="0" blurY="0" color="#000000" alpha=".4" angle="270"/>
+             </s:filters>
+    </s:Label>
+    
+</s:SparkButtonSkin>

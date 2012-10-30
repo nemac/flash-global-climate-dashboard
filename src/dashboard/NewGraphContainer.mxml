@@ -25,7 +25,6 @@
 			[Bindable]private var _titleTextFlow:TextFlow = null;
 			
 			private function init():void {
-				trace('hey init');
 				_titleTextFlow = TextConverter.importToFlow(textFlowify(title), TextConverter.TEXT_LAYOUT_FORMAT);
 			}
 			protected function textFlowify (string:String):String{

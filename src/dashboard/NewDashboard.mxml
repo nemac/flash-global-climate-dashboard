@@ -53,19 +53,9 @@
 									var stat1Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[0].value[0]);
 									var stat2Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].title[0]);
 									var stat2Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].value[0]);
-									var graphContainer = new NewGraphContainer();
-									graphContainer.title = graphTitle;
-									graphContainer.stat1Title = stat1Title;
-									graphContainer.stat1Value = stat1Value;
-									graphContainer.stat2Title = stat2Title;
-									graphContainer.stat2Value = stat2Value;
-									if (j<3) {
-										tab.addGraph(graphContainer);
-									} else {
-										var button:Button = new Button();
-										button.label = graphShortTitle;
-										tab.addButton(button);
-									}
+									tab.addGraph(graphTitle, graphShortTitle,
+												 stat1Title, stat1Value,
+												 stat2Title, stat2Value);
                                 }
                             }
 							selectTab(0);
