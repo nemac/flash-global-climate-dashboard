@@ -18,27 +18,29 @@
 			private var graphCount:int = 0;
 			
 			private var graphContainers:Array = [];
+            private var graphButtons:Array = [];
 			
 			private function displayGraph(i:int):void {
 				if (!graphGroup.containsElement(graphContainers[i])) {
+					var j:int = 0;
+					while (j<graphContainers.length && (graphGroup.getChildAt(2) !== graphContainers[j])) {
+						++j;
+					}
+					trace('removing graph #' + j);
 					graphGroup.removeElementAt(2);
+					trace('   disabling button #' + j);
+					graphButtons[j].selected = false;
+					graphButtons[j].enabled = true;
+					trace('       adding graph #' + i);
 					graphGroup.addElementAt(graphContainers[i], 0);
+					graphButtons[i].enabled = false;
 				}
 			}
 
 			public function addGraph(title:String, shortTitle:String,
 									 stat1Title:String, stat1Value:String,
 								     stat2Title:String, stat2Value:String):void {
-				var graphContainer:NewGraphContainer = new NewGraphContainer();
-				graphContainer.title = title;
-				graphContainer.stat1Title = stat1Title;
-				graphContainer.stat1Value = stat1Value;
-				graphContainer.stat2Title = stat2Title;
-				graphContainer.stat2Value = stat2Value;
-				graphContainers.push(graphContainer);
-				if (graphCount<3) {
-					graphGroup.addElement(graphContainer);
-				}
+
 				//var button:Button = new Button();
 				var button:ToggleButton = new ToggleButton();
 				button.setStyle("skinClass", GraphToggleButtonSkin);
@@ -48,6 +50,22 @@
 					displayGraph(i);
 				});
 				buttonGroup.addElement(button);
+				graphButtons.push(button);
+
+				
+				var graphContainer:NewGraphContainer = new NewGraphContainer();
+				graphContainer.title = title;
+				graphContainer.stat1Title = stat1Title;
+				graphContainer.stat1Value = stat1Value;
+				graphContainer.stat2Title = stat2Title;
+				graphContainer.stat2Value = stat2Value;
+				graphContainers.push(graphContainer);
+
+				if (graphCount<3) {
+					graphGroup.addElement(graphContainer);
+					button.selected = true;
+					button.enabled = false;
+				}
 				++graphCount;
 			}
 			

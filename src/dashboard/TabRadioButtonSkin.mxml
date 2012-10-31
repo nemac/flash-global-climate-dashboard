@@ -33,13 +33,13 @@
         /** 
          * @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
-        [HostComponent("spark.components.ToggleButton")]
+        [HostComponent("spark.components.RadioButton")]
     ]]>
     </fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
-			[Bindable]private var _upTriangleData:String;
+			[Bindable]private var _downTriangleData:String;
 			[Bindable]private var _rightTriangleData:String;
 			
 			private function init():void {
@@ -51,11 +51,11 @@
 				var w2:Number = w/2;
 				var h2:Number = h/2;
 				
-				_upTriangleData =
-					"M " + (x - w2) + " " + (y + h2) + " " +
-					"L " + (x + w2) + " " + (y + h2) + " " +
-					"L " + (x)      + " " + (y - h2) + " " +
-                    "L " + (x - w2) + " " + (y + h2);
+				_downTriangleData =
+					"M " + (x - w2) + " " + (y - h2) + " " +
+					"L " + (x + w2) + " " + (y - h2) + " " +
+					"L " + (x)      + " " + (y + h2) + " " +
+                    "L " + (x - w2) + " " + (y - h2);
 
 				_rightTriangleData =
 					"M " + (x - h2) + " " + (y + w2) + " " +
@@ -113,7 +113,7 @@
 			<s:SolidColor color="#ffffff"/>
 		</s:fill>
 	</s:Path>
-	<s:Path x="-2" y="-2" excludeFrom="up,over" data="{_upTriangleData}">
+	<s:Path x="-2" y="1" excludeFrom="up,over" data="{_downTriangleData}">
 		<s:fill>
 			<s:SolidColor color="#ffffff"/>
 		</s:fill>

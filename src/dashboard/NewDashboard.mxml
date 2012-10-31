@@ -40,6 +40,7 @@
 								tabButton.group = tabButtons; //<s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
 								tabButton.value = i;
 								tabButton.label = tabTitle;
+								tabButton.setStyle("skinClass", TabRadioButtonSkin);
 								header.addElement(tabButton);
 								
 								var tab:Tab = new Tab();
