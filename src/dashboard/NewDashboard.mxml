@@ -50,11 +50,14 @@
                                 for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
 									var graphTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].title[0]);
 									var graphShortTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].shorttitle[0]);
+									var graphHelp:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].help[0]);
 									var stat1Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[0].title[0]);
 									var stat1Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[0].value[0]);
 									var stat2Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].title[0]);
 									var stat2Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].value[0]);
+									var landingPageLink:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].link[0]);
 									tab.addGraph(graphTitle, graphShortTitle,
+												 graphHelp, landingPageLink,
 												 stat1Title, stat1Value,
 												 stat2Title, stat2Value);
                                 }
