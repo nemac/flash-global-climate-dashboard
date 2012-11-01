@@ -5,82 +5,157 @@
 		  x="10"
 		  y="51"
 		  width="918"
-		  visible="false"
+          creationComplete="init()"
+		  visible="false" xmlns:multigraph="multigraph.*" xmlns:dashboard="dashboard.*"
 		  >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import spark.components.Button;
-			import spark.components.ToggleButton;
-			
-			private var graphCount:int = 0;
-			
-			private var graphContainers:Array = [];
-            private var graphButtons:Array = [];
-			
-			private function displayGraph(i:int):void {
-				if (!graphGroup.containsElement(graphContainers[i])) {
-					var j:int = 0;
-					while (j<graphContainers.length && (graphGroup.getChildAt(2) !== graphContainers[j])) {
-						++j;
-					}
-					trace('removing graph #' + j);
-					graphGroup.removeElementAt(2);
-					trace('   disabling button #' + j);
-					graphButtons[j].selected = false;
-					graphButtons[j].enabled = true;
-					trace('       adding graph #' + i);
-					graphGroup.addElementAt(graphContainers[i], 0);
-					graphButtons[i].enabled = false;
-				}
-			}
+import multigraph.Axis;
+import multigraph.AxisEvent;
+import multigraph.format.DateFormatter;
 
-			public function addGraph(titleText:String,  shortTitleText:String,
-									 helpText:String,   landingPageLink:String,
-									 stat1Title:String, stat1Value:String,
-								     stat2Title:String, stat2Value:String,
-                                     muglurl:String,    mugl:XML,
-                                     muglOverrides:Array):void {
+import spark.components.Button;
+import spark.components.ToggleButton;
 
-				//var button:Button = new Button();
-				var button:ToggleButton = new ToggleButton();
-				button.setStyle("skinClass", GraphToggleButtonSkin);
-				button.label = shortTitleText;
-				var i:int = graphCount;
-				button.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {
-					displayGraph(i);
-				});
-				buttonGroup.addElement(button);
-				graphButtons.push(button);
+private var graphCount:int = 0;
 
-				var graphContainer:NewGraphContainer = new NewGraphContainer();
-				graphContainer.titleText = titleText;
-				graphContainer.helpText = helpText;
-				graphContainer.stat1Title = stat1Title;
-				graphContainer.stat1Value = stat1Value;
-				graphContainer.stat2Title = stat2Title;
-				graphContainer.stat2Value = stat2Value;
-				graphContainer.landingPageLink = landingPageLink;
-				graphContainer.mugloverrides = muglOverrides;
+[Bindable]public var timelineMugl:XML;
 
-                if (muglurl) {
-                    graphContainer.muglurl = muglurl;
-                } else {
-                    graphContainer.mugl = mugl;
-                }
+private var graphContainers:Array = [];
+private var graphButtons:Array = [];
 
-				graphContainers.push(graphContainer);
+[Bindable]public var timeSliderMin:Number;
+[Bindable]public var timeSliderMax:Number;
+[Bindable]public var timeSliderSelectedMin:Number;
+[Bindable]public var timeSliderSelectedMax:Number;
+[Bindable]public var timeSliderLabels:String = null;
 
-				if (graphCount<3) {
-					graphGroup.addElement(graphContainer);
-					button.selected = true;
-					button.enabled = false;
-				}
-				++graphCount;
-			}
-			
+[Bindable]public var singleGraph:Boolean = false;
+
+protected var multigraphDateFormatter : DateFormatter = new DateFormatter("%Y");
+
+protected function init():void
+{
+	// I'm not sure which of these is actually needed, but having one or more of them
+	// here seems to fix (I hope!) the problem of the time slider sometimes not being
+	// correctly initialized. --mbp
+	executeBindings(true);
+	//executeChildBindings(true);
+	this.timeslider.executeBindings(true);
+    //legendTitleFlow = TextConverter.importToFlow(textFlowify(legendTitle), TextConverter.TEXT_LAYOUT_FORMAT);
+    //legendTextFlow      = TextConverter.importToFlow(textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
+}
+
+private function displayGraph(i:int):void {
+	if (!graphGroup.containsElement(graphContainers[i])) {
+		var j:int = 0;
+		while (j<graphContainers.length && (graphGroup.getChildAt(2) !== graphContainers[j])) {
+			++j;
+		}
+		graphGroup.removeElementAt(2);
+		graphButtons[j].selected = false;
+		graphButtons[j].enabled = true;
+		graphGroup.addElementAt(graphContainers[i], 0);
+		graphButtons[i].enabled = false;
+	}
+}
+
+public function addGraph(titleText:String,  shortTitleText:String,
+	helpText:String,   landingPageLink:String,
+	stat1Title:String, stat1Value:String,
+	stat2Title:String, stat2Value:String,
+    muglurl:String,    mugl:XML,
+    muglOverrides:Array):void {
+
+	var button:ToggleButton;
+    if (!singleGraph) {
+	    button = new ToggleButton();
+	    button.setStyle("skinClass", GraphToggleButtonSkin);
+	    button.label = shortTitleText;
+	    var i:int = graphCount;
+	    button.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {
+			    displayGraph(i);
+		    });
+	    buttonGroup.addElement(button);
+	    graphButtons.push(button);
+    }
+
+	var graphContainer:NewGraphContainer = new NewGraphContainer();
+	graphContainer.titleText = titleText;
+	graphContainer.helpText = helpText;
+	graphContainer.stat1Title = stat1Title;
+	graphContainer.stat1Value = stat1Value;
+	graphContainer.stat2Title = stat2Title;
+	graphContainer.stat2Value = stat2Value;
+	graphContainer.landingPageLink = landingPageLink;
+	graphContainer.mugloverrides = muglOverrides;
+
+    if (muglurl) {
+        graphContainer.muglurl = muglurl;
+    } else {
+        graphContainer.mugl = mugl;
+    }
+
+	if (graphCount==0) {
+		graphContainer.addEventListener(AxisEvent.CHANGE, handleAxisChange);
+	}
+
+	graphContainers.push(graphContainer);
+
+    if (singleGraph) {
+        graphContainer.height = 450;
+    }
+
+	if (graphCount<3) {
+		graphGroup.addElement(graphContainer);
+        if (!singleGraph) {
+		    button.selected = true;
+		    button.enabled = false;
+        }
+	}
+	++graphCount;
+}
+
+protected function sliderChange(event:TimeSliderEvent) {
+	//trace('sliderChange('+event.min+', '+event.max+') => axisValues('+a+', '+b+')');
+	var a:Number = yearIntToAxisDateValue(event.min);
+	var b:Number = yearIntToAxisDateValue(event.max);
+	for each (var graphContainer:NewGraphContainer in graphContainers) {
+		var mg:Multigraph = graphContainer.getMultigraph();
+		if (mg != null) {
+			var graphs:Array = mg.graphs;
+			var axes:Array = graphs[0].axes;
+			var axis:Axis = axes[0];
+			axis.setDataRange(a, b,false);
+			// note: 'false' as the 3rd arg tells setDataRange not to dispatch an AxisEvent, which is important
+			// here to prevent an adverse feedback loop coming from the fact that we're listening for those
+			// events here in this class and calling this function (sliderChange) in response to them.
+			break;
+			// only set the data range on the first graph in this tab!!!  The others
+	        // will autoadjust to it via the axis bindings in Multigraph.
+		}
+	}
+	//trace('slider set to: ' + event.min + ', ' + event.max);
+}
+
+private function yearIntToAxisDateValue( year : int ) : Number {
+	return multigraphDateFormatter.parse( year+'' );
+}
+
+private function axisDateValueToYearInt( axisValue : Number ) : int {
+	return parseInt( multigraphDateFormatter.format( axisValue ) );
+}
+
+private function handleAxisChange(event:AxisEvent):void {
+	var a:Number = axisDateValueToYearInt(event.min);
+	var b:Number = axisDateValueToYearInt(event.max);
+	timeslider.selectedMinValue = a;
+	timeslider.selectedMaxValue = b;
+}
+                
 		]]>
 	</fx:Script>
 	<!--
@@ -89,13 +164,33 @@
 		followed by one ...
 	-->
 	<s:VGroup id="graphGroup" width="100%">
-		
+      
 	</s:VGroup>
 	
+	<s:BorderContainer borderVisible="false" backgroundAlpha="0" width="100%">
+      <!--
+          ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
+          **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
+          **       to be adjusted.
+      -->
+      <s:VGroup width="560" right="6">
+        <multigraph:Multigraph id="timeline" mugl="{timelineMugl}"
+                               width="560" height="20"/>
+        <dashboard:TimeSlider id="timeslider"
+                              minValue="{timeSliderMin}"
+                              maxValue="{timeSliderMax}"
+                              selectedMinValue="{timeSliderSelectedMin}"
+                              selectedMaxValue="{timeSliderSelectedMax}"
+                              labels="{timeSliderLabels}"
+                              height="25" width="560"
+                              change="sliderChange(event)"/>
+      </s:VGroup>
+	</s:BorderContainer>
+
 	<s:Group id="buttonGroup" width="100%">
-		<s:layout>
-			<s:TileLayout/>
-		</s:layout>
+      <s:layout>
+        <s:TileLayout/>
+      </s:layout>
 	</s:Group>
 
 </s:VGroup>

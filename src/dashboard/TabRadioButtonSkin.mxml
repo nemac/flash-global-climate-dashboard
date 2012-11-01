@@ -126,6 +126,7 @@
              maxDisplayedLines="1"
              color="#ffffff"
 			 paddingLeft="20"
+             fontSize="16"
              horizontalCenter="0" verticalCenter="1"
              left="14" right="14" top="2" bottom="2">
 <!--

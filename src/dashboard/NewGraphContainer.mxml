@@ -6,7 +6,7 @@
                    cornerRadius="10"
                    backgroundColor="#232020"
                    width="100%"
-                   height="85"
+                   height="110"
 				   creationComplete="init()">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -29,7 +29,9 @@
 		<![CDATA[
 			import flashx.textLayout.conversion.TextConverter;
 			import flashx.textLayout.elements.TextFlow;
+			
 			import multigraph.AxisEvent;
+			import multigraph.Multigraph;
 
 			[Bindable]public var titleText:String;
 			[Bindable]public var helpText:String;
@@ -84,9 +86,13 @@
 			}
 
 			private function handleAxisChange(event:AxisEvent):void {
-                trace('handling axis change event');
-				//dispatchEvent(new AxisEvent(event.type, event.min, event.max));
+				dispatchEvent(new AxisEvent(event.type, event.min, event.max));
 			}
+
+			public function getMultigraph():Multigraph {
+				return theMultigraph;
+			}
+
 
 ]]>
 	</fx:Script>
@@ -95,14 +101,14 @@
                         color="#FFFFFF" fontSize="18"   textFlow="{_titleTextFlow}"/>
 	<dashboard:GraphStat x="26" y="31" title="{stat1Title}" value="{stat1Value}" valueColor="{stat1ValueColor}"/>
 	<dashboard:GraphStat x="26" y="49" title="{stat2Title}" value="{stat2Value}" valueColor="{stat2ValueColor}"/>
-	<s:Label id="learnMore" x="13" y="68" fontSize="12" fontWeight="bold" text="Learn More &gt;&gt;"
+	<s:Label id="learnMore" x="13" y="{height-20}" fontSize="12" fontWeight="bold" text="Learn More &gt;&gt;"
              styleName="lightClickable"
              buttonMode="true" useHandCursor="true" mouseChildren="false" click="displayHelp()"
              mouseOver="lightRoll(event)" mouseOut="lightRoll(event)"/>
     <dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
                                     change="handleAxisChange(event)" outlined="false"
                                     x="350" y="3"
-                                    width="560" height="77"/>
+                                    width="560" height="{height-8}"/>
 	<s:BorderContainer id="help" cornerRadius="5" backgroundAlpha=".95" backgroundColor="#ffffff" visible="false"
                        left="5" top="5" right="5" bottom="5"
                        x="0" y="0" borderVisible="false">

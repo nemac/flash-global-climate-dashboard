@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:dashboard="dashboard.*"
-			   width="940" height="450" minWidth="940" minHeight="450"
+			   width="940" height="570" minWidth="940" minHeight="550"
 			   applicationComplete="appComplete()"
 			   >
 	<fx:Declarations>
@@ -34,6 +34,8 @@
                         function(event:Event):void {
                             var dashboardXML:XML = new XML(event.target.data);
                             var globalMuglOverrides:XML = dashboardXML.mugloverrides[0];
+                            var timelineMugl:XML = dashboardXML.timeline[0].mugl[0];
+                            var timelineMuglOverrides:XML = dashboardXML.timeline[0].mugloverrides[0];
                             for (var i:int = 0; i<dashboardXML.tab.length(); ++i) {
                                 var tabTitle:String = contentsAsXMLString(dashboardXML.tab[i].title[0]);
                                 var tabMuglOverrides:XML = dashboardXML.tab[i].mugloverrides[0];
@@ -45,7 +47,15 @@
 								header.addElement(tabButton);
 								
 								var tab:Tab = new Tab();
+                                tab.timelineMugl = applyXMLOverrides(new XML(timelineMugl), [globalMuglOverrides, tabMuglOverrides, timelineMuglOverrides]);
+                                tab.timeSliderMin         = tab.timelineMugl.horizontalaxis[0].pan[0].@min;
+                                tab.timeSliderMax         = tab.timelineMugl.horizontalaxis[0].pan[0].@max;
+                                tab.timeSliderSelectedMin = tab.timelineMugl.horizontalaxis[0].@min;
+                                tab.timeSliderSelectedMax = tab.timelineMugl.horizontalaxis[0].@max;
 								tabs.push(tab);
+                                if (dashboardXML.tab[i].graph.length() === 1) {
+                                    tab.singleGraph = true;
+                                }
                                 body.addElement(tab);
 
                                 for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
@@ -136,12 +146,17 @@
 		]]>
 	</fx:Script>
   <s:BorderContainer id="body" cornerRadius="15" backgroundColor="#5A5B5B" width="100%" height="100%">
-	<s:HGroup id="header" x="10" y="10">
-		<s:Label fontSize="36" text="Global Climate Dashboard"/>
-		<!--
-		   tab selection buttons get inserted here, e.g:
-		     <s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
-		-->
+	<s:HGroup x="10" y="10" gap="18">
+		<s:Label fontSize="28" text="Global Climate Dashboard"/>
+		<s:Group id="header">
+		  <s:layout>
+			<s:TileLayout requestedRowCount="1"/>
+		  </s:layout>
+		  <!--
+		     tab selection buttons get inserted here, e.g:
+		       <s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
+		  -->
+		</s:Group>
 	</s:HGroup>
 	  <!--
 	  	tabs get inserted here:

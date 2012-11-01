@@ -162,7 +162,7 @@ package dashboard
 	  graphics.lineStyle(1, 0x182631, 1.0, false, "normal", CapsStyle.NONE);
 
 	  //full slider color
-      graphics.beginFill(0x1a2430, 1);
+      graphics.beginFill(0x232020, 1);
 //graphics.beginFill(0xff0000, 1);
 	  //graphics.beginGradientFill(GradientType.LINEAR,[0x262e35,0x2c3842],[1,1],[0,255],gradientMatrix);
       graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
