@@ -13,6 +13,7 @@
   <fx:Style source="Dashboard.css" />
   <fx:Script>
     <![CDATA[
+		import dashboard.TimeSliderEvent;
 import flash.filters.DropShadowFilter;
 
 import flashx.textLayout.*;

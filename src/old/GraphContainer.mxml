@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					  xmlns:s="library://ns.adobe.com/flex/spark" 
+					  xmlns:mx="library://ns.adobe.com/flex/mx" width="425" 
+					  dragOver="parentApplication.graphContainerDragOver(event)"
+					  height.collapsed="25"
+                      backgroundAlpha=".00001"
+                      backgroundColor="#333333"
+					  xmlns:multigraph="multigraph.*" xmlns:dashboard="dashboard.*"
+					  creationComplete="init()" 
+					  buttonMode.collapsed="true" xmlns:old="old.*" >
+<!--
+mouseOut.collapsed="collapsed_mouseOut(event)"
+mouseOver.collapsed="collapsed_mouseOver(event)"
+-->
+
+	<fx:Style source="Dashboard.css" />
+
+	<fx:Script>
+		<![CDATA[
+			import flash.net.navigateToURL;
+			import flash.utils.getDefinitionByName;
+			import flash.utils.getQualifiedClassName;
+			
+			import flashx.textLayout.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.edit.IEditManager;
+			import flashx.textLayout.elements.TextFlow;
+			
+			import multigraph.AxisEvent;
+			import multigraph.Multigraph;
+			
+			import mx.controls.Image;
+			import mx.controls.ToolTip;
+			import mx.core.DragSource;
+			import mx.core.UIComponent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import mx.managers.ToolTipManager;
+			
+			import skins.collapsedContainerSkin;
+			import skins.containerSkin;
+			import skins.helpSkin;
+			import skins.readmoreButtonSkin;
+			
+			import spark.filters.DropShadowFilter;
+			import spark.primitives.Graphic;
+			import spark.utils.TextFlowUtil;
+			
+			[Event(name="change", type="multigraph.AxisEvent")]
+			
+			[Bindable]public var muglurl:String = null;
+			[Bindable]public var mugl:XML= null;
+			[Bindable]public var titleString:String = null;
+			[Bindable]public var tabContainer:TabContainer;
+			[Bindable]public var helpString:String = null;
+			public static var graphPadding:int = 3;
+			[Bindable]public var rmLink:String = "about:blank";
+			[Bindable]public var handleVisible:Boolean = true;
+			
+			[Bindable]public var dragHandleVisible:Boolean = true;
+			[Bindable]public var helpHandleVisible:Boolean = true;
+			
+			[Bindable]public var outlined:Boolean = false;
+			
+			[Bindable]public var helpBorderContainerHeight:int;
+			[Bindable]public var helpContentHeight:int;
+			[Bindable]public var skinHeight:int;
+			[Bindable]public var readMoreButtonTop:int = 70;
+			
+			//[Bindable]public var bindingid:String = null;
+			//[Bindable]public var bindingmin:String = null;
+			//[Bindable]public var bindingmax:String = null;
+			//[Bindable]public var minyear:String = null;
+			//[Bindable]public var maxyear:String = null;
+			
+			[Bindable]public var mugloverrides:Object = null;
+			
+			[Bindable]public var leftPad:int = 0;
+			[Bindable]public var alphaOnOff:Boolean = false;
+			
+			public function getMultigraph():Multigraph {
+				return theMultigraph;
+			}
+			
+			private var proxy:UIComponent = null;
+
+            // this gets set to true once we have created an image-based proxy for this container, so that we can avoid
+            // the overhead of re-creating it later
+            private var haveGoodProxy:Boolean = false;
+			
+			protected function textFlowify (string:String):String{
+				return "<TextFlow version='2.0.0' xmlns='http://ns.adobe.com/textLayout/2008'><p>" + string + "<span /></p></TextFlow>";
+			}
+			
+			[Bindable] private var titleTextFlow:TextFlow = null;
+			
+			protected function init():void
+			{ 
+				titleTextFlow = TextConverter.importToFlow(textFlowify(titleString), TextConverter.TEXT_LAYOUT_FORMAT);
+				
+
+				/*
+				if (title != null) {
+					title.textFlow = TextConverter.importToFlow(textFlowify(titleString), TextConverter.TEXT_LAYOUT_FORMAT);
+				}*/
+			}
+			
+			protected function readmore():void
+			{
+				var req:URLRequest = new URLRequest(rmLink);
+				navigateToURL(req,"_blank");
+			}
+			
+			
+			private var helpTextHasBeenSet:Boolean = false;
+			protected function help_clickHandler(event:MouseEvent):void
+			{
+				help.visible = !help.visible;
+				if (help.visible && !helpTextHasBeenSet) {
+					helpContent.textFlow = TextConverter.importToFlow(textFlowify(helpString), TextConverter.TEXT_LAYOUT_FORMAT);
+					helpTextHasBeenSet = true;
+				}
+			}
+			
+			private function createProxy():void {
+              if (haveGoodProxy) { return; }
+              if (this.theMultigraph == null || this.currentState == "collapsed") {
+                var graphContainer:GraphContainer = new GraphContainer();
+                graphContainer.leftPad = this.leftPad;
+                graphContainer.width = 425;
+                graphContainer.height = this.height;
+                graphContainer.horizontalCenter = 0;
+                graphContainer.top = 0;
+                graphContainer.x = this.x-25;
+                graphContainer.tabContainer = this.tabContainer;
+                graphContainer.currentState = "expanded";
+                graphContainer.titleString = this.titleString;
+				graphContainer.muglurl = this.muglurl;
+				graphContainer.mugl    = this.mugl;
+                graphContainer.mugloverrides = this.mugloverrides;
+                graphContainer.outlined = true;
+                proxy = graphContainer;
+              } else {
+                // create a proxy object which consists simply of a UIComponent containing a static image
+                // of the GraphContainer
+                var bitmapdata:BitmapData = new BitmapData(this.width, 110, true, 0x424548);
+                bitmapdata.draw(this);
+                var rect:Shape = new Shape();
+                rect.graphics.lineStyle(5, 0xcc9933);
+                rect.graphics.drawRoundRect(20, 0, 405, 110, 5, 5);
+                bitmapdata.draw(rect);
+                proxy = new UIComponent();
+                proxy.width = this.width;
+                proxy.height = 110;
+                proxy.x = this.x - 25;
+                graphics.lineStyle(2, 0xcc9933, 1, false,"normal",null,null,3);
+                proxy.addChild(new Bitmap(bitmapdata));
+                proxy.filters = [new DropShadowFilter(8, 45, 0x000000, 0.5)];
+                haveGoodProxy = true;
+              }
+			}
+			
+			public function mouseDownHandler(e:MouseEvent):void {
+				
+				// start dragging
+              createProxy();	
+			
+              /*	
+				if (parentApplication['mouseOverBehavior']) {
+					if (parentApplication['proxyForCollapsedGraphVisible']) {
+						parentApplication['proxyForCollapsedGraphVisible'] = false;
+						if (proxy != null && parentApplication['transparentOverlay'].contains(proxy)) {
+							parentApplication['transparentOverlay'].removeElement(proxy);
+						}
+					}
+				} else {
+                  createProxy();	
+				}
+              */
+				
+				//DragManager.doDrag(this, null, e, proxy, -e.localX-20, 0);
+				
+				DragManager.doDrag(this, null, e, proxy, -e.localX-20, 0, 0.9);
+			} 
+			
+			public function getSlotNumber():int {
+				if (this.owner == null) { return -1; }
+				return (this.owner as GraphSlot).index;
+			}
+			
+			public function closeHelp(event:MouseEvent):void {
+				help.visible = false;
+			}
+
+			private function handleAxisChange(event:AxisEvent):void {
+				dispatchEvent(new AxisEvent(event.type, event.min, event.max));
+			}
+					
+		]]>
+	</fx:Script>
+	<s:states>
+      <s:State name="expanded"/>
+      <s:State name="collapsed"/>
+      <!-- <s:State name="proxy" /> -->
+	</s:states>
+
+	<fx:Declarations>
+      <!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<!--
+        expanded state:
+    -->
+	<s:Group includeIn="expanded">
+<!-- skinClass="skins.containerSkin"  -->
+      <s:BorderContainer left="{leftPad}" top="0" right="0" bottom="0" id="container"
+							cornerRadius="9"
+							borderVisible="false"
+                            backgroundColor="#000000"
+                            backgroundAlpha="1.0" textAlign="center">
+        <dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
+                                        change="handleAxisChange(event)" outlined="{outlined}"
+                                        width="{container.width-2*graphPadding}" height="{container.height-2*graphPadding}" 
+                                        x="{graphPadding}" y="{graphPadding}"/>
+      </s:BorderContainer>
+
+      <s:RichEditableText id="title"
+                          left="65" top="10" editable="false" styleName="expandedGraphTitle"
+                          enabled="false" focusEnabled="false" textFlow="{titleTextFlow}"/>
+      <s:BorderContainer id="help"
+                         left="20" right="5" top="5"
+                         height="{helpBorderContainerHeight}"
+                         skinClass="skins.helpSkin" visible="false" borderVisible="false">
+        <s:RichEditableText color="0xFFFFFF" left="8" right="80" bottom="2" top="5"
+                            height="{helpContentHeight}"
+                            editable="false" focusEnabled="false" id="helpContent" fontWeight="bold"/>
+        <s:Label text="Close" color="#FFFFFF" top="8" right="22" fontSize="11" fontWeight="bold" click="closeHelp(event)" buttonMode="true"/>
+        <s:Button label="×" right="2" top="5" width="15" height="15" skinClass="skins.readmoreButtonSkin" 
+                  fontSize="14" click="closeHelp(event)" buttonMode="true"/>
+        <s:Button id="readMoreButton" label="Read more »" right="0" top="{readMoreButtonTop}" skinClass="skins.readmoreButtonSkin" 
+                  width="75" fontSize="10" fontWeight="bold"
+                  buttonMode="true" click="readmore()" />
+      </s:BorderContainer>
+      
+      <s:Button left="0" top="10"
+                skinClass="skins.handleSkin" width="17" height="17" cornerRadius="0" 
+                mouseDown="mouseDownHandler(event)" visible="{dragHandleVisible}"
+                buttonMode="true" id="handle" />
+
+      <s:Button left="0" top="30" skinClass="skins.helpHandleSkin" width="12" height="12" cornerRadius="0" visible="{helpHandleVisible}"
+                click="help_clickHandler(event)" id="helpHandle" buttonMode="true"/> 
+	</s:Group>
+	
+	<!--
+        collapsed state:
+    -->
+	<old:CollapsedGraph  includeIn="collapsed" 
+                                   id="collapsed_container"
+                                   textFlow="{titleTextFlow}"  
+                                   buttonMode="true"
+                                   mouseDown="mouseDownHandler(event)"/>
+
+
+  </s:SkinnableContainer>

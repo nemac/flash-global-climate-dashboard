@@ -83,7 +83,7 @@ public function addGraph(titleText:String,  shortTitleText:String,
 	    graphButtons.push(button);
     }
 
-	var graphContainer:NewGraphContainer = new NewGraphContainer();
+	var graphContainer:GraphContainer = new GraphContainer();
 	graphContainer.titleText = titleText;
 	graphContainer.helpText = helpText;
 	graphContainer.stat1Title = stat1Title;
@@ -123,7 +123,7 @@ protected function sliderChange(event:TimeSliderEvent) {
 	//trace('sliderChange('+event.min+', '+event.max+') => axisValues('+a+', '+b+')');
 	var a:Number = yearIntToAxisDateValue(event.min);
 	var b:Number = yearIntToAxisDateValue(event.max);
-	for each (var graphContainer:NewGraphContainer in graphContainers) {
+	for each (var graphContainer:GraphContainer in graphContainers) {
 		var mg:Multigraph = graphContainer.getMultigraph();
 		if (mg != null) {
 			var graphs:Array = mg.graphs;

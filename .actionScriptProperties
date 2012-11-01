@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="dashboard/Dashboard.mxml" projectUUID="7ba85d85-b892-4ebd-a2b7-e7f02f6af5d4" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="old/OldDashboard.mxml" projectUUID="7ba85d85-b892-4ebd-a2b7-e7f02f6af5d4" version="10">
   <compiler additionalCompilerArguments="-locale en_US  -managers flash.fonts.AFEFontManager -dump-config=config.xml" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="multigraph/src"/>
@@ -16,7 +16,7 @@
   </compiler>
   <applications>
     <application path="dashboard/Dashboard.mxml"/>
-    <application path="dashboard/NewDashboard.mxml"/>
+    <application path="old/OldDashboard.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
