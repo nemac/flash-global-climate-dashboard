@@ -33,9 +33,10 @@
                     loader.addEventListener( Event.COMPLETE,
                         function(event:Event):void {
                             var dashboardXML:XML = new XML(event.target.data);
+                            var globalMuglOverrides:XML = dashboardXML.mugloverrides[0];
                             for (var i:int = 0; i<dashboardXML.tab.length(); ++i) {
                                 var tabTitle:String = contentsAsXMLString(dashboardXML.tab[i].title[0]);
-								
+                                var tabMuglOverrides:XML = dashboardXML.tab[i].mugloverrides[0];
 								var tabButton:RadioButton = new RadioButton();
 								tabButton.group = tabButtons; //<s:RadioButton group="{tabButtons}" value="0" label="Climate Change"/>
 								tabButton.value = i;
@@ -56,10 +57,14 @@
 									var stat2Title:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].title[0]);
 									var stat2Value:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].stats[0].stat[1].value[0]);
 									var landingPageLink:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].link[0]);
+                                    var muglurl:String = dashboardXML.tab[i].graph[j].mugl[0].@location;
+                                    var mugl:XML = dashboardXML.tab[i].graph[j].mugl[0];
 									tab.addGraph(graphTitle, graphShortTitle,
-												 graphHelp, landingPageLink,
+												 graphHelp,  landingPageLink,
 												 stat1Title, stat1Value,
-												 stat2Title, stat2Value);
+												 stat2Title, stat2Value,
+                                                 muglurl,    mugl,
+                                                 [globalMuglOverrides, tabMuglOverrides]);
                                 }
                             }
 							selectTab(0);

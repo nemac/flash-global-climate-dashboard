@@ -37,10 +37,12 @@
 				}
 			}
 
-			public function addGraph(titleText:String, shortTitleText:String,
-									 helpText:String, landingPageLink:String,
+			public function addGraph(titleText:String,  shortTitleText:String,
+									 helpText:String,   landingPageLink:String,
 									 stat1Title:String, stat1Value:String,
-								     stat2Title:String, stat2Value:String):void {
+								     stat2Title:String, stat2Value:String,
+                                     muglurl:String,    mugl:XML,
+                                     muglOverrides:Array):void {
 
 				//var button:Button = new Button();
 				var button:ToggleButton = new ToggleButton();
@@ -61,6 +63,14 @@
 				graphContainer.stat2Title = stat2Title;
 				graphContainer.stat2Value = stat2Value;
 				graphContainer.landingPageLink = landingPageLink;
+				graphContainer.mugloverrides = muglOverrides;
+
+                if (muglurl) {
+                    graphContainer.muglurl = muglurl;
+                } else {
+                    graphContainer.mugl = mugl;
+                }
+
 				graphContainers.push(graphContainer);
 
 				if (graphCount<3) {

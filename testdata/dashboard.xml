@@ -2,9 +2,6 @@
 <dashboard id="flat-dashboard">
   
     <mugloverrides>
-      <element name="background">
-        <attribute name="color" value="0x000000"/>
-      </element>
       <element name="window">
         <attribute name="margin" value="0"/>
         <attribute name="border" value="0"/>
@@ -20,10 +17,10 @@
         <attribute name="visible" value="false"/>
       </element>
       <element name="horizontalaxis">
-        <attribute name="tickcolor" value="0x333333"/>
+        <attribute name="tickcolor" value="0xdddddd"/>
         <element name="labels">
           <attribute name="format" value="%Y" visible="false"/>
-          <attribute name="fontcolor" value="0xcccccc"/>
+          <attribute name="fontcolor" value="0x666666"/>
         </element>
         <element name="pan">
           <attribute name="allowed" value="yes"/>
@@ -32,7 +29,7 @@
           <attribute name="allowed" value="yes"/>
         </element>
         <element name="grid">
-          <attribute name="color" value="0x333333"/>
+          <attribute name="color" value="0xdddddd"/>
         </element>
         <element name="binding">
           <attribute name="min" value="1900"/>
@@ -40,9 +37,9 @@
         </element>
       </element>
       <element name="verticalaxis">
-        <attribute name="tickcolor" value="0x333333"/>
+        <attribute name="tickcolor" value="0xdddddd"/>
         <element name="labels">
-          <attribute name="fontcolor" value="0xcccccc"/>
+          <attribute name="fontcolor" value="0x666666"/>
         </element>      
         <element name="pan">
           <attribute name="allowed" value="no"/>
@@ -51,7 +48,7 @@
           <attribute name="allowed" value="no"/>
         </element>
         <element name="grid">
-          <attribute name="color" value="0x333333"/>
+          <attribute name="color" value="0xdddddd"/>
         </element>
       </element>
       <elements name="datatips">
@@ -133,7 +130,6 @@
 		<renderer type="bar">
 			<option min="0" name="fillcolor" value="0xCD6760"/>
 			<option max="0" name="fillcolor" value="0x6194C8"/>
-			<option name="linecolor" value="0xcccccc"/>
 			<option name="barwidth" value="1Y"/>
 			<option name="baroffset" value="0"/>
 			<option name="barbase" value="0"/>

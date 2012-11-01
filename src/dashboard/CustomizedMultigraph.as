@@ -52,7 +52,7 @@ package dashboard
       private function setMuglWithOverrides():void {
 	if (_mugloverrides != null) {
 	  //alert('applying _mugloverrides now', 'ALERT');
-	  _mugl = Dashboard.applyXMLOverrides(_mugl, _mugloverrides);
+	  _mugl = NewDashboard.applyXMLOverrides(_mugl, _mugloverrides);
 	} else {
 	  //alert('no overrides to apply', 'ALERT');
 	}
