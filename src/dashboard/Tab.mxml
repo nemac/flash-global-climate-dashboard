@@ -58,6 +58,7 @@ private function displayGraph(i:int):void {
 		graphGroup.removeElementAt(2);
 		graphButtons[j].selected = false;
 		graphButtons[j].enabled = true;
+		graphContainers[j].closeHelp();
 		graphGroup.addElementAt(graphContainers[i], 0);
 		graphButtons[i].enabled = false;
 	}
@@ -65,8 +66,9 @@ private function displayGraph(i:int):void {
 
 public function addGraph(titleText:String,  shortTitleText:String,
 	helpText:String,   landingPageLink:String,
-	stat1Title:String, stat1Value:String,
-	stat2Title:String, stat2Value:String,
+	stat1Title:String, stat1Value:String, stat1ValueColor:String,
+	stat2Title:String, stat2Value:String, stat2ValueColor:String,
+	legendTitle:String, legendText:String, legendItems:Array,
     muglurl:String,    mugl:XML,
     muglOverrides:Array):void {
 
@@ -88,8 +90,17 @@ public function addGraph(titleText:String,  shortTitleText:String,
 	graphContainer.helpText = helpText;
 	graphContainer.stat1Title = stat1Title;
 	graphContainer.stat1Value = stat1Value;
+	if (stat1ValueColor) {
+		graphContainer.stat1ValueColor = uint(stat1ValueColor);
+	}
 	graphContainer.stat2Title = stat2Title;
 	graphContainer.stat2Value = stat2Value;
+	if (stat2ValueColor) {
+		graphContainer.stat2ValueColor = uint(stat2ValueColor);
+	}
+	graphContainer.legendTitle = legendTitle;
+	graphContainer.legendText = legendText;
+	graphContainer.legendItems = legendItems;
 	graphContainer.landingPageLink = landingPageLink;
 	graphContainer.mugloverrides = muglOverrides;
 

@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx">
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  creationComplete="init()"
+		  >
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
 			[Bindable]public var valueColor:uint = 0xFFFFFF;
 			[Bindable]public var fontSize:int = 14;
 			[Bindable]public var title:String;
 			[Bindable]public var value:String;
+			
+			[Bindable]private var _titleTextFlow:TextFlow;
+			[Bindable]private var _valueTextFlow:TextFlow;
+			
+			private function init():void {
+				if (title) {
+					_titleTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(title + ": "), TextConverter.TEXT_LAYOUT_FORMAT);
+					_valueTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(value), TextConverter.TEXT_LAYOUT_FORMAT);
+				} else {
+					this.visible = false;
+				}
+			}
 		]]>
 	</fx:Script>
-	<s:Label color="#FFFFFF"      fontSize="{fontSize}" text="{title + ': '}"/>
-	<s:Label color="{valueColor}" fontSize="{fontSize}" text="{value}"/>
+	<s:RichEditableText id="titleLabel" color="#FFFFFF" editable="false" enabled="false" focusEnabled="false" fontSize="{fontSize}" textFlow="{_titleTextFlow}"/>
+	<s:RichEditableText id="valueLabel" color="{valueColor}" editable="false" enabled="false" focusEnabled="false" fontSize="{fontSize}" textFlow="{_valueTextFlow}"/>
+	<!--
+	<s:Label id="titleLabel" color="#FFFFFF"      fontSize="" text="{_title}"/>
+	<s:Label id="valueLabel" color="{valueColor}" fontSize="{fontSize}" text="{value}"/>
+	-->
 </s:HGroup>

@@ -90,14 +90,14 @@
 
 		In the graph, average annual surface temperature is shown as the difference from the average for 1901-2000.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-global-temperature</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
           <title>Increase since 1990</title>
-          <value>+1.5&#730; F (0.7 C)</value>
+          <value color="0xf8a792">+0.7 C (+1.5&#730; F)</value>
         </stat>
         <stat>
-          <title>Average rate of rise</title>
-          <value>+0.25&#730;F (0.13&#730; C) per decade</value>
+          <title>Rate of increase per decade</title>
+          <value color="0xf8a792">+0.25&#730;F (0.13&#730; C)</value>
         </stat>
       </stats>
       <mugl>
@@ -288,14 +288,14 @@
         per million molecules of dry air measured at Mauna Loa, Hawai'i. 
 	The black line shows monthly values; the red line shows the running average.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-atmospheric-carbon-dioxide</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Increase since 1960</title>
+          <value color="0xf8a792">24%</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Rate of increase per decade</title>
+          <value color="0xf8a792">6%</value>
         </stat>
       </stats>
       <mugl>
@@ -1027,14 +1027,14 @@
       <help>Earlier melting of winter snow has reduced the area of land covered by snow in spring. The graph shows the area covered by snow in the Northern Hemisphere during March and April, shown as 
 	the difference from the 1971-2000 average. </help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-spring-snow-cover</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Decrease since 1968</title>
+          <value color="0x87b5d2">-??%</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Rate of decrease per decade</title>
+          <value color="0x87b5d2">-?%</value>
         </stat>
       </stats>
       <mugl>
@@ -1150,12 +1150,12 @@
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-sea-level</link>
       <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Increase since 1880</title>
+          <value>203mm (8 in)</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Rate of rise per decade</title>
+          <value>10mm (0.5in)</value>
         </stat>
       </stats>
       <mugl>
@@ -1348,14 +1348,14 @@
 
 The graph shows the average area with at least 15% sea ice on its surface each September.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-minimum-arctic-sea-ice-extent</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Decrease since 1980</title>
+          <value color="0x87b5d2">45%</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Rate of decrease per decade</title>
+          <value color="0x87b5d2">12%</value>
         </stat>
       </stats>
       <mugl>
@@ -1446,14 +1446,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <shorttitle>Ocean Heat</shorttitle>
       <help>More than 90% of the warming that has occurred on Earth over the past 50 years has occurred in the ocean. The graph shows heat energy in the top 700 meters of the ocean as the difference from the average from 1955-2006.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Increase since 1955</title>
+          <value color="0xf8a792">+0.7 C (+1.5&#730; F)</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Rate of increase per decade</title>
+          <value color="0xf8a792">+0.25&#730;F (0.13&#730; C)</value>
         </stat>
       </stats>
       <mugl>
@@ -1745,14 +1745,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	The graph shows the total amount of solar energy arriving at the top of Earth’s 
 	atmosphere.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-change-incoming-sunlight</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>Change since 1880</title>
+          <value color="0xcccccc">0 W/m<span baselineShift="superscript">2</span></value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>Average change per decade</title>
+          <value color="0xcccccc">0 W/m<span baselineShift="superscript">2</span></value>
         </stat>
       </stats>
       <mugl>
@@ -2208,14 +2208,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <shorttitle>Glaciers</shorttitle>
       <help>Since 1980, a representative set of well studied glaciers has lost the equivalent of 40 feet (12.5 meters) of water on average. The graph shows the average mass balance of 30 reference glaciers around the world.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-glacier-mass-balance</link>
-      <stats color="#87b5d2">
+      <stats>
         <stat>
           <title>Melt water lost since 1980</title>
-          <value>40 feet (12.5m)</value>
+          <value color="0x87b5d2">(12.5m) 40 feet</value>
         </stat>
         <stat>
           <title>Average rate of water loss</title>
-          <value>26 in. (0.5m) per year</value>
+          <value color="0x87b5d2">(0.5m) 26 in. per year</value>
         </stat>
       </stats>
       <mugl>
@@ -2305,14 +2305,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
       year many nations agreed to limit emissions under the Kyoto Protocol. The graph shows total radiative forcing from long-lived greenhouse gases as a percent change from 1990.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-annual-greenhouse-gas-index-2</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
           <title>Increase in heat-trapping since 1990</title>
-          <value>+29%</value>
+          <value color="0xf8a792">+29%</value>
         </stat>
         <stat>
           <title>% of AGGI from carbon dioxide alone</title>
-          <value>85%</value>
+          <value color="0xf8a792">85%</value>
         </stat>
       </stats>
       <mugl>
@@ -2428,14 +2428,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       Values less than -0.5 indicate La Niña conditions. Values between 0.5 and -0.5 indicate neutral conditions. 
 </help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-oceanic-nino-index</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>?? ??? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>????? ???? ?? ? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
       </stats>
       <mugl>
@@ -3256,14 +3256,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       affect the north-to-south location of the storm-steering, 
       mid-latitude jet stream. Negative values are associated with severe winter storms in the eastern U.S.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-arctic-oscillation</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>?? ??? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>????? ???? ?? ? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
       </stats>
       <mugl>
@@ -4082,14 +4082,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       and location of the jet stream and the storm tracks that follow it. Negative values 
       are linked with winter storms in the eastern U.S.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-north-atlantic-oscillation</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>?? ??? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>????? ???? ?? ? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
       </stats>
       <mugl>
@@ -4908,14 +4908,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
       atmospheric indicator of the El Niño–Southern Oscillation.  El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>?? ??? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>????? ???? ?? ? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
       </stats>
       <mugl>
@@ -5725,14 +5725,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <help>Departures from average air pressure at four locations over the Pacific Ocean and North America affect 
       the strength and location of the East Asian jet stream and the weather it delivers to North America.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-pacific-north-american-teleconnection-pattern</link>
-      <stats color="#f8a792">
+      <stats>
         <stat>
-          <title>Change since sometime</title>
-          <value>3.4%</value>
+          <title>?? ??? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
         <stat>
-          <title>Average change in last second</title>
-          <value>29%</value>
+          <title>????? ???? ?? ? ?????</title>
+          <value color="0xf8a792">??</value>
         </stat>
       </stats>
       <mugl>
@@ -6604,18 +6604,7 @@ way they use energy, and therefore, the amount of heat-trapping gas in
 the atmosphere.
 </help>
       <link>http://www.climatewatch.noaa.gov/article/2012/global-temperature-projections</link>
-      <stats color="#f8a792">
-        <stat>
-          <title>Increase since 1990</title>
-          <value>+1.5&#730; F (0.7 C)</value>
-        </stat>
-        <stat>
-          <title>Average rate of rise</title>
-          <value>+0.25&#730;F (0.13&#730; C) per decade</value>
-        </stat>
-      </stats>
       <mugl location="../testdata/dbprojections.xml" />
-    </graph>
     <legend>
       <item>
         <img src="./assets/ProjectionGraphLegendIcons-Red-width2.png"/>
@@ -6634,6 +6623,7 @@ the atmosphere.
         <text>20th Century Climate</text>
       </item>
     </legend>
+    </graph>
   </tab>
 
    <intro>

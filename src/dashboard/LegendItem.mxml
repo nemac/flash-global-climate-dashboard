@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  verticalAlign="middle"
+		  creationComplete="init()">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			[Bindable]public var source:String;
+			[Bindable]public var text:String;
+			[Bindable]private var _textFlow:TextFlow;
+
+			private function init():void {
+				_textFlow = TextConverter.importToFlow(Dashboard.textFlowify(text), TextConverter.TEXT_LAYOUT_FORMAT);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Image source="{source}"/>
+	<s:RichEditableText color="#000000" editable="false" enabled="false"
+						focusEnabled="false" fontSize="12" textFlow="{_textFlow}"/>
+</s:HGroup>
