@@ -25,7 +25,8 @@
                    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
                    minWidth="300" minHeight="30" 
 				   creationComplete="init()"
-                   alpha.disabledStates="0.5">
+				   alpha.disabledStates="1.0">
+	<!-- alpha.disabledStates="0.5" -->
     
     <!-- host component -->
     <fx:Metadata>
@@ -97,12 +98,18 @@
       <s:fill>
         <!-- gradient fill colors - default ratios are 0,1 -->
         <s:LinearGradient rotation="90">
-<!--
-          <s:GradientEntry color="#ff9900"   color.over="#fabe00"  color.down="#cc6600"/>
-          <s:GradientEntry color="#cc6600"   color.over="#e17b00"  color.down="#ff9900"/>
--->
-          <s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
-          <s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
+			<!--
+			<s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
+			<s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
+			-->
+			
+			<s:GradientEntry color="#8a8c8e"  color.selectedStates="#232020"   color.over="#333030" color.down="#232020"/>
+			<s:GradientEntry color="#8a8c8e"  color.selectedStates="#232020"   color.over="#333030" color.down="#232020"/>
+			
+			<!--
+			<s:GradientEntry color="#232020"  color.selectedStates="#232020"   color.over="#232020" color.down="#232020"/>
+			<s:GradientEntry color="#232020"  color.selectedStates="#232020"   color.over="#232020" color.down="#232020"/>
+			-->
         </s:LinearGradient>
       </s:fill>
     </s:Rect>
@@ -126,7 +133,7 @@
              maxDisplayedLines="1"
              color="#ffffff"
 			 paddingLeft="20"
-			 fontSize="16"
+			 fontSize="14"
              horizontalCenter="0" verticalCenter="1"
              left="14" right="14" top="2" bottom="2">
 <!--

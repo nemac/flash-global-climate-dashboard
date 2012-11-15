@@ -101,8 +101,13 @@
           <s:GradientEntry color="#ff9900"   color.over="#fabe00"  color.down="#cc6600"/>
           <s:GradientEntry color="#cc6600"   color.over="#e17b00"  color.down="#ff9900"/>
 -->
+			<!--
           <s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
           <s:GradientEntry color="#232020"  color.selectedStates="#8a8c8e"   color.over="#7a7c7e" color.down="#8a8c8e"/>
+			-->
+		  <s:GradientEntry color="#8a8c8e"  color.selectedStates="#232020"   color.over="#333030" color.down="#232020"/>
+  		  <s:GradientEntry color="#8a8c8e"  color.selectedStates="#232020"   color.over="#333030" color.down="#232020"/>
+			
         </s:LinearGradient>
       </s:fill>
     </s:Rect>
