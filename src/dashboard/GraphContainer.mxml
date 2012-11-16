@@ -18,7 +18,8 @@
 		}
 		.lightClickable {
 			textDecoration: underline;  
-			color: #A9A9A9;
+			/*color: #A9A9A9;*/
+			color: #888888;
 		}
 		.lightClickableOver {
 			textDecoration: underline;
@@ -34,6 +35,8 @@
 			import multigraph.Multigraph;
 
 			[Bindable]public var titleText:String;
+			[Bindable]public var titleLineCount:int = 2;
+			[Bindable]public var descriptionText:String;
 			[Bindable]public var helpText:String;
 			[Bindable]public var stat1Title:String;
 			[Bindable]public var stat1Value:String;
@@ -52,13 +55,19 @@
 			[Bindable]public var mugloverrides:Object = null;
 
 			[Bindable]private var _titleTextFlow:TextFlow = null;
+			[Bindable]private var _descriptionTextFlow:TextFlow = null;
 			[Bindable]private var _helpTextFlow:TextFlow = null;
 			[Bindable]private var _legendTextFlow:TextFlow = null;
+			[Bindable]private var _descriptionYPosition:int = 50;
 			
 			private function init():void {
 				_titleTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(titleText), TextConverter.TEXT_LAYOUT_FORMAT);
+				_descriptionTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(descriptionText), TextConverter.TEXT_LAYOUT_FORMAT);
 				_helpTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(helpText), TextConverter.TEXT_LAYOUT_FORMAT);
 				_legendTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
+				if (titleLineCount < 2) {
+					_descriptionYPosition = 30;
+				}
 			}
 
 			
@@ -121,9 +130,15 @@
 	</fx:Script>
 
 	<s:RichEditableText x="10" y="10" editable="false" enabled="false" focusEnabled="false"
-						color="#FFFFFF" fontSize="18"   textFlow="{_titleTextFlow}"/>
+						width="330"
+						color="#FFFFFF" fontSize="16"   textFlow="{_titleTextFlow}"/>
+	<s:RichEditableText x="10" y="{_descriptionYPosition}" editable="false" enabled="false" focusEnabled="false"
+						width="330"
+						color="#888888" fontSize="14"   textFlow="{_descriptionTextFlow}"/>
+	<!--
 	<dashboard:GraphStat x="26" y="38" title="{stat1Title}" value="{stat1Value}" valueColor="{stat1ValueColor}"/>
 	<dashboard:GraphStat x="26" y="62" title="{stat2Title}" value="{stat2Value}" valueColor="{stat2ValueColor}"/>
+	-->
 
 	<s:BorderContainer id="legendBlock" visible="false" backgroundAlpha="0" borderVisible="false"  x="10" y="35" width="330" height="375">
 	  <s:BorderContainer x="70" y="30" backgroundColor="#ffffff" cornerRadius="10" borderVisible="false">
@@ -135,7 +150,7 @@
 						  focusEnabled="false" fontSize="14" textFlow="{_legendTextFlow}"/>
 	</s:BorderContainer>
 
-	<s:Label id="learnMore" x="13" y="{height-20}" fontSize="12" fontWeight="bold" text="Learn More &gt;&gt;"
+	<s:Label id="learnMore" x="260" y="{height-20}" fontSize="12" fontWeight="bold" text="Learn More &gt;&gt;"
 			 styleName="lightClickable"
 			 buttonMode="true" useHandCursor="true" mouseChildren="false" click="displayHelp()"
 			 mouseOver="lightRoll(event)" mouseOut="lightRoll(event)"/>

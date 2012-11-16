@@ -64,6 +64,11 @@
 
                                 for (var j:int=0; j<dashboardXML.tab[i].graph.length(); ++j) {
 									var graphTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].title[0]);
+									var graphTitleLineCount = -1;
+									if (dashboardXML.tab[i].graph[j].title[0].@lineCount) {
+										graphTitleLineCount = int(dashboardXML.tab[i].graph[j].title[0].@lineCount);
+									}
+									var graphDescription:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].description[0]);
 									var graphShortTitle:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].shorttitle[0]);
 									var graphHelp:String = contentsAsXMLString(dashboardXML.tab[i].graph[j].help[0]);
 									var stat1Title:String = null;
@@ -100,6 +105,8 @@
 										}
 									}
 									tab.addGraph(graphTitle, graphShortTitle,
+												 graphTitleLineCount,
+												 graphDescription,
 												 graphHelp,  landingPageLink,
 												 stat1Title, stat1Value, stat1ValueColor,
 												 stat2Title, stat2Value, stat2ValueColor,

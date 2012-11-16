@@ -84,8 +84,17 @@
     </mugloverrides>
 
     <graph id="temperature" name="Temperature">
-      <title>Temperature (˚C)</title>
+      <title>Global Average Temperature Anomaly (&#730;C) Difference from 1901-2000 Global Average</title>
       <shorttitle>Temperature</shorttitle>
+<!--
+      <description>Temperature is rising: each bar shows global average surface temperature compared to last century's average.</description>
+      <description>Temperature is rising: each bar shows how that year's temperature compares to the 20th century average.</description>
+-->
+      <description>Temperature is rising: each bar shows that year's temperature compared to the 20th century average.</description>
+      <alternate>Earth’s average surface temperature is rising: the bars show how each year compared to the 20th century average.</alternate>
+
+
+      <oldtitle>Temperature (˚C)</oldtitle>
       <help>Earth’s overall temperature has increased by 1.3°F (0.7°C) since 1900. <br/> <br/>
 
 		In the graph, average annual surface temperature is shown as the difference from the average for 1901-2000.</help>
@@ -281,8 +290,13 @@
   </data>
 </mugl></graph>
     <graph id="carbonDioxide" name="CarbonDioxide">
-      <title>Carbon Dioxide (ppm)</title>
+      <title lineCount="1">CO2 Atmospheric Abundance (ppm)</title>
       <shorttitle>Carbon Dioxide</shorttitle>
+      <description>The amount of carbon dioxide in the atmosphere has risen by about 40% since the Industrial Revolution.</description>
+      <alternate>The amount of carbon dioxide in the atmosphere is now about 40% higher than it was in 1750.</alternate>
+
+
+      <oldtitle>Carbon Dioxide (ppm)</oldtitle>
       <help>Atmospheric carbon dioxide has increased by about 40% since 1750.
 	The graph shows the number of CO<span baselineShift="subscript">2</span>&#xA0;&#xA0;molecules
         per million molecules of dry air measured at Mauna Loa, Hawai'i. 
@@ -1022,8 +1036,13 @@
   </data>
 </mugl></graph>
     <graph id="snowCover" name="SnowCover">
-      <title>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</title>
-      <shorttitle>Spring Snow Cover</shorttitle>
+      <title>March-April Northern Hemisphere Snow Cover Extent (million km<span baselineShift="superscript">2</span>)</title>
+      <shorttitle>Snow</shorttitle>
+      <description>Snow is melting earlier in spring: each bar shows snow cover compared to the average for 1971-2000.</description>
+      <alternate>Snow is melting earlier in the spring: each bar shows March-April snow cover in the Northern Hemisphere compared to the long- term average.</alternate>
+
+
+      <oldtitle>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</oldtitle>
       <help>Earlier melting of winter snow has reduced the area of land covered by snow in spring. The graph shows the area covered by snow in the Northern Hemisphere during March and April, shown as 
 	the difference from the 1971-2000 average. </help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-spring-snow-cover</link>
@@ -1140,8 +1159,12 @@
 	</mugl>
     </graph>
     <graph id="seaLevel" name="SeaLevel">
-      <title>Sea Level (mm)</title>
+      <title>Global Average Sea Level (mm)<br/>Difference from 1990</title>
       <shorttitle>Sea Level</shorttitle>
+      <description>Global sea level is rising: water expands as it warms, and melting land-based ice adds water to the ocean.</description>
+
+
+      <oldtitle>Sea Level (mm)</oldtitle>
       <help>The average height of the ocean’s surface has increased by 8.25 inches 
       (210 mm) since 1880. <br/> <br/>
 
@@ -1341,8 +1364,12 @@
   </data>
 </mugl></graph>
     <graph id="asi" name="asi">
-      <title>Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</title>
+      <title>Arctic Sea Ice Minimum Annual<br/>Extent (1000 km<span baselineShift="superscript">2</span>)</title>
       <shorttitle>Arctic Sea Ice</shorttitle>
+      <description>The area of the Arctic covered by sea ice at the end of summer has shrunk by about 40% since 1979.</description>
+
+
+      <oldtitle>Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</oldtitle>
       <help>The area of the Arctic where sea ice remains frozen at the end of summer has 
       decreased by more than 10% per decade since 1979. <br/><br/>
 
@@ -1442,8 +1469,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="oceanHeat" name="OceanHeat">
-      <title>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</title>
+      <title>Total Ocean Heat Content Anomaly (10<span baselineShift="superscript">22</span> Joules)</title>
       <shorttitle>Ocean Heat</shorttitle>
+      <description>Each bar shows how much more or less heat energy is in the ocean than the average for 1955-2006.</description>
+      <alternate>Total ocean heat shown as the difference from the long-term average.</alternate>
+
+
+      <oldtitle>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</oldtitle>
       <help>More than 90% of the warming that has occurred on Earth over the past 50 years has occurred in the ocean. The graph shows heat energy in the top 700 meters of the ocean as the difference from the average from 1955-2006.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-ocean-heat-content</link>
       <stats>
@@ -1737,8 +1769,11 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 
 </mugl></graph>
     <graph id="sunsEnergy" name="SunsEnergy">
-      <title>Sun's Energy (W/m<span baselineShift="superscript">2</span>)</title>
+      <title>Solar Irradiance (W/m<sup>2</sup>)</title>
       <shorttitle>Sun's Energy</shorttitle>
+      <description>The sun's energy rises and falls slightly on an 11-year cycle, with little change over the last century.</description>
+
+      <oldtitle>Sun's Energy (W/m<span baselineShift="superscript">2</span>)</oldtitle>
       <help>Energy from the Sun varies slightly on 11-year cycles with little net 
       change overall. <br/> <br/>
 
@@ -2204,8 +2239,12 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="glacier" name="Glacier">
-      <title>Glaciers (meters of water equivalent)</title>
+      <title>Glacial Mass Balance for 30 Reference Glaciers (meters of water equivalent)</title>
       <shorttitle>Glaciers</shorttitle>
+      <description>Glaciers are shrinking: average thickness of 30 well-studied glaciers has decreased over 40 feet since 1980.</description>
+
+
+      <oldtitle>Glaciers (meters of water equivalent)</oldtitle>
       <help>Since 1980, a representative set of well studied glaciers has lost the equivalent of 40 feet (12.5 meters) of water on average. The graph shows the average mass balance of 30 reference glaciers around the world.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-glacier-mass-balance</link>
       <stats>
@@ -2301,7 +2340,12 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 		</mugl></graph>
     <graph id="totalGreenhouseGas" name="TotalGreenhouseGas">
       <title>Annual Greenhouse Gas Index</title>
-      <shorttitle>Annual Greenhouse Gas Index</shorttitle>
+      <shorttitle>Greenhouse Gases</shorttitle>
+      <description>The total effect of long-lived heat- trapping gases has gone up by 30% since 1990, the year many nations agreed to cut emissions.</description>
+      <alternate>The Annual Greenhouse Gas Index reports the total effect of long-lived heat-trapping gas.</alternate>
+
+
+      <oldtitle>Annual Greenhouse Gas Index</oldtitle>
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
       year many nations agreed to limit emissions under the Kyoto Protocol. The graph shows total radiative forcing from long-lived greenhouse gases as a percent change from 1990.</help>
       <link>http://www.climatewatch.noaa.gov/article/2011/climate-change-annual-greenhouse-gas-index-2</link>
@@ -2421,8 +2465,14 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       </element>
     </mugloverrides>
     <graph id="oni" name="oni">
-      <title>El Niño / La Niña Index</title>
-      <shorttitle>El Niño / La Niña Index</shorttitle>
+      <title lineCount="1">El Niño / La Niña</title>
+      <shorttitle>El Niño / La Niña</shorttitle>
+      <description>Departure from average sea surface temperature in the eastern Pacific Ocean.  0.5&#730;C or higher = El Niño; Near 0 = neutral; -0.5&#730;C or lower = La Niña</description>
+      <alternate>Warmer-than-average sea surface temps indicate El Niño conditions. Cooler- than-average, La Niña. Average temps indicate neutral conditions.</alternate>
+
+
+
+      <oldtitle>El Niño / La Niña Index</oldtitle>
       <help>Departures from average sea surface temperature in the eastern Pacific Ocean indicate the status of the El Niño – 
       Southern Oscillation cycle. Values greater than 0.5 indicate El Niño conditions. 
       Values less than -0.5 indicate La Niña conditions. Values between 0.5 and -0.5 indicate neutral conditions. 
@@ -3250,8 +3300,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="aoi" name="aoi">
-      <title>Arctic Oscillation Index</title>
+      <title lineCount="1">Arctic Oscillation Index</title>
       <shorttitle>Arctic Oscillation Index</shorttitle>
+      <description>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans affect the north-to- south location of the storm-steering, mid- latitude jet stream.  Negative values are associated with severe winter storms in the eastern U.S.</description>
+      <alternate>Air pressure conditions in the Arctic affect the north- south location of the jet stream. Negative values are linked with severe winter storms in the eastern U.S.</alternate>
+
+
+      <oldtitle>Arctic Oscillation Index</oldtitle>
       <help>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans 
       affect the north-to-south location of the storm-steering, 
       mid-latitude jet stream. Negative values are associated with severe winter storms in the eastern U.S.</help>
@@ -4075,8 +4130,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="naoi" name="naoi">
-      <title>North Atlantic Oscillation</title>
+      <title lineCount="1">North Atlantic Oscillation</title>
       <shorttitle>North Atlantic Oscillation</shorttitle>
+      <description>Departures from average air pressure over Greenland and the central North Atlantic Ocean affect weather around the Atlantic by influencing the intensity and location of the jet stream and the storm tracks that follow it. Negative values are linked with</description>
+      <alternate>Air pressure patterns in the North Atlantic influence storm tracks. Negative values are linked with winter storms in the eastern U.S.</alternate>
+
+
+      <oldtitle>North Atlantic Oscillation</oldtitle>
       <help>Departures from average air pressure over Greenland and the central North Atlantic 
       Ocean affect weather around the Atlantic by influencing the intensity 
       and location of the jet stream and the storm tracks that follow it. Negative values 
@@ -4903,8 +4963,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="soi" name="soi">
-      <title>Southern Oscillation Index</title>
+      <title lineCount="1">Southern Oscillation Index</title>
       <shorttitle>Southern Oscillation Index</shorttitle>
+      <description>Differences in average air pressure at Tahiti and Darwin, Australia provide an atmospheric indicator of the El Niño–Southern Oscillation. El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</description>
+      <alternate>Air pressure patterns in the South Pacific reflect El Niño / La Niña conditions.</alternate>
+
+
+      <oldtitle>Southern Oscillation Index</oldtitle>
       <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
       atmospheric indicator of the El Niño–Southern Oscillation.  El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
@@ -5720,8 +5785,13 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="pnap" name="pnap">
-      <title>Pacific North American Pattern</title>
+      <title lineCount="1">Pacific North American Pattern</title>
       <shorttitle>Pacific North American Pattern</shorttitle>
+      <description>Departures from average air pressure at four locations over the Pacific Ocean and North America affect the strength and location of the East Asian jet stream and the weather it delivers to North America.</description>
+      <alternate>Air pressure patterns over the Pacific Ocean and North America affect the strength and location of the jet stream that brings storms across the Pacific.</alternate>
+
+
+      <oldtitle>Pacific North American Pattern</oldtitle>
       <help>Departures from average air pressure at four locations over the Pacific Ocean and North America affect 
       the strength and location of the East Asian jet stream and the weather it delivers to North America.</help>
       <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-pacific-north-american-teleconnection-pattern</link>
@@ -6579,7 +6649,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     </mugloverrides>
     <graph name="cp">
       <title>Climate Model Data (CMIP3, 2007)</title>
-      <shorttitle>Climate Model Data</shorttitle>
+      <oldtitle>Climate Model Data (CMIP3, 2007)</oldtitle>
       <legendtitle>Simulation of Global Temperature</legendtitle>
       <legendtext>The black line shows the average of many different
 simulations of global temperature in the 20th century compared to

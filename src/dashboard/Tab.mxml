@@ -65,6 +65,8 @@ private function displayGraph(i:int):void {
 }
 
 public function addGraph(titleText:String,  shortTitleText:String,
+    titleLineCount:int,											
+	descriptionText:String,										
 	helpText:String,   landingPageLink:String,
 	stat1Title:String, stat1Value:String, stat1ValueColor:String,
 	stat2Title:String, stat2Value:String, stat2ValueColor:String,
@@ -87,6 +89,10 @@ public function addGraph(titleText:String,  shortTitleText:String,
 
 	var graphContainer:GraphContainer = new GraphContainer();
 	graphContainer.titleText = titleText;
+	if (titleLineCount > 0) {
+		graphContainer.titleLineCount = titleLineCount;
+	}
+	graphContainer.descriptionText = descriptionText;
 	graphContainer.helpText = helpText;
 	graphContainer.stat1Title = stat1Title;
 	graphContainer.stat1Value = stat1Value;
