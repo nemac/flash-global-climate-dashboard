@@ -109,6 +109,9 @@ public function addGraph(titleText:String,  shortTitleText:String,
 	graphContainer.legendItems = legendItems;
 	graphContainer.landingPageLink = landingPageLink;
 	graphContainer.mugloverrides = muglOverrides;
+	
+	graphContainer.addEventListener("MULTIGRAPH_OVER", multigraphMouseOver);
+	graphContainer.addEventListener("MULTIGRAPH_OUT", multigraphMouseOut);
 
     if (muglurl) {
         graphContainer.muglurl = muglurl;
@@ -172,7 +175,22 @@ private function handleAxisChange(event:AxisEvent):void {
 	timeslider.selectedMinValue = a;
 	timeslider.selectedMaxValue = b;
 }
-                
+
+			private function multigraphMouseOver(event:Event):void {
+				this.multigraphInteractionHelpText.visible = true;
+				this.timeSliderInteractionHelpText.visible = false;
+			}
+			private function multigraphMouseOut(event:Event):void {
+				this.multigraphInteractionHelpText.visible = false;
+			}
+			private function timeSliderMouseOver(event:Event):void {
+				this.timeSliderInteractionHelpText.visible = true;
+				this.multigraphInteractionHelpText.visible = false;
+			}
+			private function timeSliderMouseOut(event:Event):void {
+				this.timeSliderInteractionHelpText.visible = false;
+			}
+			
 		]]>
 	</fx:Script>
 	<!--
@@ -184,7 +202,8 @@ private function handleAxisChange(event:AxisEvent):void {
       
 	</s:VGroup>
 	
-	<s:BorderContainer borderVisible="false" backgroundAlpha="0" width="100%">
+	<s:BorderContainer borderVisible="false"  width="100%"
+					   backgroundAlpha="0">
       <!--
           ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
           **       up with the other graphs.  If the size, position, or margins of the other graphs are changed, this will probably need
@@ -192,7 +211,10 @@ private function handleAxisChange(event:AxisEvent):void {
       -->
       <s:VGroup width="560" right="6">
         <multigraph:Multigraph id="timeline" mugl="{timelineMugl}"
-                               width="560" height="20"/>
+                               width="560" height="20"
+							   mouseOver="multigraphMouseOver(event)"
+							   mouseOut="multigraphMouseOut(event)"
+							   />
         <dashboard:TimeSlider id="timeslider"
                               minValue="{timeSliderMin}"
                               maxValue="{timeSliderMax}"
@@ -200,8 +222,18 @@ private function handleAxisChange(event:AxisEvent):void {
                               selectedMaxValue="{timeSliderSelectedMax}"
                               labels="{timeSliderLabels}"
                               height="25" width="560"
-                              change="sliderChange(event)"/>
+							  mouseOver="timeSliderMouseOver(event)"
+							  mouseOut="timeSliderMouseOut(event)"
+							  change="sliderChange(event)"/>
       </s:VGroup>
+		
+		<s:Label id="multigraphInteractionHelpText" visible="false"
+				 x="15" y="10" width="340"
+				 color="#BBBBBB" fontSize="14" >Interact with the graph by clicking and dragging to change the timeline.</s:Label>
+		<s:Label id="timeSliderInteractionHelpText" visible="false"
+				 x="15" y="10" width="340"
+				 color="#BBBBBB" fontSize="14" >Drag the ends of the amber region to change the graph time scale.</s:Label>
+		
 	</s:BorderContainer>
 
 	<s:Group id="buttonGroup" width="100%">

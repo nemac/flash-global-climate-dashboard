@@ -84,16 +84,9 @@
     </mugloverrides>
 
     <graph id="temperature" name="Temperature">
-      <title>Global Average Temperature Anomaly (&#730;C) Difference from 1901-2000 Global Average</title>
+      <title>Global Average Temperature (&#730;C)</title>
       <shorttitle>Temperature</shorttitle>
-<!--
-      <description>Temperature is rising: each bar shows global average surface temperature compared to last century's average.</description>
-      <description>Temperature is rising: each bar shows how that year's temperature compares to the 20th century average.</description>
--->
-      <description>Temperature is rising: each bar shows that year's temperature compared to the 20th century average.</description>
-      <alternate>Earth’s average surface temperature is rising: the bars show how each year compared to the 20th century average.</alternate>
-
-
+      <description>The temperature near Earth’s surface is rising: the bars show each year’s average temperature compared to the 20th century average.</description>
       <oldtitle>Temperature (˚C)</oldtitle>
       <help>Earth’s overall temperature has increased by 1.3°F (0.7°C) since 1900. <br/> <br/>
 
@@ -290,12 +283,9 @@
   </data>
 </mugl></graph>
     <graph id="carbonDioxide" name="CarbonDioxide">
-      <title lineCount="1">CO2 Atmospheric Abundance (ppm)</title>
+      <title>Carbon Dioxide (ppm)</title>
       <shorttitle>Carbon Dioxide</shorttitle>
       <description>The amount of carbon dioxide in the atmosphere has risen by about 40% since the Industrial Revolution.</description>
-      <alternate>The amount of carbon dioxide in the atmosphere is now about 40% higher than it was in 1750.</alternate>
-
-
       <oldtitle>Carbon Dioxide (ppm)</oldtitle>
       <help>Atmospheric carbon dioxide has increased by about 40% since 1750.
 	The graph shows the number of CO<span baselineShift="subscript">2</span>&#xA0;&#xA0;molecules
@@ -1036,11 +1026,9 @@
   </data>
 </mugl></graph>
     <graph id="snowCover" name="SnowCover">
-      <title>March-April Northern Hemisphere Snow Cover Extent (million km<span baselineShift="superscript">2</span>)</title>
+      <title>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</title>
       <shorttitle>Snow</shorttitle>
-      <description>Snow is melting earlier in spring: each bar shows snow cover compared to the average for 1971-2000.</description>
-      <alternate>Snow is melting earlier in the spring: each bar shows March-April snow cover in the Northern Hemisphere compared to the long- term average.</alternate>
-
+      <description>Snow is melting earlier: each bar shows spring snow cover in the Northern Hemisphere compared to the long-term average.</description>
 
       <oldtitle>Spring Snow Cover (million km<span baselineShift="superscript">2</span>)</oldtitle>
       <help>Earlier melting of winter snow has reduced the area of land covered by snow in spring. The graph shows the area covered by snow in the Northern Hemisphere during March and April, shown as 
@@ -1159,10 +1147,9 @@
 	</mugl>
     </graph>
     <graph id="seaLevel" name="SeaLevel">
-      <title>Global Average Sea Level (mm)<br/>Difference from 1990</title>
+      <title>Global Average Sea Level (mm)</title>
       <shorttitle>Sea Level</shorttitle>
-      <description>Global sea level is rising: water expands as it warms, and melting land-based ice adds water to the ocean.</description>
-
+      <description>The ocean’s surface is rising: water expands as it warms, and melting of ice sheets and glaciers on land adds water to the ocean.</description>
 
       <oldtitle>Sea Level (mm)</oldtitle>
       <help>The average height of the ocean’s surface has increased by 8.25 inches 
@@ -1364,10 +1351,9 @@
   </data>
 </mugl></graph>
     <graph id="asi" name="asi">
-      <title>Arctic Sea Ice Minimum Annual<br/>Extent (1000 km<span baselineShift="superscript">2</span>)</title>
+      <title>September Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</title>
       <shorttitle>Arctic Sea Ice</shorttitle>
-      <description>The area of the Arctic covered by sea ice at the end of summer has shrunk by about 40% since 1979.</description>
-
+      <description>The area covered by sea ice in the Arctic at the end of summer has shrunk by about 40% since 1979.</description>
 
       <oldtitle>Arctic Sea Ice (1000 km<span baselineShift="superscript">2</span>)</oldtitle>
       <help>The area of the Arctic where sea ice remains frozen at the end of summer has 
@@ -1469,10 +1455,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="oceanHeat" name="OceanHeat">
-      <title>Total Ocean Heat Content Anomaly (10<span baselineShift="superscript">22</span> Joules)</title>
+      <title>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</title>
       <shorttitle>Ocean Heat</shorttitle>
-      <description>Each bar shows how much more or less heat energy is in the ocean than the average for 1955-2006.</description>
-      <alternate>Total ocean heat shown as the difference from the long-term average.</alternate>
+      <description>Each bar shows heat energy in the top half-mile of the ocean compared to the average from 1955-2006.</description>
 
 
       <oldtitle>Ocean Heat (10<span baselineShift="superscript">22</span> Joules)</oldtitle>
@@ -1769,9 +1754,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 
 </mugl></graph>
     <graph id="sunsEnergy" name="SunsEnergy">
-      <title>Solar Irradiance (W/m<sup>2</sup>)</title>
+      <title>Sun's Energy (W/m<sup>2</sup>)</title>
       <shorttitle>Sun's Energy</shorttitle>
-      <description>The sun's energy rises and falls slightly on an 11-year cycle, with little change over the last century.</description>
+      <description>The sun’s energy rises and falls slightly on an 11-year cycle, with little net change over the last century.</description>
 
       <oldtitle>Sun's Energy (W/m<span baselineShift="superscript">2</span>)</oldtitle>
       <help>Energy from the Sun varies slightly on 11-year cycles with little net 
@@ -2239,10 +2224,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="glacier" name="Glacier">
-      <title>Glacial Mass Balance for 30 Reference Glaciers (meters of water equivalent)</title>
+      <title>Glaciers (meters of water equivalent)</title>
       <shorttitle>Glaciers</shorttitle>
-      <description>Glaciers are shrinking: average thickness of 30 well-studied glaciers has decreased over 40 feet since 1980.</description>
-
+      <description>Glaciers are shrinking: average thickness of 30 well-studied glaciers has decreased more than 40 feet since 1980.</description>
 
       <oldtitle>Glaciers (meters of water equivalent)</oldtitle>
       <help>Since 1980, a representative set of well studied glaciers has lost the equivalent of 40 feet (12.5 meters) of water on average. The graph shows the average mass balance of 30 reference glaciers around the world.</help>
@@ -2340,10 +2324,8 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 		</mugl></graph>
     <graph id="totalGreenhouseGas" name="TotalGreenhouseGas">
       <title>Annual Greenhouse Gas Index</title>
-      <shorttitle>Greenhouse Gases</shorttitle>
-      <description>The total effect of long-lived heat- trapping gases has gone up by 30% since 1990, the year many nations agreed to cut emissions.</description>
-      <alternate>The Annual Greenhouse Gas Index reports the total effect of long-lived heat-trapping gas.</alternate>
-
+      <shorttitle>Heat-Trapping Gases</shorttitle>
+      <description>The total effect of long-lived heat-trapping gases has gone up by 30% since 1990, the year many nations agreed to cut emissions.</description>
 
       <oldtitle>Annual Greenhouse Gas Index</oldtitle>
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
@@ -2465,12 +2447,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       </element>
     </mugloverrides>
     <graph id="oni" name="oni">
-      <title lineCount="1">El Niño / La Niña</title>
+      <title>El Niño / La Niña (Oceanic Niño Index)</title>
       <shorttitle>El Niño / La Niña</shorttitle>
-      <description>Departure from average sea surface temperature in the eastern Pacific Ocean.  0.5&#730;C or higher = El Niño; Near 0 = neutral; -0.5&#730;C or lower = La Niña</description>
-      <alternate>Warmer-than-average sea surface temps indicate El Niño conditions. Cooler- than-average, La Niña. Average temps indicate neutral conditions.</alternate>
-
-
+      <description>Average sea surface temperature in the Eastern Pacific Ocean indicates El Niño, La Niña, or neutral conditions</description>
 
       <oldtitle>El Niño / La Niña Index</oldtitle>
       <help>Departures from average sea surface temperature in the eastern Pacific Ocean indicate the status of the El Niño – 
@@ -3300,11 +3279,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="aoi" name="aoi">
-      <title lineCount="1">Arctic Oscillation Index</title>
-      <shorttitle>Arctic Oscillation Index</shorttitle>
-      <description>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans affect the north-to- south location of the storm-steering, mid- latitude jet stream.  Negative values are associated with severe winter storms in the eastern U.S.</description>
-      <alternate>Air pressure conditions in the Arctic affect the north- south location of the jet stream. Negative values are linked with severe winter storms in the eastern U.S.</alternate>
-
+      <title>Arctic Oscillation Index</title>
+      <shorttitle>Arctic Oscillation</shorttitle>
+      <description>When this index is negative, air pressure patterns are more likely to steer severe winter storms to the eastern U.S.</description>
 
       <oldtitle>Arctic Oscillation Index</oldtitle>
       <help>Departures from average air pressure over the Arctic region and the North Pacific and Atlantic Oceans 
@@ -4130,9 +4107,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="naoi" name="naoi">
-      <title lineCount="1">North Atlantic Oscillation</title>
+      <title>North Atlantic Oscillation Index</title>
       <shorttitle>North Atlantic Oscillation</shorttitle>
-      <description>Departures from average air pressure over Greenland and the central North Atlantic Ocean affect weather around the Atlantic by influencing the intensity and location of the jet stream and the storm tracks that follow it. Negative values are linked with</description>
+      <description>Air pressure patterns over the North Atlantic can steer winter weather: negative values are linked to storms inthe eastern U.S.</description>
       <alternate>Air pressure patterns in the North Atlantic influence storm tracks. Negative values are linked with winter storms in the eastern U.S.</alternate>
 
 
@@ -4963,9 +4940,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="soi" name="soi">
-      <title lineCount="1">Southern Oscillation Index</title>
-      <shorttitle>Southern Oscillation Index</shorttitle>
-      <description>Differences in average air pressure at Tahiti and Darwin, Australia provide an atmospheric indicator of the El Niño–Southern Oscillation. El Niño conditions result in negative SOI values; La Niña conditions produce positive values for this index.</description>
+      <title>Southern Oscillation Index</title>
+      <shorttitle>Southern Oscillation</shorttitle>
+      <description>Air pressure patterns across the southern Pacific Ocean reflect El Niño, La Niña, and neutral conditions.</description>
       <alternate>Air pressure patterns in the South Pacific reflect El Niño / La Niña conditions.</alternate>
 
 
@@ -5785,11 +5762,9 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	  </data>
 	</mugl></graph>
     <graph id="pnap" name="pnap">
-      <title lineCount="1">Pacific North American Pattern</title>
+      <title>Pacific North American Pattern</title>
       <shorttitle>Pacific North American Pattern</shorttitle>
-      <description>Departures from average air pressure at four locations over the Pacific Ocean and North America affect the strength and location of the East Asian jet stream and the weather it delivers to North America.</description>
-      <alternate>Air pressure patterns over the Pacific Ocean and North America affect the strength and location of the jet stream that brings storms across the Pacific.</alternate>
-
+      <description>Air pressure patterns over the Pacific Ocean and North America affect the type of weather that is delivered to North America.</description>
 
       <oldtitle>Pacific North American Pattern</oldtitle>
       <help>Departures from average air pressure at four locations over the Pacific Ocean and North America affect 
@@ -6652,10 +6627,12 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       <oldtitle>Climate Model Data (CMIP3, 2007)</oldtitle>
       <legendtitle>Simulation of Global Temperature</legendtitle>
       <legendtext>The black line shows the average of many different
-simulations of global temperature in the 20th century compared to
-average from 1971-1999, and the colored lines show projected
+simulations of global temperature in the 20th century compared
+to average from 1971-1999, and the colored lines show projected
 temperature changes in the 21st century for three possible
-scenarios.</legendtext>
+emissions scenarios.  The shaded areas around each line indicate
+the statistical spread (one standard deviation) provided by
+individual model runs.</legendtext>
 <help>
 Results from this set of climate model experiments suggest that our
 planet’s average temperature could be between 2 and 9.7°F (1.1 to

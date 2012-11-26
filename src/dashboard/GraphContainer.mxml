@@ -34,6 +34,8 @@
 			import multigraph.AxisEvent;
 			import multigraph.Multigraph;
 
+            [Event(name="change", type="Event")]
+
 			[Bindable]public var titleText:String;
 			[Bindable]public var titleLineCount:int = 2;
 			[Bindable]public var descriptionText:String;
@@ -66,18 +68,32 @@
 				_helpTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(helpText), TextConverter.TEXT_LAYOUT_FORMAT);
 				_legendTextFlow = TextConverter.importToFlow(Dashboard.textFlowify(legendText), TextConverter.TEXT_LAYOUT_FORMAT);
 				if (titleLineCount < 2) {
-					_descriptionYPosition = 30;
+					_descriptionYPosition = 37;
 				}
 			}
 
 			
+			public function learnMoreClicked():void {
+				//displayHelp();
+				navigateToLandingPage();
+			}
+			public function helpMoreDetailsClicked():void {
+				navigateToLandingPage();
+			}
+			
+			private function displayHelp():void {
+				help.visible = true;
+			}
 			public function closeHelp():void {
 				help.visible = false;
 			}
-			public function displayHelp():void {
-				help.visible = true;
+			protected function navigateToLandingPage():void
+			{
+				var req:URLRequest = new URLRequest(landingPageLink);
+				navigateToURL(req,"_blank");
 			}
-
+			
+			
 			private function lightRoll(event:MouseEvent):void {
 				if (event.type == MouseEvent.MOUSE_OVER) {
 					event.target.styleName = "lightClickableOver";
@@ -93,12 +109,6 @@
 					event.target.setStyle("fontWeight", "normal");
 				}
 			}
-			protected function moredetails():void
-			{
-				var req:URLRequest = new URLRequest(landingPageLink);
-				navigateToURL(req,"_blank");
-			}
-
 			private function handleAxisChange(event:AxisEvent):void {
 				dispatchEvent(new AxisEvent(event.type, event.min, event.max));
 			}
@@ -112,6 +122,7 @@
 				
 				if (this.legendTitle !== null) {
 					this.legendBlock.visible = true;
+					this.descriptionRichEditableText.visible = false;
 				} else {
 					this.legendBlock.visible = false;
 					this.legendBlock.height = 0;
@@ -125,6 +136,15 @@
 				}
 				
 			}
+			
+			private function multigraphMouseOver():void {
+				this.dispatchEvent(new Event("MULTIGRAPH_OVER"));
+				//trace('mg over');
+			}
+			private function multigraphMouseOut():void {
+				this.dispatchEvent(new Event("MULTIGRAPH_OUT"));
+				//trace('mg out');
+			}
 
 ]]>
 	</fx:Script>
@@ -132,32 +152,36 @@
 	<s:RichEditableText x="10" y="10" editable="false" enabled="false" focusEnabled="false"
 						width="330"
 						color="#FFFFFF" fontSize="16"   textFlow="{_titleTextFlow}"/>
-	<s:RichEditableText x="10" y="{_descriptionYPosition}" editable="false" enabled="false" focusEnabled="false"
-						width="330"
-						color="#888888" fontSize="14"   textFlow="{_descriptionTextFlow}"/>
+	<s:RichEditableText id="descriptionRichEditableText"  
+		x="10" y="{_descriptionYPosition}" editable="false" enabled="false" focusEnabled="false"
+		width="330"
+		color="#888888" fontSize="14"   textFlow="{_descriptionTextFlow}"/>
 	<!--
 	<dashboard:GraphStat x="26" y="38" title="{stat1Title}" value="{stat1Value}" valueColor="{stat1ValueColor}"/>
 	<dashboard:GraphStat x="26" y="62" title="{stat2Title}" value="{stat2Value}" valueColor="{stat2ValueColor}"/>
 	-->
 
-	<s:BorderContainer id="legendBlock" visible="false" backgroundAlpha="0" borderVisible="false"  x="10" y="35" width="330" height="375">
+	<s:BorderContainer id="legendBlock" visible="false" backgroundAlpha="0" borderVisible="false"  x="0" y="35" width="350" height="375">
 	  <s:BorderContainer x="70" y="30" backgroundColor="#ffffff" cornerRadius="10" borderVisible="false">
 		  <s:VGroup id="legend" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="8"/>
 	  </s:BorderContainer>		
-	  <s:Label x="0" y="200" width="100%" fontSize="16" fontWeight="bold" text="{legendTitle}" color="#ffffff"
+	  <s:Label x="0" y="170" width="100%" fontSize="16" fontWeight="bold" text="{legendTitle}" color="#ffffff"
 			   textAlign="center"/>
-	  <s:RichEditableText x="0" y="240" width="100%" paddingLeft="25" paddingRight="20" color="#FFFFFF" editable="false" enabled="false"
+	  <s:RichEditableText x="0" y="210" width="100%" paddingLeft="25" paddingRight="20" color="#888888" editable="false" enabled="false"
 						  focusEnabled="false" fontSize="14" textFlow="{_legendTextFlow}"/>
 	</s:BorderContainer>
 
 	<s:Label id="learnMore" x="260" y="{height-20}" fontSize="12" fontWeight="bold" text="Learn More &gt;&gt;"
 			 styleName="lightClickable"
-			 buttonMode="true" useHandCursor="true" mouseChildren="false" click="displayHelp()"
+			 buttonMode="true" useHandCursor="true" mouseChildren="false" click="learnMoreClicked()"
 			 mouseOver="lightRoll(event)" mouseOut="lightRoll(event)"/>
     <dashboard:CustomizedMultigraph id="theMultigraph" muglurl="{muglurl}" mugl="{mugl}" mugloverrides="{mugloverrides}"
                                     change="handleAxisChange(event)" outlined="false"
                                     x="350" y="3"
-                                    width="560" height="{height-8}"/>
+                                    width="560" height="{height-8}"
+									 mouseOver="multigraphMouseOver()"
+									 mouseOut="multigraphMouseOut()"
+									/>
 	<s:BorderContainer id="help" cornerRadius="5" backgroundAlpha=".95" backgroundColor="#ffffff" visible="false"
                        left="5" top="5" right="5" bottom="5"
                        x="0" y="0" borderVisible="false">
@@ -175,7 +199,7 @@
                   fontSize="14" buttonMode="true" click="closeHelp()"/>
       </s:Group>
       <s:Label right="10" bottom="5" text="More Details &gt;&gt;" color="#000000" fontSize="12"
-               buttonMode="true" click="moredetails()"
+               buttonMode="true" click="helpMoreDetailsClicked()"
                mouseOver="boldRoll(event)" mouseOut="boldRoll(event)"/>
 	</s:BorderContainer>
 
