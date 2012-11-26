@@ -87,7 +87,7 @@ places where it appears in the file.
     <exec executable="${mxmlc.exe}" dir="${basedir}">
       <arg line="-load-config '${FLEX_HOME}/frameworks/flex-config.xml'" />
       <arg line="-load-config mxmlc-config.xml" />
-      <arg line="src/Dashboard.mxml" />
+      <arg line="src/dashboard/Dashboard.mxml" />
     </exec>
   </target> 
 
