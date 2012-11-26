@@ -203,7 +203,7 @@ private function handleAxisChange(event:AxisEvent):void {
       
 	</s:VGroup>
 	
-	<s:BorderContainer borderVisible="false"  width="100%"
+	<s:BorderContainer borderVisible="false"  width="100%" height="52"
 					   backgroundAlpha="0">
       <!--
           ** NOTE: the x="4" value on the following multigraph is a trial-and-error fudge factor used to get the timeline to correctly line
