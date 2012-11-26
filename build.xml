@@ -59,10 +59,6 @@ places where it appears in the file.
     <copy includeemptydirs="false" todir="html/assets">
       <fileset dir="src/assets" includes="*" excludes="co2legend.png,unca_logo.png"/>
     </copy>
-    <copy file="html-template/flash-dashboard.html" tofile="html/index.html"/>
-    <replace file="html/index.html"
-		   token="assets/flat-dashboard.xml"
-		   value="data/dashboard.xml"/>
     <copy file="multigraph/Multigraph.swf" tofile="html/Multigraph.swf"/>
   </target>
 
