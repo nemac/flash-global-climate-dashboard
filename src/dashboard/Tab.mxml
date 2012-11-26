@@ -50,7 +50,8 @@ protected function init():void
 }
 
 private function displayGraph(i:int):void {
-	if (!graphGroup.containsElement(graphContainers[i])) {
+	//if (!graphGroup.containsElement(graphContainers[i])) {
+	if (!graphGroup.contains(graphContainers[i])) {
 		var j:int = 0;
 		while (j<graphContainers.length && (graphGroup.getChildAt(2) !== graphContainers[j])) {
 			++j;
