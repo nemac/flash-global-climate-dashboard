@@ -4123,7 +4123,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</mugl></graph><graph id="naoi2" name="naoi">
       <title>North Atlantic Oscillation Index</title>
       <shorttitle>North Atlantic Oscillation</shorttitle>
-      <description>Air pressure patterns over the North Atlantic can steer winter weather: negative values are linked to storms inthe eastern U.S.</description>
+      <description>Air pressure patterns over the North Atlantic can steer winter weather: negative values are linked to storms in the eastern U.S.</description>
       <alternate>Air pressure patterns in the North Atlantic influence storm tracks. Negative values are linked with winter storms in the eastern U.S.</alternate>
 
 
