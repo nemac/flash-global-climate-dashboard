@@ -1,3 +1,6 @@
 [submodule "multigraph"]
 	path = multigraph
 	url = git@github.com:multigraph/flash-multigraph.git
+[submodule "global-climate-dashboard-data"]
+	path = global-climate-dashboard-data
+	url = git@github.com:nemac/global-climate-dashboard-data.git
