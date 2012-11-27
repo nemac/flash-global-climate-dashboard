@@ -317,7 +317,7 @@
   </horizontalaxis>
 
   <verticalaxis highlightstyle="labels" id="co2" linewidth="0" max="400" min="300" tickmax="0" tickmin="-4" type="number">
-    <labels densityfactor="1.0" format="%.2f" spacing="100 50 20 10 5 2 1 0.5 0.2 0.1 0.05 0.02 0.01" />
+    <labels densityfactor="0.7" format="%.2f" spacing="100 50 25 20 10 5 2 1 0.5 0.2 0.1 0.05 0.02 0.01" />
     <grid />
      <title anchor="0 -4" angle="90" position="-15 0">Carbon Dioxide Abundance (ppm)</title>
 	 
