@@ -17,12 +17,16 @@
 			fontSize: 14pt;
 		}
 		.lightClickable {
+            /*
 			textDecoration: underline;  
-			/*color: #A9A9A9;*/
+			color: #A9A9A9;
+            */
 			color: #888888;
 		}
 		.lightClickableOver {
+            /*
 			textDecoration: underline;
+            */
 			color: #ffffff;
 		}
     </fx:Style>

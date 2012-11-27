@@ -230,7 +230,7 @@ private function handleAxisChange(event:AxisEvent):void {
 		
 		<s:Label id="multigraphInteractionHelpText" visible="false"
 				 x="15" y="10" width="340"
-				 color="#BBBBBB" fontSize="14" >Interact with the graph by clicking and dragging to change the timeline.</s:Label>
+				 color="#BBBBBB" fontSize="14" >Click and drag any graph to change the timeline.</s:Label>
 		<s:Label id="timeSliderInteractionHelpText" visible="false"
 				 x="15" y="10" width="340"
 				 color="#BBBBBB" fontSize="14" >Drag the ends of the amber region to change the graph time scale.</s:Label>
