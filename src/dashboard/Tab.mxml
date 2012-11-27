@@ -229,10 +229,10 @@ private function handleAxisChange(event:AxisEvent):void {
       </s:VGroup>
 		
 		<s:Label id="multigraphInteractionHelpText" visible="false"
-				 x="15" y="10" width="340"
+				 x="15" y="10" width="310"
 				 color="#BBBBBB" fontSize="14" >Click and drag any graph to change the timeline.</s:Label>
 		<s:Label id="timeSliderInteractionHelpText" visible="false"
-				 x="15" y="10" width="340"
+				 x="15" y="10" width="310"
 				 color="#BBBBBB" fontSize="14" >Drag the ends of the amber region to change the graph time scale.</s:Label>
 		
 	</s:BorderContainer>
