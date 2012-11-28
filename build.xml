@@ -66,7 +66,6 @@ places where it appears in the file.
     <copy includeemptydirs="false" todir="html/data">
       <fileset dir="data" includes="*"/>
     </copy>
-    <!-- <replace dir="html/data" token="../data/" value="data/"/> -->
   </target>
 
   <target name="index.html" depends="init">
@@ -110,7 +109,24 @@ places where it appears in the file.
   </target>
 
   <!--
-    run this target to cause the dashboard
+    Run the target below to cause the dashboard's config file
+    "data/dashboard.xml" to be regenerated from the
+    global-climate-dashboard-data subproject.  That subproject
+    contains the actual data files and Multigraph MUGL files used to
+    create the graphs in the dashboard.  All of that stuff is
+    concatenated together into the single large "data/dashboard.xml"
+    file which the dashboard reads when it launches.
+
+    If you change the data files or MUGL files in the
+    global-climate-dashboard-data subproject, you can run this ant
+    target to bring data/dashboard.xml up to date with those changes.
+
+    Note that the global-climate-dashboard-data subproject contains
+    multiple sets of MUGL files and dashboard configurations; this ant
+    target is hard-coded to render the dashboard configuration
+    corresponding to one particular one - the one indicated on the
+    <arg line=".."/> below.  Change that line as appropriate if you
+    want to render a different configuration.
    -->
   <target name="update-config">
     <exec executable="./bin/deref"
