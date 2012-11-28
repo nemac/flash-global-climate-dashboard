@@ -28,7 +28,7 @@ For example, on drought.nemac.unca.edu:
   </target>
 
 
-  <target name="build" depends="Dashboard.swf,assets,data">
+  <target name="build" depends="Dashboard.swf,assets,data,index.html">
     <echo>
 The dashboard application has now been built and is in the "html"
 directory.  To deploy it, copy everything from the "html" directory to
@@ -64,9 +64,24 @@ places where it appears in the file.
 
   <target name="data" depends="init">
     <copy includeemptydirs="false" todir="html/data">
-      <fileset dir="testdata" includes="*"/>
+      <fileset dir="data" includes="*"/>
     </copy>
-    <replace dir="html/data" token="../testdata/" value="data/"/>
+    <!-- <replace dir="html/data" token="../data/" value="data/"/> -->
+  </target>
+
+  <target name="index.html" depends="init">
+    <copy file="html-template/swfobject.js" tofile="html/swfobject.js" overwrite="true"/>
+    <copy file="html-template/index.template.html" tofile="html/index.html" overwrite="true"/>
+    <replace file="html/index.html" token="${title}"                    value="Global Climate Dashboard" />
+    <replace file="html/index.html" token="${bgcolor}"                  value="#FFFFFF" />
+    <replace file="html/index.html" token="${version_major}"            value="1" />
+    <replace file="html/index.html" token="${version_minor}"            value="0" />
+    <replace file="html/index.html" token="${version_revision}"         value="0" />
+    <replace file="html/index.html" token="${expressInstallSwf}"        value="" />
+    <replace file="html/index.html" token="${application}"              value="GlobalClimateDashboard" />
+    <replace file="html/index.html" token="${swf}"                      value="Dashboard" />
+    <replace file="html/index.html" token="${width}"                    value="940" />
+    <replace file="html/index.html" token="${height}"                   value="570" />
   </target>
 
   <target name="init">
@@ -94,10 +109,14 @@ places where it appears in the file.
     </exec>
   </target>
 
-  <target name="flat-dashboard.xml">
-    <exec executable="./flatten-config">
-      <arg line="src/assets/dashboard.xml" />
-      <arg line="src/assets/flat-dashboard.xml" />
+  <!--
+    run this target to cause the dashboard
+   -->
+  <target name="update-config">
+    <exec executable="./bin/deref"
+          dir="./global-climate-dashboard-data"
+          output="data/dashboard.xml">
+      <arg line="dashboards/dashboard2.xml" />
     </exec>
   </target>
 

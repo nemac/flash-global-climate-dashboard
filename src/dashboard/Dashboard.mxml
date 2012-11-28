@@ -29,7 +29,7 @@
                     
                     var configpath:String = parameters['config'];
                     if ((configpath == null) || (configpath == "")) {
-                        configpath = "../testdata/dashboard.xml";
+                        configpath = "../data/dashboard.xml";
                     }
                     
                     var loader:URLLoader = new URLLoader();
