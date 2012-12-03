@@ -283,7 +283,7 @@
 </mugl></graph><graph id="carbonDioxide2" name="CarbonDioxide">
       <title>Carbon Dioxide (ppm)</title>
       <shorttitle>Carbon Dioxide</shorttitle>
-      <description>The amount of carbon dioxide in the atmosphere has risen by about 40% since the Industrial Revolution.</description>
+      <description>The amount of carbon dioxide in the atmosphere has risen by 25% since 1958, and by about 40% since the Industrial Revolution.</description>
       <oldtitle>Carbon Dioxide (ppm)</oldtitle>
       <help>Atmospheric carbon dioxide has increased by about 40% since 1750.
 	The graph shows the number of CO<span baselineShift="subscript">2</span>&#160;&#160;molecules
@@ -1187,7 +1187,7 @@
 		<title anchor="0 5" position="-10 0">Year</title>
                <grid />
 	</horizontalaxis>
-	<verticalaxis highlightstyle="labels" id="col1" linewidth="0" max="84" min="-250" tickmax="0" tickmin="-4" type="number">
+	<verticalaxis highlightstyle="labels" id="col1" linewidth="0" max="100" min="-100" tickmax="0" tickmin="-4" type="number">
 		<labels densityfactor="0.5" format="%.1f" spacing="100 50 20 10 5 2 1 0.5 0.2 0.1 0.05 0.02 0.01" />
 		 <title anchor="0 -4" angle="90" position="-15 0">Global Sea Level (mm) shown as difference from 1990</title>
 		 
@@ -1390,7 +1390,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 		<title anchor="0 5" position="-10 0">Year</title>
 		<grid color="0xeeeeee" />
 	  </horizontalaxis>
-	  <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="8" min="4" tickmax="0" tickmin="-4">
+	  <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="8" min="0" tickmax="0" tickmin="-4">
 		<labels>
 		 <label densityfactor="0.5" format="%1d" spacing="20 10 5 2 1" />
 		 <label densityfactor="0.5" format="%.1f" spacing="0.5 0.2 0.1" />
@@ -1492,7 +1492,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     <grid color="0xeeeeee" />
   </horizontalaxis>
   
-  <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="11" min="-6" tickmax="0" tickmin="-4">
+  <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="14" min="-8" tickmax="0" tickmin="-4">
     <labels>
      <label densityfactor="0.5" format="%1d" spacing="20 10 5 2 1" />
      <label densityfactor="0.5" format="%.1f" spacing="0.5 0.2 0.1" />
@@ -1793,7 +1793,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 	</labels>
 	  <title anchor="0 5" position="0 0">Year</title>
 	 </horizontalaxis>
-	 <verticalaxis highlightstyle="labels" id="wm2" linewidth="0" max="1380" min="1340" tickmax="0" tickmin="-4" type="number">
+	 <verticalaxis highlightstyle="labels" id="wm2" linewidth="0" max="1370" min="1350" tickmax="0" tickmin="-4" type="number">
 	   <labels densityfactor="0.5" format="%.2f" spacing="50 20 10 5 2 1 0.5 0.10 0.05 0.01" />
 	   <grid />
 	   <title anchor="0 -4" angle="90" position="-20 0">Sun's Energy (watts per square meter)</title>
@@ -2329,7 +2329,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 		</mugl></graph><graph id="totalGreenhouseGas2" name="TotalGreenhouseGas">
       <title>Annual Greenhouse Gas Index</title>
       <shorttitle>Heat-Trapping Gases</shorttitle>
-      <description>The total effect of long-lived heat-trapping gases has gone up by 30% since 1990, the year many nations agreed to cut emissions.</description>
+      <description>The total warming effect of long-lived heat-trapping gases has gone up by 30% since 1990, the year many nations agreed to cut emissions.</description>
 
       <oldtitle>Annual Greenhouse Gas Index</oldtitle>
       <help>The effect of heat-trapping gases in the atmosphere has increased by 27.5% since 1990, the 
@@ -2449,7 +2449,7 @@ The graph shows the average area with at least 15% sea ice on its surface each S
     <graph id="oni2" name="oni">
       <title>El Ni&#241;o / La Ni&#241;a (Oceanic Ni&#241;o Index)</title>
       <shorttitle>El Ni&#241;o / La Ni&#241;a</shorttitle>
-      <description>Average sea surface temperature in the Eastern Pacific Ocean indicates El Ni&#241;o, La Ni&#241;a, or neutral conditions</description>
+      <description>Average sea surface temperature in the Eastern Pacific Ocean indicates El Ni&#241;o (yellow), La Ni&#241;a (blue), or neutral (gray) conditions</description>
 
       <oldtitle>El Ni&#241;o / La Ni&#241;a Index</oldtitle>
       <help>Departures from average sea surface temperature in the eastern Pacific Ocean indicate the status of the El Ni&#241;o &#8211; 
@@ -4961,91 +4961,85 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 </values>
 	  </data>
 	</mugl></graph><graph id="soi2" name="soi">
-      <title>Southern Oscillation Index</title>
-      <shorttitle>Southern Oscillation</shorttitle>
-      <description>Air pressure patterns across the southern Pacific Ocean reflect El Ni&#241;o, La Ni&#241;a, and neutral conditions.</description>
-      <alternate>Air pressure patterns in the South Pacific reflect El Ni&#241;o / La Ni&#241;a conditions.</alternate>
+  <title>Southern Oscillation Index</title>
+  <shorttitle>Southern Oscillation</shorttitle>
+  <description>Air pressure patterns across the southern Pacific Ocean reflect El Ni&#241;o (yellow), La Ni&#241;a (blue), and neutral (gray) conditions.</description>
+  <oldtitle>Southern Oscillation Index</oldtitle>
+  <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
+  atmospheric indicator of the El Ni&#241;o&#8211;Southern Oscillation.  El Ni&#241;o conditions result in negative SOI values; La Ni&#241;a conditions produce positive values for this index.</help>
+  <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
+  <stats>
+    <stat>
+      <title>?? ??? ?????</title>
+      <value color="0xf8a792">??</value>
+    </stat>
+    <stat>
+      <title>????? ???? ?? ? ?????</title>
+      <value color="0xf8a792">??</value>
+    </stat>
+  </stats>
+  <mugl>
+    <window border="0" margin="0" padding="0" />
+    <ui eventhandler="saui" />
+    <legend visible="false" />
+    <plotarea marginbottom="50" marginleft="60" marginright="25" margintop="10" />
 
+    <horizontalaxis highlightstyle="labels" id="x" linewidth="0" max="201207" min="200601" tickmax="0" tickmin="-4" type="datetime">
+      <labels>
+        <label format="%Y" spacing="100Y 50Y 20Y 10Y 5Y 2Y 1Y " />
+        <label format="%n %y" spacing="6M 3M 2M 1M" />
+      </labels>
+      <title anchor="0 5" position="-15 0">Month/Year</title>
+      <grid color="0xeeeeee" />
+    </horizontalaxis>
 
-      <oldtitle>Southern Oscillation Index</oldtitle>
-      <help>Differences in average air pressure at Tahiti and Darwin, Australia provide an 
-      atmospheric indicator of the El Ni&#241;o&#8211;Southern Oscillation.  El Ni&#241;o conditions result in negative SOI values; La Ni&#241;a conditions produce positive values for this index.</help>
-      <link>http://www.climatewatch.noaa.gov/article/2009/climate-variability-southern-oscillation-index</link>
-      <stats>
-        <stat>
-          <title>?? ??? ?????</title>
-          <value color="0xf8a792">??</value>
-        </stat>
-        <stat>
-          <title>????? ???? ?? ? ?????</title>
-          <value color="0xf8a792">??</value>
-        </stat>
-      </stats>
-      <mugl>
-	 <window border="0" margin="0" padding="0" />
-	  <ui eventhandler="saui" />
-	  <legend visible="false" />
-	 <plotarea marginbottom="50" marginleft="60" marginright="25" margintop="10" />
+    <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="5.5" min="-5.5" tickmax="0" tickmin="-4">
+      <labels>
+        <label densityfactor="0.3" format="%1d" spacing="20 10 5 2 1" />
+        <label densityfactor="0.3" format="%.1f" spacing="0.5 0.2 0.1" />
+      </labels>
+      <title anchor="0 -4" angle="90" position="-15 0">Southern Oscillation Index</title>
+      
+      
+      
+    </verticalaxis>
 
-	  <horizontalaxis highlightstyle="labels" id="x" linewidth="0" max="201207" min="200601" tickmax="0" tickmin="-4" type="datetime">
-		<labels>
-		  <label format="%Y" spacing="100Y 50Y 20Y 10Y 5Y 2Y 1Y " />
-		  <label format="%n %y" spacing="6M 3M 2M 1M" />
-		</labels>
-		<title anchor="0 5" position="-15 0">Month/Year</title>
-		<grid color="0xeeeeee" />
-	  </horizontalaxis>
+    <plot>
+      <legend visible="false" />
+      <verticalaxis ref="y"><constant value="0" /></verticalaxis>
+      <renderer type="line">
+        <option name="linecolor" value="0x999999" />
+        <option name="linewidth" value="1" />
+      </renderer>
+    </plot>
 
-	  <verticalaxis highlightstyle="labels" id="y" linewidth="0" max="5.5" min="-5.5" tickmax="0" tickmin="-4">
-		<labels>
-		 <label densityfactor="0.3" format="%1d" spacing="20 10 5 2 1" />
-		 <label densityfactor="0.3" format="%.1f" spacing="0.5 0.2 0.1" />
-		</labels>
-		<title anchor="0 -4" angle="90" position="-15 0">Southern Oscillation Index</title>
-		
-		
-		
-	  </verticalaxis>
+    <plot>
+      <legend label="Yearly average" />
+      <horizontalaxis ref="x"><variable ref="datetime" /></horizontalaxis>
+      <verticalaxis ref="y"><variable ref="number" /></verticalaxis>
+      <renderer type="bar">
+        
+        <option min="0.5" name="fillcolor" value="0x0570b6" /> 
+        <option max="0.5" min="-0.5" name="fillcolor" value="0x888888" /> 
+        <option max="-0.5" name="fillcolor" value="0xb88a00" /> 
+        <option name="linecolor" value="0x000000" />
 
-	  <plot>
-		<legend visible="false" />
-		<verticalaxis ref="y"><constant value="0" /></verticalaxis>
-		<renderer type="line">
-		  <option name="linecolor" value="0x999999" />
-		  <option name="linewidth" value="1" />
-		</renderer>
-	  </plot>
+        <option name="barwidth" value="1M" />
+        <option name="baroffset" value="0" />
+        <option name="barbase" value="0" />
+      </renderer>
+      <datatips format="{0}: {1}">
+        <variable format="%n '%y" />
+        <variable format="%.2f" />
+      </datatips>
 
-	  <plot>
-		<legend label="Yearly average" />
-		<horizontalaxis ref="x"><variable ref="datetime" /></horizontalaxis>
-		<verticalaxis ref="y"><variable ref="number" /></verticalaxis>
-			<renderer type="bar">
-			
-				
-				
-  			        <option max="0.5" name="fillcolor" value="0xFFCC33" />
-				<option max="0.5" min="0.0" name="fillcolor" value="0x888888" />
-				<option max="0.0" min="-0.5" name="fillcolor" value="0x888888" />
-				<option min="-0.5" name="fillcolor" value="0x66CCFF" />		
-				<option name="linecolor" value="0x000000" />
-
-				<option name="barwidth" value="1M" />
-				<option name="baroffset" value="0" />
-				<option name="barbase" value="0" />
-			</renderer>
-		<datatips format="{0}: {1}">
-			  <variable format="%n '%y" />
-			  <variable format="%.2f" />
-		</datatips>
-
-	  </plot>
-	  <data>
-		<variables>
-		  <variable column="0" id="datetime" type="datetime" />
-		  <variable column="1" id="number" type="number" />
-		</variables>
-		<values>195101,1.700
+    </plot>
+    <data>
+      <variables>
+        <variable column="0" id="datetime" type="datetime" />
+        <variable column="1" id="number" type="number" />
+      </variables>
+      <values>195101,1.700
 195102,0.600
 195103,-0.800
 195104,-0.600
@@ -5788,8 +5782,8 @@ The graph shows the average area with at least 15% sea ice on its surface each S
 201209,0.200
 201210,0.300
 </values>
-	  </data>
-	</mugl></graph><graph id="pnap2" name="pnap">
+    </data>
+</mugl></graph><graph id="pnap2" name="pnap">
       <title>Pacific North American Pattern</title>
       <shorttitle>Pacific North American Pattern</shorttitle>
       <description>Air pressure patterns over the Pacific Ocean and North America affect the type of weather that is delivered to North America.</description>
@@ -6656,9 +6650,8 @@ The graph shows the average area with at least 15% sea ice on its surface each S
       </element>
     </mugloverrides>
     <graph id="cp2" name="cp">
-      <title>Climate Model Data (CMIP3, 2007)</title>
-      <oldtitle>Climate Model Data (CMIP3, 2007)</oldtitle>
-      <legendtitle>Simulation of Global Temperature</legendtitle>
+      <title>Simulation of Global Temperature</title>
+      <legendtitle>Climate Model Data (CMIP3, 2007)</legendtitle>
       <legendtext>The black line shows the average of many different
 simulations of global temperature in the 20th century compared
 to average from 1971-1999, and the colored lines show projected
