@@ -166,11 +166,11 @@
 	-->
 
 	<s:BorderContainer id="legendBlock" visible="false" backgroundAlpha="0" borderVisible="false"  x="0" y="35" width="350" height="375">
-	  <s:BorderContainer x="70" y="30" backgroundColor="#ffffff" cornerRadius="10" borderVisible="false">
+		<s:Label x="-10" y="25" width="100%" fontSize="16" fontWeight="bold" text="{legendTitle}" color="#ffffff"
+				 textAlign="center"/>
+	  <s:BorderContainer x="70" y="70" backgroundColor="#ffffff" cornerRadius="10" borderVisible="false">
 		  <s:VGroup id="legend" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="8"/>
 	  </s:BorderContainer>		
-	  <s:Label x="0" y="170" width="100%" fontSize="16" fontWeight="bold" text="{legendTitle}" color="#ffffff"
-			   textAlign="center"/>
 	  <s:RichEditableText x="0" y="210" width="100%" paddingLeft="25" paddingRight="20" color="#888888" editable="false" enabled="false"
 						  focusEnabled="false" fontSize="14" textFlow="{_legendTextFlow}"/>
 	</s:BorderContainer>
